@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <title>YGLC - Login</title>
     <link href="https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Supabase CDN ထည့်သွင်းခြင်း -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         body { 
             background: #f8f9fa; 
@@ -134,10 +132,8 @@
     </div>
 
     <script>
-        // Supabase ချိတ်ဆက်ရန် အချက်အလက်များ
-        const SUPABASE_URL = 'https://qyoyxagrkpzppacnpdbc.supabase.co'; 
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF5b3l4YWdya3B6cHBhY25wZGJjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkxMTg0MTIsImV4cCI6MjEwNDY5NDQxMn0.giB8iSYSZCUQijzUGW6pp1Uo-CB2DUIEt1faZnip9l0';
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        // Google Apps Script Web App URL
+        const GOOGLE_SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbxuwcRgubS8XQLXC3yIu4D0j5IzWm1Mr6vyXX8pKJDgr9yPAS1JONQa6703BMk7giVIYw/exec';
 
         // ဖုန်းနံပါတ် စံသတ်မှတ်ချက် ညှိပေးသည့် Function
         function normalizePhone(phone) {
@@ -167,48 +163,41 @@
             loginBtn.innerText = 'စစ်ဆေးနေပါသည်...';
 
             try {
-                // ၁. ပထမဆုံး LocalStorage ထဲတွင် ရှိမရှိ စစ်ဆေးခြင်း (Backup အနေဖြင့်)
-                let approvedUsers = JSON.parse(localStorage.getItem('approvedUsers')) || {};
-                let foundCourses = approvedUsers[inputPhone] || approvedUsers[rawPhone];
+                // Google Sheet မှ ကျောင်းသားစာရင်းများကို ဆွဲထုတ်ခြင်း
+                const response = await fetch(GOOGLE_SHEET_API_URL);
+                const data = await response.json();
 
-                // ၂. LocalStorage ထဲမတွေ့ပါက Supabase Database ထဲသို့ တိုက်ရိုက် လှမ်းစစ်ဆေးခြင်း
-                if (!foundCourses) {
-                    const { data, error } = await supabase
-                        .from('registrations')
-                        .select('*')
-                        .eq('status', 'approved');
+                let foundCourses = null;
 
-                    if (!error && data) {
-                        // ထည့်သွင်းထားသော ဖုန်းနံပါတ်နှင့် ကိုက်ညီသော approved record ကို ရှာမည်
-                        const matchedRecord = data.find(item => normalizePhone(item.phone) === inputPhone);
-                        if (matchedRecord) {
-                            let rawCourses = matchedRecord.courses;
-                            if (typeof rawCourses === 'string') {
-                                try { rawCourses = JSON.parse(rawCourses); } catch(err) { rawCourses = [matchedRecord.courses]; }
-                            }
-
-                            // သင်တန်းနံပါတ်များကို ကောက်ထုတ်ခြင်း
-                            let courseNumbers = [];
-                            const myanmarNumbers = {'၀': '0', '၁': '1', '၂': '2', '၃': '3', '၄': '4', '၅': '5', '၆': '6', '၇': '7', '၈': '8', '၉': '9'};
-                            
-                            if (Array.isArray(rawCourses)) {
-                                rawCourses.forEach(c => {
-                                    let courseNameStr = String(c);
-                                    let convertedStr = courseNameStr.replace(/[၀-၉]/g, match => myanmarNumbers[match]);
-                                    let matches = convertedStr.match(/\d+/g);
-                                    if (matches) {
-                                        matches.forEach(m => {
-                                            let num = parseInt(m, 10);
-                                            if (num >= 1 && num <= 8 && !courseNumbers.includes(num)) {
-                                                courseNumbers.push(num);
-                                            }
-                                        });
-                                    }
-                                });
-                            }
-                            foundCourses = courseNumbers.length > 0 ? courseNumbers : [1];
+                if (data && data.status === "success" && data.students) {
+                    // ထည့်သွင်းထားသော ဖုန်းနံပါတ်နှင့် ကိုက်ညီသော ကျောင်းသားကို ရှာမည်
+                    const matchedStudent = data.students.find(item => normalizePhone(item.phone) === inputPhone);
+                    
+                    if (matchedStudent) {
+                        let rawCourses = matchedStudent.courses; // ဥပမာ: "သင်တန်း ၁, သင်တန်း ၂"
+                        let courseNumbers = [];
+                        
+                        // မြန်မာသင်တန်း စာသားများမှ နံပါတ်များကို ထုတ်ယူခြင်း
+                        const myanmarNumbers = {'၀': '0', '၁': '1', '၂': '2', '၃': '3', '၄': '4', '၅': '5', '၆': '6', '၇': '7', '၈': '8', '၉': '9'};
+                        let courseNameStr = String(rawCourses);
+                        let convertedStr = courseNameStr.replace(/[၀-၉]/g, match => myanmarNumbers[match]);
+                        let matches = convertedStr.match(/\d+/g);
+                        
+                        if (matches) {
+                            matches.forEach(m => {
+                                let num = parseInt(m, 10);
+                                if (num >= 1 && num <= 8 && !courseNumbers.includes(num)) {
+                                    courseNumbers.push(num);
+                                }
+                            });
                         }
+                        foundCourses = courseNumbers.length > 0 ? courseNumbers : [1];
                     }
+                }
+
+                // အကယ်၍ Admin ဖုန်းနံပါတ်ဖြစ်ပါက သင်တန်းအားလုံး (၁ မှ ၈ ထိ) ဖွင့်ပေးမည်
+                if (inputPhone === "09971097886") {
+                    foundCourses = [1, 2, 3, 4, 5, 6, 7, 8];
                 }
 
                 // အောင်မြင်စွာ တွေ့ရှိပါက Dashboard သို့ ပို့ပေးမည်
