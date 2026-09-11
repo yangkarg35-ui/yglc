@@ -3,525 +3,867 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>YGLC - ဂစ်တာတီးမယ် သီချင်းဆိုမယ်</title>
-<link rel="stylesheet" href="style.css">
+<title>YGLC - ဂစ်တာတီးမယ် သီချင်းဆိုမယ် | Solo Genius Musical School</title>
 <link href="https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap" rel="stylesheet">
 <style>
-/* Sticky Navigation Bar Setup */
-header {
-position: sticky;
-top: 0;
-z-index: 1000;
-background-color: #ffffff;
-box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+:root {
+    --ted-red: #E62B1E;
+    --ted-dark: #111111;
+    --ted-gray: #717171;
+    --ted-light: #F9F9F9;
+    --border-color: #E5E5E5;
+    --font-family: 'Padauk', sans-serif;
 }
 
-.syllabus-container {
-margin: 15px 0;
-text-align: left;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
-.syllabus-btn {
-background-color: #f7f4ef;
-border: 1px solid #8c5830;
-color: #8c5830;
-padding: 10px 15px;
-width: 100%;
-text-align: left;
-font-family: 'Padauk', sans-serif;
-font-weight: 700;
-font-size: 14px;
-border-radius: 6px;
-cursor: pointer;
-display: flex;
-justify-content: space-between;
-align-items: center;
-transition: background 0.3s;
+
+body {
+    font-family: var(--font-family);
+    color: var(--ted-dark);
+    background-color: #ffffff;
+    line-height: 1.7;
 }
-.syllabus-btn:hover {
-background-color: #efeae2;
+
+/* Sticky Navigation Bar - TED DNA */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
 }
-.syllabus-content {
-display: none;
-background: #fff;
-border: 1px solid #ddd;
-border-top: none;
-padding: 12px;
-border-radius: 0 0 6px 6px;
-font-size: 13px;
-color: #555;
-line-height: 1.6;
+
+.logo {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--ted-dark);
+    text-decoration: none;
 }
-.syllabus-content.active {
-display: block;
+
+.logo span {
+    color: var(--ted-red);
 }
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--ted-dark);
+    font-size: 15px;
+    font-weight: 700;
+    transition: color 0.2s ease;
+}
+
+nav a:hover {
+    color: var(--ted-red);
+}
+
 .btn-login-nav {
-background: #8c5830 !important;
-color: #f7f4ef !important;
-padding: 6px 15px !important;
-border-radius: 4px;
-font-weight: bold;
-text-decoration: none;
+    background: var(--ted-dark) !important;
+    color: #ffffff !important;
+    padding: 8px 18px !important;
+    border-radius: 4px;
+    transition: background 0.2s;
 }
+
+.btn-login-nav:hover {
+    background: var(--ted-red) !important;
+}
+
 .btn-promo-nav {
-background: #dc2626 !important;
-color: #ffffff !important;
-padding: 6px 15px !important;
-border-radius: 4px;
-font-weight: bold;
-text-decoration: none;
-animation: pulse 2s infinite;
+    background: var(--ted-red) !important;
+    color: #ffffff !important;
+    padding: 8px 18px !important;
+    border-radius: 4px;
+    animation: pulse 2s infinite;
 }
+
+/* Mobile Menu Toggle Button */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: var(--ted-dark);
+}
+
 @keyframes pulse {
-0% { transform: scale(1); }
-50% { transform: scale(1.05); }
-100% { transform: scale(1); }
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
 }
-/* Locked Course Styling */
+
+/* Hero Section - Storytelling Focus */
+.hero {
+    padding: 90px 20px;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.hero h1 {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.3;
+    letter-spacing: -0.5px;
+}
+
+.hero p.subtitle {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--ted-red);
+    margin-bottom: 15px;
+}
+
+.hero p.desc {
+    font-size: 16px;
+    color: var(--ted-gray);
+    margin-bottom: 35px;
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.btn-primary {
+    background-color: var(--ted-red);
+    color: #ffffff;
+    padding: 14px 30px;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+    transition: opacity 0.2s, transform 0.2s;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+}
+
+.btn-primary:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: var(--ted-dark);
+    color: #ffffff;
+    padding: 14px 30px;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s;
+}
+
+.btn-secondary:hover {
+    background-color: #333333;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px 80px 20px;
+}
+
+/* Special Package Section - TED Callout Box */
+.special-package-box {
+    background: var(--ted-light);
+    border-left: 6px solid var(--ted-red);
+    border-radius: 8px;
+    padding: 50px 40px;
+    margin-bottom: 70px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+}
+
+.special-package-box h2 {
+    font-size: 32px;
+    color: var(--ted-dark);
+    margin-bottom: 15px;
+}
+
+.special-package-box p {
+    font-size: 16px;
+    color: var(--ted-gray);
+    margin-bottom: 25px;
+    max-width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.package-price {
+    font-size: 30px;
+    font-weight: bold;
+    color: var(--ted-red);
+    margin-bottom: 30px;
+}
+
+.package-price span {
+    text-decoration: line-through;
+    font-size: 18px;
+    color: #999;
+    margin-left: 12px;
+    font-weight: 400;
+}
+
+/* Section Title */
+.section-title {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 40px;
+    border-bottom: 2px solid var(--ted-dark);
+    padding-bottom: 15px;
+}
+
+/* Courses Grid */
+.courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+}
+
+.course-card {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+.course-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
 .course-card.locked {
-position: relative;
-opacity: 0.75;
+    opacity: 0.8;
 }
+
 .coming-soon-badge {
-position: absolute;
-top: 15px;
-right: 15px;
-background-color: #dc2626;
-color: #ffffff;
-padding: 6px 12px;
-font-size: 13px;
-font-weight: bold;
-border-radius: 4px;
-z-index: 10;
-box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: var(--ted-red);
+    color: #ffffff;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 4px;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
+
+.course-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.course-info {
+    padding: 25px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.course-info h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--ted-dark);
+}
+
+.course-info p {
+    font-size: 14px;
+    color: var(--ted-gray);
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+/* Syllabus Dropdown */
+.syllabus-container {
+    margin: 15px 0;
+    text-align: left;
+}
+
+.syllabus-btn {
+    background-color: var(--ted-light);
+    border: 1px solid var(--border-color);
+    color: var(--ted-dark);
+    padding: 12px 15px;
+    width: 100%;
+    text-align: left;
+    font-family: var(--font-family);
+    font-weight: 700;
+    font-size: 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s;
+}
+
+.syllabus-btn:hover {
+    background-color: #eeeeee;
+}
+
+.syllabus-content {
+    display: none;
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-top: none;
+    padding: 15px;
+    border-radius: 0 0 6px 6px;
+    font-size: 13px;
+    color: #444444;
+    line-height: 1.6;
+}
+
+.syllabus-content.active {
+    display: block;
+}
+
+.syllabus-content strong {
+    color: var(--ted-dark);
+    display: block;
+    margin-top: 8px;
+}
+
+.course-footer {
+    padding: 0 25px 25px 25px;
+}
+
+.price {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--ted-dark);
+    margin-bottom: 15px;
+}
+
 .btn-locked {
-background: #9ca3af !important;
-color: #ffffff !important;
-cursor: not-allowed !important;
-pointer-events: none;
-text-align: center;
-display: block;
-padding: 10px 15px;
-font-size: 14px;
-border-radius: 4px;
-margin-top: 15px;
+    background: #e0e0e0 !important;
+    color: #666666 !important;
+    cursor: not-allowed !important;
+    pointer-events: none;
+    text-align: center;
+    display: block;
+    padding: 12px 15px;
+    font-size: 14px;
+    border-radius: 4px;
+    font-weight: 700;
+}
+
+/* Footer */
+footer {
+    background-color: var(--ted-dark);
+    color: #ffffff;
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 14px;
+}
+
+/* Responsive Design - Mobile Menu Optimization */
+@media (max-width: 768px) {
+    header {
+        padding: 15px 20px;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: #ffffff;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+        border-bottom: 1px solid var(--border-color);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        display: none;
+    }
+
+    nav.active {
+        display: flex;
+    }
+
+    nav a {
+        width: 100%;
+        padding: 10px 0;
+        border-bottom: 1px solid #f2f2f2;
+    }
+
+    .hero h1 {
+        font-size: 34px;
+    }
+
+    .hero p.subtitle {
+        font-size: 17px;
+    }
+
+    .courses-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .special-package-box {
+        padding: 30px 20px;
+    }
 }
 </style>
 </head>
 <body>
+
 <header>
-<div class="logo">YGLC</div>
-<nav style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
-<a href="promotion.html" class="btn-promo-nav">🔥 အထူး Promotion များကြည့်ရန်</a>
-<a href="#special-package">အောက်တိုဘာ Special Package</a>
-<a href="#courses">သင်တန်းများ</a>
-<a href="register.html">အချိန်မဆွဲတော့ပဲ အခုပဲသင်တန်းအပ်မည်</a>
-<a href="login.html" class="btn-login-nav">Member Login</a>
-</nav>
+    <a href="#" class="logo">YGLC<span>.</span></a>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    <nav id="nav-menu">
+        <a href="promotion.html" class="btn-promo-nav">🔥 အထူး Promotion များကြည့်ရန်</a>
+        <a href="#special-package">အောက်တိုဘာ Special Package</a>
+        <a href="#courses">သင်တန်းများ</a>
+        <a href="register.html">အချိန်မဆွဲတော့ပဲ အခုပဲသင်တန်းအပ်မည်</a>
+        <a href="login.html" class="btn-login-nav">Member Login</a>
+    </nav>
 </header>
 
 <section class="hero">
-<h1 style="font-size: 46px; font-weight: 700; margin-bottom: 20px; line-height: 1.3;">ဂစ်တာတီးမယ် သီချင်းဆိုမယ်</h1>
-<p style="font-size: 20px; font-weight: 700; color: #8c5830; margin-bottom: 15px;">YGLC - အသက်အရွယ်မရွေး ပျော်ရွှင်လွယ်ကူစွာလေ့လာနိုင်သော သင်တန်း</p>
-<p style="font-size: 16px; margin-bottom: 30px;">သင်ကြားပေးမည့် ကျွမ်းကျင် ဗီဒီယိုသင်တန်းများ။</p>
-<div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-<a href="#special-package" class="btn-primary" style="padding: 14px 30px; font-size: 18px; background-color: #2e7d32;">Special Package</a>
-<a href="register.html" class="btn-primary" style="padding: 14px 30px; font-size: 18px;">အချိန်မဆွဲတော့ပဲ အခုပဲသင်တန်းအပ်မည်</a>
-</div>
+    <h1>ဂစ်တာတီးမယ် သီချင်းဆိုမယ်</h1>
+    <p class="subtitle">YGLC - အသက်အရွယ်မရွေး ပျော်ရွှင်လွယ်ကူစွာလေ့လာနိုင်သော သင်တန်း</p>
+    <p class="desc">သင်ကြားပေးမည့် ကျွမ်းကျင် ဗီဒီယိုသင်တန်းများ။ သင့်ရဲ့တီးခတ်မှုစွမ်းရည်ကို အဆင့်အမြင့်ဆုံး မြှင့်တင်လိုက်ပါ။</p>
+    <div class="hero-buttons">
+        <a href="#special-package" class="btn-secondary">Special Package သို့</a>
+        <a href="register.html" class="btn-primary">အချိန်မဆွဲတော့ပဲ အခုပဲသင်တန်းအပ်မည်</a>
+    </div>
 </section>
 
 <div class="container">
 
 <!-- Special Package Section -->
-<div id="special-package" style="background: #f7f4ef; border: 2px solid #8c5830; border-radius: 12px; padding: 40px; margin-bottom: 60px; text-align: center;">
-<h2 style="font-size: 32px; color: #8c5830; margin-bottom: 15px;">အောက်တိုဘာလထဲ ထွက်ရှိမည့် Special Package</h2>
-<p style="font-size: 16px; color: #555555; margin-bottom: 25px; max-width: 700px; margin-left: auto; margin-right: auto;">
-သင်တန်းများအားလုံးကို တစ်ပါတည်း စုစည်းပြီး အထူးသက်သာသော ဈေးနှုန်းဖြင့် အစအဆုံး လေ့လာနိုင်မည့် All-in-One Special Package!
-</p>
-<div style="font-size: 26px; font-weight: bold; color: #2e7d32; margin-bottom: 25px;">၄၅၀,၀၀၀ ကျပ် <span style="text-decoration: line-through; font-size: 18px; color: #888; margin-left: 10px;">၆၃၀,၀၀၀ ကျပ်</span></div>
-<a href="register.html" class="btn-primary" style="padding: 14px 35px; font-size: 18px; display: inline-block;">အချိန်မဆွဲတော့ပဲ အခုပဲသင်တန်းအပ်မည်</a>
+<div id="special-package" class="special-package-box">
+    <h2>အောက်တိုဘာလထဲ ထွက်ရှိမည့် Special Package</h2>
+    <p>
+        သင်တန်းများအားလုံးကို တစ်ပါတည်း စုစည်းပြီး အထူးသက်သာသော ဈေးနှုန်းဖြင့် အစအဆုံး လေ့လာနိုင်မည့် All-in-One Special Package!
+    </p>
+    <div class="package-price">၄၅၀,၀၀၀ ကျပ် <span>၆၃၀,၀၀၀ ကျပ်</span></div>
+    <a href="register.html" class="btn-primary" style="padding: 14px 35px; font-size: 18px;">အချိန်မဆွဲတော့ပဲ အခုပဲသင်တန်းအပ်မည်</a>
 </div>
 
-<h2 id="courses" class="section-title" style="font-size: 30px;">သင်တန်းများ နှင့် သင်ခန်းစာ အသေးစိတ်များ</h2>
+<h2 id="courses" class="section-title">သင်တန်းများ နှင့် သင်ခန်းစာ အသေးစိတ်များ</h2>
 <div class="courses-grid">
+
 <!-- သင်တန်း ၁ (အခြေခံ - ဖွင့်ထားသည်) -->
 <div class="course-card">
-<img src="01.jpg" alt="Plucking Basic" style="width: 100%; height: 210px; object-fit: cover;">
-<div class="course-info">
-<h3 style="font-size: 22px;">ပလက်ကင်တီးခတ်နည်း အခြေခံ</h3>
-<p>ဂီတစတင်ကိုင်တွယ်ပုံမှစ၍ လက်ချောင်းများဖြင့် လှပစွာ ပလက်ဂင်တီးခတ်တတ်စေရန် အခြေခံသင်ခန်းစာများ။</p>
-<div class="syllabus-container">
-<button class="syllabus-btn" onclick="toggleSyllabus(this)">
-<span>ပါဝင်သော သင်ခန်းစာများ (၁၅ ခု)</span> <span>∨</span>
-</button>
-<div class="syllabus-content">
-<strong>မော်ဂျူး ၁ - ဂစ်တာကိုင်တွယ်ပုံနှင့် အခြေခံအချက်များ:</strong>
-<ul style="padding-left: 15px; margin: 5px 0 10px 0;">
-<li>သင်ခန်းစာ ၁ - ဂစ်တာကိုယ်ဟန် အနေအထားမှန်ကန်စွာ ထိုင်ပုံ/ကိုင်ပုံ</li>
-<li>သင်ခန်းစာ ၂ - ဘယ်လက်နှင့် ညာလက် လက်ချောင်းအမည်များ</li>
-<li>သင်ခန်းစာ ၃ - ဂစ်တာကြိုးညှိခြင်း (Tuning)</li>
-<li>သင်ခန်းစာ ၄ - Fretboard လက်ချောင်းများ တည်နေရာချထားပုံ</li>
-<li>သင်ခန်းစာ ၅ - ကြိုးများကို ထိတွေ့ရာတွင် လက်ချောင်းနာကျင်မှု သက်သာစေရန် နည်းလမ်းများ</li>
-</ul>
-<strong>မော်ဂျူး ၂ - ညာလက်လက်ခွဲ လေ့ကျင့်ခန်းများ:</strong>
-<ul style="padding-left: 15px; margin: 5px 0 10px 0;">
-<li>သင်ခန်းစာ ၆ - လက်မ (Thumb) ဖြင့် ဘေ့စ်ကြိုးတီးခတ်ခြင်း</li>
-<li>သင်ခန်းစာ ၇ - လက်ညှိုး၊ လက်ခလယ်၊ လက်သန်း(i, m, a) အသုံးပြုပုံ</li>
-<li>သင်ခန်းစာ ၈ - အခြေခံ Arpeggio လေ့ကျင့်ခန်းများ</li>
-<li>သင်ခန်းစာ ၉ - ကြိုးပြောင်းလဲရာတွင် အသံ သန့်စင်စေရန် ထိန်းချုပ်ခြင်း</li>
-<li>သင်ခန်းစာ ၁၀ - လက်ချောင်းများ လွတ်လပ်စွာ လှုပ်ရှားမှု အထူးလေ့ကျင့်ခန်း</li>
-</ul>
-<strong>မော်ဂျူး ၃ - ရိုးရှင်းသော တေးသွား အစပြုခြင်း:</strong>
-<ul style="padding-left: 15px; margin: 5px 0 0 0;">
-<li>သင်ခန်းစာ ၁၁ - Plucking Pattern တစ်ခုတည်းဖြင့် တီးခြင်း</li>
-<li>သင်ခန်းစာ ၁၂ - ရိုးရှင်းသော Chord နှစ်ခု ချိတ်ဆက်၍ တီးခတ်ခြင်း</li>
-<li>သင်ခန်းစာ ၁၃ - ပလက်ကင်ဖြင့် တေးသွားငယ်စတင်တီးခြင်း</li>
-<li>သင်ခန်းစာ ၁၄ - သီချင်းတစ်ပုဒ်၏ အစပိုင်းကို တီးခတ်လေ့ကျင့်ခြင်း</li>
-<li>သင်ခန်းစာ ၁၅ - ပထမဆုံး အခြေခံ သီချင်းငယ်ကို အစအဆုံးတီးခြင်း</li>
-</ul>
-</div>
-</div>
-</div>
-<div style="padding: 0 15px 15px 15px;">
-<div class="price">၅၀,၀၀၀ ကျပ်</div>
-<a href="register.html" class="btn-primary" style="padding: 10px 15px; font-size: 14px; display: block; text-align: center; margin-top: 15px;">အချိန်မဆွဲတော့ပဲ အခုပဲသင်တန်းအပ်မည်</a>
-</div>
+    <img src="01.jpg" alt="Plucking Basic">
+    <div class="course-info">
+        <h3>ပလက်ကင်တီးခတ်နည်း အခြေခံ</h3>
+        <p>ဂီတစတင်ကိုင်တွယ်ပုံမှစ၍ လက်ချောင်းများဖြင့် လှပစွာ ပလက်ဂင်တီးခတ်တတ်စေရန် အခြေခံသင်ခန်းစာများ။</p>
+        <div class="syllabus-container">
+            <button class="syllabus-btn" onclick="toggleSyllabus(this)">
+                <span>ပါဝင်သော သင်ခန်းစာများ (၁၅ ခု)</span> <span>∨</span>
+            </button>
+            <div class="syllabus-content">
+                <strong>မော်ဂျူး ၁ - ဂစ်တာကိုင်တွယ်ပုံနှင့် အခြေခံအချက်များ:</strong>
+                <ul style="padding-left: 15px; margin: 5px 0 10px 0;">
+                    <li>သင်ခန်းစာ ၁ - ဂစ်တာကိုယ်ဟန် အနေအထားမှန်ကန်စွာ ထိုင်ပုံ/ကိုင်ပုံ</li>
+                    <li>သင်ခန်းစာ ၂ - ဘယ်လက်နှင့် ညာလက် လက်ချောင်းအမည်များ</li>
+                    <li>သင်ခန်းစာ ၃ - ဂစ်တာကြိုးညှိခြင်း (Tuning)</li>
+                    <li>သင်ခန်းစာ ၄ - Fretboard လက်ချောင်းများ တည်နေရာချထားပုံ</li>
+                    <li>သင်ခန်းစာ ၅ - ကြိုးများကို ထိတွေ့ရာတွင် လက်ချောင်းနာကျင်မှု သက်သာစေရန် နည်းလမ်းများ</li>
+                </ul>
+                <strong>မော်ဂျူး ၂ - ညာလက်လက်ခွဲ လေ့ကျင့်ခန်းများ:</strong>
+                <ul style="padding-left: 15px; margin: 5px 0 10px 0;">
+                    <li>သင်ခန်းစာ ၆ - လက်မ (Thumb) ဖြင့် ဘေ့စ်ကြိုးတီးခတ်ခြင်း</li>
+                    <li>သင်ခန်းစာ ၇ - လက်ညှိုး၊ လက်ခလယ်၊ လက်သန်း(i, m, a) အသုံးပြုပုံ</li>
+                    <li>သင်ခန်းစာ ၈ - အခြေခံ Arpeggio လေ့ကျင့်ခန်းများ</li>
+                    <li>သင်ခန်းစာ ၉ - ကြိုးပြောင်းလဲရာတွင် အသံ သန့်စင်စေရန် ထိန်းချုပ်ခြင်း</li>
+                    <li>သင်ခန်းစာ ၁၀ - လက်ချောင်းများ လွတ်လပ်စွာ လှုပ်ရှားမှု အထူးလေ့ကျင့်ခန်း</li>
+                </ul>
+                <strong>မော်ဂျူး ၃ - ရိုးရှင်းသော တေးသွား အစပြုခြင်း:</strong>
+                <ul style="padding-left: 15px; margin: 5px 0 0 0;">
+                    <li>သင်ခန်းစာ ၁၁ - Plucking Pattern တစ်ခုတည်းဖြင့် တီးခြင်း</li>
+                    <li>သင်ခန်းစာ ၁၂ - ရိုးရှင်းသော Chord နှစ်ခု ချိတ်ဆက်၍ တီးခတ်ခြင်း</li>
+                    <li>သင်ခန်းစာ ၁၃ - ပလက်ကင်ဖြင့် တေးသွားငယ်စတင်တီးခြင်း</li>
+                    <li>သင်ခန်းစာ ၁၄ - သီချင်းတစ်ပုဒ်၏ အစပိုင်းကို တီးခတ်လေ့ကျင့်ခြင်း</li>
+                    <li>သင်ခန်းစာ ၁၅ - ပထမဆုံး အခြေခံ သီချင်းငယ်ကို အစအဆုံးတီးခြင်း</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="course-footer">
+        <div class="price">၅၀,၀၀၀ ကျပ်</div>
+        <a href="register.html" class="btn-primary" style="display: block; text-align: center;">အချိန်မဆွဲတော့ပဲ အခုပဲသင်တန်းအပ်မည်</a>
+    </div>
 </div>
 
 <!-- သင်တန်း ၂ (Locked & Coming Soon) -->
 <div class="course-card locked">
-<div class="coming-soon-badge">မကြာမှီထွက်ရှိလာပါမည်</div>
-<img src="02.jpg" alt="Plucking Level 2" style="width: 100%; height: 210px; object-fit: cover;">
-<div class="course-info">
-<h3 style="font-size: 22px;">ပလက်ကင်တီးခတ်နည်း အလယ်အဆင့်</h3>
-<p>ပလက်ကင်တီးခတ်မှုကို ပိုမိုကျွမ်းကျင်လာစေရန်နှင့် လက်ကွက်ပိုခက်ခဲသည်များကို အဆင့်မြှင့်တင် လေ့လာရန်။</p>
-<div class="syllabus-container">
-<button class="syllabus-btn" onclick="toggleSyllabus(this)">
-<span>ပါဝင်သော သင်ခန်းစာများ (၁၅ ခု)</span> <span>∨</span>
-</button>
-<div class="syllabus-content">
-<strong>မော်ဂျူး ၁ - လက်ကွက်ပြောင်းလဲမှု အမြန်နှုန်းမြှင့်ခြင်း:</strong>
-<ul style="padding-left: 15px; margin: 5px 0 10px 0;">
-<li>သင်ခန်းစာ ၁ - Chord များကို ချောမွေ့စွာ ကူးပြောင်းသည့် နည်းလမ်းများ</li>
-<li>သင်ခန်းစာ ၂ - လက်ချောင်းကြွက်သားများ လိုက်လျောညီထွေဖြစ်စေရန် လေ့ကျင့်ခန်း</li>
-<li>သင်ခန်းစာ ၃ - Barre Chords ပါဝင်သော Plucking ပုံစံများ</li>
-<li>သင်ခန်းစာ ၄ - လက်မနှင့် လက်ချောင်းများ လွတ်လပ်စွာ လှုပ်ရှားနိုင်မှုလေ့ကျင့်ခန်း</li>
-<li>သင်ခန်းစာ ၅ - လက်ကွက်ပြောင်းချိန်တွင် အသံပြတ်တောက်မှု မရှိစေရန် လုပ်ဆောင်ပုံ</li>
-</ul>
-<strong>မော်ဂျူး ၂ - အဆင့်မြင့် ပလက်ကင် ပုံစံများ:</strong>
-<ul style="padding-left: 15px; margin: 5px 0 10px 0;">
-<li>သင်ခန်းစာ ၆ - စုံလင်ခက်ခဲသော Arpeggio ပုံစံအသစ်များ</li>
-<li>သင်ခန်းစာ ၇ - စည်းချက်ခွဲဝေမှုနှင့် မြန်နှုန်းမြှင့်တင်ခြင်း</li>
-<li>သင်ခန်းစာ ၈ - အသံအက်နှင့် အသံပျော့ (Dynamics) ထိန်းချုပ်တီးခတ်ပုံ</li>
-<li>သင်ခန်းစာ ၉ - Bassline ကို ပိုမို ထင်ရှားစေရန် တီးခတ်နည်း</li>
-<li>သင်ခန်းစာ ၁၀ - လက်ချောင်းများ၏ အရှိန်အဟုန် (Velocity) ထိန်းချုပ်ခြင်း</li>
-</ul>
-<strong>မော်ဂျူး ၃ - သီချင်းတစ်ပုဒ်လုံး အစအဆုံး တီးခြင်း:</strong>
-<ul style="padding-left: 15px; margin: 5px 0 0 0;">
-<li>သင်ခန်းစာ ၁၁ - နာမည်ကျော် သီချင်းတစ်ပုဒ်၏ အစပိုင်းတီးနည်း</li>
-<li>သင်ခန်းစာ ၁၂ - Chorus အတွက် အဆင့်မြင့်တီးကွက်များ</li>
-<li>သင်ခန်းစာ ၁၃ - သီချင်းအဆုံးသတ် (Outro) တီးခတ်ပုံ</li>
-<li>သင်ခန်းစာ ၁၄ - တီးခတ်မှုတွင် ခံစားချက် ထည့်သွင်းတီးခတ်နည်း</li>
-<li>သင်ခန်းစာ ၁၅ - သီချင်းတစ်ပုဒ်လုံးကို ပလက်ကင်ဖြင့် အစအဆုံး ချောမွေ့စွာ တီးပြခြင်း</li>
-</ul>
-</div>
-</div>
-</div>
-<div style="padding: 0 15px 15px 15px;">
-<div class="price">၇၀,၀၀၀ ကျပ်</div>
-<span class="btn-locked">မကြာမှီထွက်ရှိလာပါမည်</span>
-</div>
+    <div class="coming-soon-badge">မကြာမှီထွက်ရှိလာပါမည်</div>
+    <img src="02.jpg" alt="Plucking Level 2">
+    <div class="course-info">
+        <h3>ပလက်ကင်တီးခတ်နည်း အလယ်အဆင့်</h3>
+        <p>ပလက်ကင်တီးခတ်မှုကို ပိုမိုကျွမ်းကျင်လာစေရန်နှင့် လက်ကွက်ပိုခက်ခဲသည်များကို အဆင့်မြှင့်တင် လေ့လာရန်။</p>
+        <div class="syllabus-container">
+            <button class="syllabus-btn" onclick="toggleSyllabus(this)">
+                <span>ပါဝင်သော သင်ခန်းစာများ (၁၅ ခု)</span> <span>∨</span>
+            </button>
+            <div class="syllabus-content">
+                <strong>မော်ဂျူး ၁ - လက်ကွက်ပြောင်းလဲမှု အမြန်နှုန်းမြှင့်ခြင်း:</strong>
+                <ul style="padding-left: 15px; margin: 5px 0 10px 0;">
+                    <li>သင်ခန်းစာ ၁ - Chord များကို ချောမွေ့စွာ ကူးပြောင်းသည့် နည်းလမ်းများ</li>
+                    <li>သင်ခန်းစာ ၂ - လက်ချောင်းကြွက်သားများ လိုက်လျောညီထွေဖြစ်စေရန် လေ့ကျင့်ခန်း</li>
+                    <li>သင်ခန်းစာ ၃ - Barre Chords ပါဝင်သော Plucking ပုံစံများ</li>
+                    <li>သင်ခန်းစာ ၄ - လက်မနှင့် လက်ချောင်းများ လွတ်လပ်စွာ လှုပ်ရှားနိုင်မှုလေ့ကျင့်ခန်း</li>
+                    <li>သင်ခန်းစာ ၅ - လက်ကွက်ပြောင်းချိန်တွင် အသံပြတ်တောက်မှု မရှိစေရန် လုပ်ဆောင်ပုံ</li>
+                </ul>
+                <strong>မော်ဂျူး ၂ - အဆင့်မြင့် ပလက်ကင် ပုံစံများ:</strong>
+                <ul style="padding-left: 15px; margin: 5px 0 10px 0;">
+                    <li>သင်ခန်းစာ ၆ - စုံလင်ခက်ခဲသော Arpeggio ပုံစံအသစ်များ</li>
+                    <li>သင်ခန်းစာ ၇ - စည်းချက်ခွဲဝေမှုနှင့် မြန်နှုန်းမြှင့်တင်ခြင်း</li>
+                    <li>သင်ခန်းစာ ၈ - အသံအက်နှင့် အသံပျော့ (Dynamics) ထိန်းချုပ်တီးခတ်ပုံ</li>
+                    <li>သင်ခန်းစာ ၉ - Bassline ကို ပိုမို ထင်ရှားစေရန် တီးခတ်နည်း</li>
+                    <li>သင်ခန်းစာ ၁၀ - လက်ချောင်းများ၏ အရှိန်အဟုန် (Velocity) ထိန်းချုပ်ခြင်း</li>
+                </ul>
+                <strong>မော်ဂျူး ၃ - သီချင်းတစ်ပုဒ်လုံး အစအဆုံး တီးခြင်း:</strong>
+                <ul style="padding-left: 15px; margin: 5px 0 0 0;">
+                    <li>သင်ခန်းစာ ၁၁ - နာမည်ကျော် သီချင်းတစ်ပုဒ်၏ အစပိုင်းတီးနည်း</li>
+                    <li>သင်ခန်းစာ ၁၂ - Chorus အတွက် အဆင့်မြင့်တီးကွက်များ</li>
+                    <li>သင်ခန်းစာ ၁၃ - သီချင်းအဆုံးသတ် (Outro) တီးခတ်ပုံ</li>
+                    <li>သင်ခန်းစာ ၁၄ - တီးခတ်မှုတွင် ခံစားချက် ထည့်သွင်းတီးခတ်နည်း</li>
+                    <li>သင်ခန်းစာ ၁၅ - သီချင်းတစ်ပုဒ်လုံးကို ပလက်ကင်ဖြင့် အစအဆုံး ချောမွေ့စွာ တီးပြခြင်း</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="course-footer">
+        <div class="price">၇၀,၀၀၀ ကျပ်</div>
+        <span class="btn-locked">မကြာမှီထွက်ရှိလာပါမည်</span>
+    </div>
 </div>
 
 <!-- သင်တန်း ၃ (Locked & Coming Soon) -->
 <div class="course-card locked">
-<div class="coming-soon-badge">မကြာမှီထွက်ရှိလာပါမည်</div>
-<img src="03.jpg" alt="Rhythm Basic" style="width: 100%; height: 210px; object-fit: cover;">
-<div class="course-info">
-<h3 style="font-size: 22px;">Rhythm တီးခတ်နည်း အခြေခံ</h3>
-<p>ဂီတစည်းချက်ကို မှန်ကန်စွာဖမ်းဆုပ်နိုင်ပြီး သီချင်းတစ်ပုဒ်ကို ပျော်ရွှင်စွာ Strumming လုပ်နိုင်ရန်။</p>
-<div class="syllabus-container">
-<button class="syllabus-btn" onclick="toggleSyllabus(this)">
-<span>ပါဝင်သော သင်ခန်းစာများ (၁၅ ခု)</span> <span>∨</span>
-</button>
-<div class="syllabus-content">
-<strong>မော်ဂျူး ၁ - Strumming လက်ကိုင်ပုံစံနှင့် အခြေခံ:</strong>
-<ul style="padding-left: 15px; margin: 5px 0 10px 0;">
-<li>သင်ခန်းစာ ၁ - Pick ကိုင်ပုံနှင့် မှန်ကန်သော ကိုင်တွယ်မှု</li>
-<li>သင်ခန်းစာ ၂ - လက်ကောက်ဝတ် လှုပ်ရှားမှု အခြေခံ</li>
-<li>သင်ခန်းစာ ၃ - အခြေခံ Down Strumming လေ့ကျင့်ခန်း</li>
-<li>သင်ခန်းစာ ၄ - Down & Up Strumming ပေါင်းစပ်တီးနည်း</li>
-<li>သင်ခန်းစာ ၅ - လက်မောင်းကြွက်သားများ တင်းမာမှုမရှိစေရန် ဖြေလျော့နည်း</li>
-</ul>
-<strong>မော်ဂျူး ၂ - နာမည်ကြီး ရမ်သမ် Strumming Patterns:</strong>
-<ul style="padding-left: 15px; margin: 5px 0 10px 0;">
-<li>သင်ခန်းစာ ၆ - ပုံမှန် 4/4 စည်းချက် အတွက် ရမ်သမ်တီးခတ်ပုံ</li>
-<li>သင်ခန်းစာ ၇ - အနှေးသီချင်းများအတွက် ရမ်သမ် patterns</li>
-<li>သင်ခန်းစာ ၈ - အမြန်သီချင်းများအတွက် လက်ချောင်းလှုပ်ရှားမှုထိန်းချုပ်ခြင်း</li>
-<li>သင်ခန်းစာ ၉ - စည်းချက်မလွတ်စေရန် Metronome ဖြင့် တွဲဖက်လေ့ကျင့်ခြင်း</li>
-<li>သင်ခန်းစာ ၁၀ - စည်းချက်အမျိုးမျိုးကို စိတ်ထဲတွင် မှတ်သားလေ့ကျင့်နည်း</li>
-</ul>
-<strong>မော်ဂျူး ၃ - သီချင်းနှင့်အတူ လက်တွေ့တီးခတ်ခြင်း:</strong>
-<ul style="padding-left: 15px; margin: 5px 0 0 0;">
-<li>သင်ခန်းစာ ၁၁ - ရိုးရှင်းသော Chordများနှင့် Strumming ချိတ်ဆက်ခြင်း</li>
-<li>သင်ခန်းစာ ၁၂ - သီချင်းတစ်ပုဒ်၏ Verse နှင့် Chorus ပိုင်းတီးနည်း</li>
-<li>သင်ခန်းစာ ၁၃ - အကူးအပြောင်းများတွင် စည်းချက်မလွတ်အောင် ထိန်းပုံ</li>
-<li>သင်ခန်းစာ ၁၄ - သီချင်း၏ အစ၊ အလယ်၊ အဆုံး စည်းချက်ပြောင်းလဲမှုများ</li>
-<li>သင်ခန်းစာ ၁၅ - သီချင်းတစ်ပုဒ်လုံးကို Strumming ဖြင့် အစအဆုံးတီးခြင်း</li>
-</ul>
-</div>
-</div>
-</div>
-<div style="padding: 0 15px 15px 15px;">
-<div class="price">၅၀,၀၀၀ ကျပ်</div>
-<span class="btn-locked">မကြာမှီထွက်ရှိလာပါမည်</span>
-</div>
+    <div class="coming-soon-badge">မကြာမှီထွက်ရှိလာပါမည်</div>
+    <img src="03.jpg" alt="Rhythm Basic">
+    <div class="course-info">
+        <h3>Rhythm တီးခတ်နည်း အခြေခံ</h3>
+        <p>ဂီတစည်းချက်ကို မှန်ကန်စွာဖမ်းဆုပ်နိုင်ပြီး သီချင်းတစ်ပုဒ်ကို ပျော်ရွှင်စွာ Strumming လုပ်နိုင်ရန်။</p>
+        <div class="syllabus-container">
+            <button class="syllabus-btn" onclick="toggleSyllabus(this)">
+                <span>ပါဝင်သော သင်ခန်းစာများ (၁၅ ခု)</span> <span>∨</span>
+            </button>
+            <div class="syllabus-content">
+                <strong>မော်ဂျူး ၁ - Strumming လက်ကိုင်ပုံစံနှင့် အခြေခံ:</strong>
+                <ul style="padding-left: 15px; margin: 5px 0 10px 0;">
+                    <li>သင်ခန်းစာ ၁ - Pick ကိုင်ပုံနှင့် မှန်ကန်သော ကိုင်တွယ်မှု</li>
+                    <li>သင်ခန်းစာ ၂ - လက်ကောက်ဝတ် လှုပ်ရှားမှု အခြေခံ</li>
+                    <li>သင်ခန်းစာ ၃ - အခြေခံ Down Strumming လေ့ကျင့်ခန်း</li>
+                    <li>သင်ခန်းစာ ၄ - Down & Up Strumming ပေါင်းစပ်တီးနည်း</li>
+                    <li>သင်ခန်းစာ ၅ - လက်မောင်းကြွက်သားများ တင်းမာမှုမရှိစေရန် ဖြေလျော့နည်း</li>
+                </ul>
+                <strong>မော်ဂျူး ၂ - နာမည်ကြီး ရမ်သမ် Strumming Patterns:</strong>
+                <ul style="padding-left: 15px; margin: 5px 0 10px 0;">
+                    <li>သင်ခန်းစာ ၆ - ပုံမှန် 4/4 စည်းချက် အတွက် ရမ်သမ်တီးခတ်ပုံ</li>
+                    <li>သင်ခန်းစာ ၇ - အနှေးသီချင်းများအတွက် ရမ်သမ် patterns</li>
+                    <li>သင်ခန်းစာ ၈ - အမြန်သီချင်းများအတွက် လက်ချောင်းလှုပ်ရှားမှုထိန်းချုပ်ခြင်း</li>
+                    <li>သင်ခန်းစာ ၉ - စည်းချက်မလွတ်စေရန် Metronome ဖြင့် တွဲဖက်လေ့ကျင့်ခြင်း</li>
+                    <li>သင်ခန်းစာ ၁၀ - စည်းချက်အမျိုးမျိုးကို စိတ်ထဲတွင် မှတ်သားလေ့ကျင့်နည်း</li>
+                </ul>
+                <strong>မော်ဂျူး ၃ - သီချင်းနှင့်အတူ လက်တွေ့တီးခတ်ခြင်း:</strong>
+                <ul style="padding-left: 15px; margin: 5px 0 0 0;">
+                    <li>သင်ခန်းစာ ၁၁ - ရိုးရှင်းသော Chordများနှင့် Strumming ချိတ်ဆက်ခြင်း</li>
+                    <li>သင်ခန်းစာ ၁၂ - သီချင်းတစ်ပုဒ်၏ Verse နှင့် Chorus ပိုင်းတီးနည်း</li>
+                    <li>သင်ခန်းစာ ၁၃ - အကူးအပြောင်းများတွင် စည်းချက်မလွတ်အောင် ထိန်းပုံ</li>
+                    <li>သင်ခန်းစာ ၁၄ - သီချင်း၏ အစ၊ အလယ်၊ အဆုံး စည်းချက်ပြောင်းလဲမှုများ</li>
+                    <li>သင်ခန်းစာ ၁၅ - သီချင်းတစ်ပုဒ်လုံးကို Strumming ဖြင့် အစအဆုံးတီးခြင်း</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="course-footer">
+        <div class="price">၅၀,၀၀၀ ကျပ်</div>
+        <span class="btn-locked">မကြာမှီထွက်ရှိလာပါမည်</span>
+    </div>
 </div>
 
 <!-- သင်တန်း ၄ (Locked & Coming Soon) -->
 <div class="course-card locked">
-<div class="coming-soon-badge">မကြာမှီထွက်ရှိလာပါမည်</div>
-<img src="01.jpg" alt="Rhythm Intermediate" style="width: 100%; height: 210px; object-fit: cover;">
-<div class="course-info">
-<h3 style="font-size: 22px;">Rhythm အလယ်အဆင့်</h3>
-<p>ပုံစံအမျိုးမျိုးသော စည်းချက်များနှင့် ခေတ်ပေါ်သီချင်းများ အတွက် လိုအပ်သော Rhythm များကို လေ့လာရန်။</p>
-<div class="syllabus-container">
-<button class="syllabus-btn" onclick="toggleSyllabus(this)">
-<span>ပါဝင်သော သင်ခန်းစာများ (၁၅ ခု)</span> <span>∨</span>
-</button>
-<div class="syllabus-content">
-<strong>မော်ဂျူး ၁ - Syncopation စည်းချက် အသစ်များ:</strong>
-<ul style="padding-left: 15px; margin: 5px 0 10px 0;">
-<li>သင်ခန်းစာ ၁ - အချိတ်အဆက်လွှဲသော off-beat strumming</li>
-<li>သင်ခန်းစာ ၂ - ရော့ခ်နှင့် ပေါ့ပ်သီချင်းများ အတွက် အထူးတီးကွက်များ</li>
-<li>သင်ခန်းစာ ၃ - စည်းချက်အမျိုးမျိုးကို ခွဲခြမ်းစိတ်ဖြာလေ့လာခြင်း</li>
-<li>သင်ခန်းစာ ၄ - လက်ချောင်းများနှင့် Strumming ရောနှောတီးခတ်ပုံ</li>
-<li>သင်ခန်းစာ ၅ - သီချင်းတစ်ပုဒ်အတွင်း Syncopation အသုံးချမှု</li>
-</ul>
-<strong>မော်ဂျူး ၂ - Muting နည်းပညာ:</strong>
-<ul style="padding-left: 15px; margin: 5px 0 10px 0;">
-<li>သင်ခန်းစာ ၆ - Palm Muting အသံအက်/အသံသိပ်သည်းမှု ဖန်တီးခြင်း</li>
-<li>သင်ခန်းစာ ၇ - Chops & Percussive Strumming</li>
-<li>သင်ခန်းစာ ၈ - အသံတိတ်တီးခတ်ခြင်း (Dead Notes) လေ့ကျင့်ခန်း</li>
-<li>သင်ခန်းစာ ၉ - တီးခတ်မှုသန့်ရှင်းစေရန် ဘယ်လက် Mute ပြုလုပ်နည်း</li>
-<li>သင်ခန်းစာ ၁၀ - Percussive Strumming ဖြင့် သီချင်းများကို အသက်ဝင်စေခြင်း</li>
-</ul>
-<strong>မော်ဂျူး ၃ - လက်တွေ့ဖျော်ဖြေမှု စည်းချက် အသုံးချမှု:</strong>
-<ul style="padding-left: 15px; margin: 5px 0 0 0;">
-<li>သင်ခန်းစာ ၁၁ - တီးကွက်အမျိုးမျိုးကို ပေါင်းစပ်၍ တီးခတ်ခြင်း</li>
-<li>သင်ခန်းစာ ၁၂ - ခေတ်ပေါ်သီချင်းများတွင် Rhythm တီထွင်တီးခတ်ပုံ</li>
-<li>သင်ခန်းစာ ၁၃ - အမြန်နှုန်းအမျိုးမျိုးဖြင့် တီးခတ်လေ့ကျင့်ခြင်း</li>
-<li>သင်ခန်းစာ ၁၄ - ဖျော်ဖြေပွဲများအတွက် စည်းချက်ပြင်ဆင်ပုံ</li>
-<li>သင်ခန်းစာ ၁၅ - အလယ်အဆင့် Rhythm ပုံစံများကို အစအဆုံး အသုံးချခြင်း</li>
-</ul>
-</div>
-</div>
-</div>
-<div style="padding: 0 15px 15px 15px;">
-<div class="price">၇၀,၀၀၀ ကျပ်</div>
-<span class="btn-locked">မကြာမှီထွက်ရှိလာပါမည်</span>
-</div>
+    <div class="coming-soon-badge">မကြာမှီထွက်ရှိလာပါမည်</div>
+    <img src="01.jpg" alt="Rhythm Intermediate">
+    <div class="course-info">
+        <h3>Rhythm အလယ်အဆင့်</h3>
+        <p>ပုံစံအမျိုးမျိုးသော စည်းချက်များနှင့် ခေတ်ပေါ်သီချင်းများ အတွက် လိုအပ်သော Rhythm များကို လေ့လာရန်။</p>
+        <div class="syllabus-container">
+            <button class="syllabus-btn" onclick="toggleSyllabus(this)">
+                <span>ပါဝင်သော သင်ခန်းစာများ (၁၅ ခု)</span> <span>∨</span>
+            </button>
+            <div class="syllabus-content">
+                <strong>မော်ဂျူး ၁ - Syncopation စည်းချက် အသစ်များ:</strong>
+                <ul style="padding-left: 15px; margin: 5px 0 10px 0;">
+                    <li>သင်ခန်းစာ ၁ - အချိတ်အဆက်လွှဲသော off-beat strumming</li>
+                    <li>သင်ခန်းစာ ၂ - ရော့ခ်နှင့် ပေါ့ပ်သီချင်းများ အတွက် အထူးတီးကွက်များ</li>
+                    <li>သင်ခန်းစာ ၃ - စည်းချက်အမျိုးမျိုးကို ခွဲခြမ်းစိတ်ဖြာလေ့လာခြင်း</li>
+                    <li>သင်ခန်းစာ ၄ - လက်ချောင်းများနှင့် Strumming ရောနှောတီးခတ်ပုံ</li>
+                    <li>သင်ခန်းစာ ၅ - သီချင်းတစ်ပုဒ်အတွင်း Syncopation အသုံးချမှု</li>
+                </ul>
+                <strong>မော်ဂျူး ၂ - Muting နည်းပညာ:</strong>
+                <ul style="padding-left: 15px; margin: 5px 0 10px 0;">
+                    <li>သင်ခန်းစာ ၆ - Palm Muting အသံအက်/အသံသိပ်သည်းမှု ဖန်တီးခြင်း</li>
+                    <li>သင်ခန်းစာ ၇ - Chops & Percussive Strumming</li>
+                    <li>သင်ခန်းစာ ၈ - အသံတိတ်တီးခတ်ခြင်း (Dead Notes) လေ့ကျင့်ခန်း</li>
+                    <li>သင်ခန်းစာ ၉ - တီးခတ်မှုသန့်ရှင်းစေရန် ဘယ်လက် Mute ပြုလုပ်နည်း</li>
+                    <li>သင်ခန်းစာ ၁၀ - Percussive Strumming ဖြင့် သီချင်းများကို အသက်ဝင်စေခြင်း</li>
+                </ul>
+                <strong>မော်ဂျူး ၃ - လက်တွေ့ဖျော်ဖြေမှု စည်းချက် အသုံးချမှု:</strong>
+                <ul style="padding-left: 15px; margin: 5px 0 0 0;">
+                    <li>သင်ခန်းစာ ၁၁ - တီးကွက်အမျိုးမျိုးကို ပေါင်းစပ်၍ တီးခတ်ခြင်း</li>
+                    <li>သင်ခန်းစာ ၁၂ - ခေတ်ပေါ်သီချင်းများတွင် Rhythm တီထွင်တီးခတ်ပုံ</li>
+                    <li>သင်ခန်းစာ ၁၃ - အမြန်နှုန်းအမျိုးမျိုးဖြင့် တီးခတ်လေ့ကျင့်ခြင်း</li>
+                    <li>သင်ခန်းစာ ၁၄ - ဖျော်ဖြေပွဲများအတွက် စည်းချက်ပြင်ဆင်ပုံ</li>
+                    <li>သင်ခန်းစာ ၁၅ - အလယ်အဆင့် Rhythm ပုံစံများကို အစအဆုံး အသုံးချခြင်း</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="course-footer">
+        <div class="price">၇၀,၀၀၀ ကျပ်</div>
+        <span class="btn-locked">မကြာမှီထွက်ရှိလာပါမည်</span>
+    </div>
 </div>
 
 <!-- သင်တန်း ၅ (Locked & Coming Soon) -->
 <div class="course-card locked">
-<div class="coming-soon-badge">မကြာမှီထွက်ရှိလာပါမည်</div>
-<img src="02.jpg" alt="Advanced Rhythm" style="width: 100%; height: 210px; object-fit: cover;">
-<div class="course-info">
-<h3 style="font-size: 22px;">Advanced Rhythm တီးခတ်နည်း</h3>
-<p>ပရော်ဖက်ရှင်နယ် တီးခတ်သူများကဲ့သို့ ရှုပ်ထွေးခက်ခဲသော စည်းချက်များနှင့် အဆင့်မြင့်တီးကွက်များ လေ့လာရန်။</p>
-<div class="syllabus-container">
-<button class="syllabus-btn" onclick="toggleSyllabus(this)">
-<span>ပါဝင်သော သင်ခန်းစာများ (၁၅ ခု)</span> <span>∨</span>
-</button>
-<div class="syllabus-content">
-<strong>မော်ဂျူး ၁ - ရှုပ်ထွေးသော အချိန်စည်းချက်များ:</strong>
-<ul style="padding-left: 15px; margin: 5px 0 10px 0;">
-<li>သင်ခန်းစာ ၁ - 5/4 နှင့် 7/8 ကဲ့သို့သော Time Signatures များ</li>
-<li>သင်ခန်းစာ ၂ - ပုံမှန်မဟုတ်သော စည်းချက်များကို ဖမ်းဆုပ်တီးခတ်ပုံ</li>
-<li>သင်ခန်းစာ ၃ - Polyrhythms အခြေခံ သဘောတရားများ</li>
-<li>သင်ခန်းစာ ၄ - ရှုပ်ထွေးသော စည်းချက်များကို လွယ်ကူစွာ လေ့ကျင့်နည်း</li>
-<li>သင်ခန်းစာ ၅ - အချိန်စည်းချက်အမျိုးမျိုးကို လွယ်ကူစွာ ကူးပြောင်းခြင်း</li>
-</ul>
-<strong>မော်ဂျူး ၂ - Groove & Dynamics:</strong>
-<ul style="padding-left: 15px; margin: 5px 0 10px 0;">
-<li>သင်ခန်းစာ ၆ - ကိုယ်ပိုင် Groove နှင့် စိတ်ကြိုက်အရှိန်အဟုန်ဖန်တီးခြင်း</li>
-<li>သင်ခန်းစာ ၇ - တီးခတ်မှုအလွန်အကျွံ မဖြစ်စေရန် အသံထွက်များကို ထိန်းချုပ်ခြင်း</li>
-<li>သင်ခန်းစာ ၈ - အသံပြင်းအားနှင့် အသံလျော့အား ထိန်းချုပ်မှု</li>
-<li>သင်ခန်းစာ ၉ - ပရော်ဖက်ရှင်နယ် တီးခတ်မှု ပုံစံစံနှုန်းများ</li>
-<li>သင်ခန်းစာ ၁၀ - တီးခတ်မှု တစ်လျှောက် တည်ငြိမ်သော အရှိန်အဟုန် ထိန်းသိမ်းခြင်း</li>
-</ul>
-<strong>မော်ဂျူး ၃ - Live Performance အတွက် အသုံးချမှု:</strong>
-<ul style="padding-left: 15px; margin: 5px 0 0 0;">
-<li>သင်ခန်းစာ ၁၁ - စင်ပေါ်တွင် တီးခတ်ရာ၌ အမှားအယွင်းကင်းစေရန် လေ့ကျင့်ခန်းများ</li>
-<li>သင်ခန်းစာ ၁၂ - ဘန်းအဖွဲ့(Band) နှင့်အတူ တီးခတ်ရာတွင် Rhythm ထိန်းပုံ</li>
-<li>သင်ခန်းစာ ၁၃ - ရှုပ်ထွေးသော တီးကွက်များကို စင်တင်ဖျော်ဖြေပွဲအတွက် ပြင်ဆင်ခြင်း</li>
-<li>သင်ခန်းစာ ၁၄ - အလွတ်တန်း တီးခတ်မှုများတွင် စည်းချက်လွတ်မသွားအောင် ထိန်းနည်း</li>
-<li>သင်ခန်းစာ ၁၅ - အဆင့်မြင့် Rhythm အစအဆုံး လက်တွေ့ဖျော်ဖြေတီးခတ်မှု</li>
-</ul>
-</div>
-</div>
-</div>
-<div style="padding: 0 15px 15px 15px;">
-<div class="price">၁၅၀,၀၀၀ ကျပ်</div>
-<span class="btn-locked">မကြာမှီထွက်ရှိလာပါမည်</span>
-</div>
+    <div class="coming-soon-badge">မကြာမှီထွက်ရှိလာပါမည်</div>
+    <img src="02.jpg" alt="Advanced Rhythm">
+    <div class="course-info">
+        <h3>Advanced Rhythm တီးခတ်နည်း</h3>
+        <p>ပရော်ဖက်ရှင်နယ် တီးခတ်သူများကဲ့သို့ ရှုပ်ထွေးခက်ခဲသော စည်းချက်များနှင့် အဆင့်မြင့်တီးကွက်များ လေ့လာရန်။</p>
+        <div class="syllabus-container">
+            <button class="syllabus-btn" onclick="toggleSyllabus(this)">
+                <span>ပါဝင်သော သင်ခန်းစာများ (၁၅ ခု)</span> <span>∨</span>
+            </button>
+            <div class="syllabus-content">
+                <strong>မော်ဂျူး ၁ - ရှုပ်ထွေးသော အချိန်စည်းချက်များ:</strong>
+                <ul style="padding-left: 15px; margin: 5px 0 10px 0;">
+                    <li>သင်ခန်းစာ ၁ - 5/4 နှင့် 7/8 ကဲ့သို့သော Time Signatures များ</li>
+                    <li>သင်ခန်းစာ ၂ - ပုံမှန်မဟုတ်သော စည်းချက်များကို ဖမ်းဆုပ်တီးခတ်ပုံ</li>
+                    <li>သင်ခန်းစာ ၃ - Polyrhythms အခြေခံ သဘောတရားများ</li>
+                    <li>သင်ခန်းစာ ၄ - ရှုပ်ထွေးသော စည်းချက်များကို လွယ်ကူစွာ လေ့ကျင့်နည်း</li>
+                    <li>သင်ခန်းစာ ၅ - အချိန်စည်းချက်အမျိုးမျိုးကို လွယ်ကူစွာ ကူးပြောင်းခြင်း</li>
+                </ul>
+                <strong>မော်ဂျူး ၂ - Groove & Dynamics:</strong>
+                <ul style="padding-left: 15px; margin: 5px 0 10px 0;">
+                    <li>သင်ခန်းစာ ၆ - ကိုယ်ပိုင် Groove နှင့် စိတ်ကြိုက်အရှိန်အဟုန်ဖန်တီးခြင်း</li>
+                    <li>သင်ခန်းစာ ၇ - တီးခတ်မှုအလွန်အကျွံ မဖြစ်စေရန် အသံထွက်များကို ထိန်းချုပ်ခြင်း</li>
+                    <li>သင်ခန်းစာ ၈ - အသံပြင်းအားနှင့် အသံလျော့အား ထိန်းချုပ်မှု</li>
+                    <li>သင်ခန်းစာ ၉ - ပရော်ဖက်ရှင်နယ် တီးခတ်မှု ပုံစံစံနှုန်းများ</li>
+                    <li>သင်ခန်းစာ ၁၀ - တီးခတ်မှု တစ်လျှောက် တည်ငြိမ်သော အရှိန်အဟုန် ထိန်းသိမ်းခြင်း</li>
+                </ul>
+                <strong>မော်ဂျူး ၃ - Live Performance အတွက် အသုံးချမှု:</strong>
+                <ul style="padding-left: 15px; margin: 5px 0 0 0;">
+                    <li>သင်ခန်းစာ ၁၁ - စင်ပေါ်တွင် တီးခတ်ရာ၌ အမှားအယွင်းကင်းစေရန် လေ့ကျင့်ခန်းများ</li>
+                    <li>သင်ခန်းစာ ၁၂ - ဘန်းအဖွဲ့(Band) နှင့်အတူ တီးခတ်ရာတွင် Rhythm ထိန်းပုံ</li>
+                    <li>သင်ခန်းစာ ၁၃ - ရှုပ်ထွေးသော တီးကွက်များကို စင်တင်ဖျော်ဖြေပွဲအတွက် ပြင်ဆင်ခြင်း</li>
+                    <li>သင်ခန်းစာ ၁၄ - အလွတ်တန်း တီးခတ်မှုများတွင် စည်းချက်လွတ်မသွားအောင် ထိန်းနည်း</li>
+                    <li>သင်ခန်းစာ ၁၅ - အဆင့်မြင့် Rhythm အစအဆုံး လက်တွေ့ဖျော်ဖြေတီးခတ်မှု</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="course-footer">
+        <div class="price">၁၅၀,၀၀၀ ကျပ်</div>
+        <span class="btn-locked">မကြာမှီထွက်ရှိလာပါမည်</span>
+    </div>
 </div>
 
 <!-- သင်တန်း ၆ (Locked & Coming Soon) -->
 <div class="course-card locked">
-<div class="coming-soon-badge">မကြာမှီထွက်ရှိလာပါမည်</div>
-<img src="03.jpg" alt="Fingerstyle Basic" style="width: 100%; height: 210px; object-fit: cover;">
-<div class="course-info">
-<h3 style="font-size: 22px;">Fingerstyle တီးခတ်နည်း အခြေခံ</h3>
-<p>သီချင်းတစ်ပုဒ်၏ အဓိကတေးသွားနှင့် အသံနှိမ့်များကို လက်ချောင်းများဖြင့် တစ်ပြိုင်နက်တီးခတ်နိုင်ရန်။</p>
-<div class="syllabus-container">
-<button class="syllabus-btn" onclick="toggleSyllabus(this)">
-<span>ပါဝင်သော သင်ခန်းစာများ (၁၅ ခု)</span> <span>∨</span>
-</button>
-<div class="syllabus-content">
-<strong>မော်ဂျူး ၁ - Fingerstyle သဘောတရားနှင့် အခြေခံ:</strong>
-<ul style="padding-left: 15px; margin: 5px 0 10px 0;">
-<li>သင်ခန်းစာ ၁ - Fingerstyle သဘောတရားနှင့် တာဝန်ခွဲဝေမှု</li>
-<li>သင်ခန်းစာ ၂ - ညာလက်လက်သည်း အနေအထားနှင့် ထိတွေ့မှုစံနှုန်း</li>
-<li>သင်ခန်းစာ ၃ - လက်ချောင်းတစ်ချောင်းချင်းစီ၏ သီးသန့်လေ့ကျင့်ခန်းများ</li>
-<li>သင်ခန်းစာ ၄ - ဘယ်လက်နှင့် ညာလက် အချိတ်အဆက်မိစေရန် လေ့ကျင့်ခြင်း</li>
-<li>သင်ခန်းစာ ၅ - ညာလက်လက်ချောင်းများ မှန်ကန်စွာ အနားယူပုံ</li>
-</ul>
-<strong>မော်ဂျူး ၂ - Bassline & Melody တွဲဖက်တီးနည်း:</strong>
-<ul style="padding-left: 15px; margin: 5px 0 10px 0;">
-<li>သင်ခန်းစာ ၆ - အသံနိမ့် (Bass)ကို လက်မဖြင့် သီးသန့်ထိန်းချုပ်ပုံ</li>
-<li>သင်ခန်းစာ ၇ - တေးသွား (Melody) ကို ကျန်လက်ချောင်းများဖြင့် တွဲဖက်တီးခြင်း</li>
-<li>သင်ခန်းစာ ၈ - Bass & Melody တစ်ပြိုင်နက်တီးခတ်ရာတွင် ကြုံတွေ့ရမည့် အခက်အခဲဖြေရှင်းနည်း</li>
-<li>သင်ခန်းစာ ၉ - စည်းချက်မလွတ်ဘဲ နှစ်ခုစလုံးကို ပေါင်းစပ်တီးနည်း</li>
-<li>သင်ခန်းစာ ၁၀ - Bassline စည်းချက်တိကျမှုအတွက် အထူးလေ့ကျင့်ခန်း</li>
-</ul>
-<strong>မော်ဂျူး ၃ - ရိုးရှင်းသော တေးသွား အစပြုခြင်း:</strong>
-<ul style="padding-left: 15px; margin: 5px 0 0 0;">
-<li>သင်ခန်းစာ ၁၁ - လူသိများသော Fingerstyle တေးသွားငယ်များကို လက်တွေ့တီးခြင်း</li>
-<li>သင်ခန်းစာ ၁၂ - ရိုးရှင်းသော တေးသွားတစ်ပုဒ်ကို အစပိုင်းတီးနည်း</li>
-<li>သင်ခန်းစာ ၁၃ - သီချင်းအဆုံးသတ်ပိုင်းကို လက်ချောင်းစတိုင်ဖြင့် တီးခတ်ပုံ</li>
-<li>သင်ခန်းစာ ၁၄ - တီးကွက်အတွင်း ဖီလင် ထည့်သွင်းတီးခတ်နည်း</li>
-<li>သင်ခန်းစာ ၁၅ - Fingerstyle သီချင်းတစ်ပုဒ်ကို အစအဆုံးတီးခြင်း</li>
-</ul>
-</div>
-</div>
-</div>
-<div style="padding: 0 15px 15px 15px;">
-<div class="price">၁၂၀,၀၀၀ ကျပ်</div>
-<span class="btn-locked">မကြာမှီထွက်ရှိလာပါမည်</span>
-</div>
+    <div class="coming-soon-badge">မကြာမှီထွက်ရှိလာပါမည်</div>
+    <img src="03.jpg" alt="Fingerstyle Basic">
+    <div class="course-info">
+        <h3>Fingerstyle တီးခတ်နည်း အခြေခံ</h3>
+        <p>သီချင်းတစ်ပုဒ်၏ အဓိကတေးသွားနှင့် အသံနှိမ့်များကို လက်ချောင်းများဖြင့် တစ်ပြိုင်နက်တီးခတ်နိုင်ရန်။</p>
+        <div class="syllabus-container">
+            <button class="syllabus-btn" onclick="toggleSyllabus(this)">
+                <span>ပါဝင်သော သင်ခန်းစာများ (၁၅ ခု)</span> <span>∨</span>
+            </button>
+            <div class="syllabus-content">
+                <strong>မော်ဂျူး ၁ - Fingerstyle သဘောတရားနှင့် အခြေခံ:</strong>
+                <ul style="padding-left: 15px; margin: 5px 0 10px 0;">
+                    <li>သင်ခန်းစာ ၁ - Fingerstyle သဘောတရားနှင့် တာဝန်ခွဲဝေမှု</li>
+                    <li>သင်ခန်းစာ ၂ - ညာလက်လက်သည်း အနေအထားနှင့် ထိတွေ့မှုစံနှုန်း</li>
+                    <li>သင်ခန်းစာ ၃ - လက်ချောင်းတစ်ချောင်းချင်းစီ၏ သီးသန့်လေ့ကျင့်ခန်းများ</li>
+                    <li>သင်ခန်းစာ ၄ - ဘယ်လက်နှင့် ညာလက် အချိတ်အဆက်မိစေရန် လေ့ကျင့်ခြင်း</li>
+                    <li>သင်ခန်းစာ ၅ - ညာလက်လက်ချောင်းများ မှန်ကန်စွာ အနားယူပုံ</li>
+                </ul>
+                <strong>မော်ဂျူး ၂ - Bassline & Melody တွဲဖက်တီးနည်း:</strong>
+                <ul style="padding-left: 15px; margin: 5px 0 10px 0;">
+                    <li>သင်ခန်းစာ ၆ - အသံနိမ့် (Bass)ကို လက်မဖြင့် သီးသန့်ထိန်းချုပ်ပုံ</li>
+                    <li>သင်ခန်းစာ ၇ - တေးသွား (Melody) ကို ကျန်လက်ချောင်းများဖြင့် တွဲဖက်တီးခြင်း</li>
+                    <li>သင်ခန်းစာ ၈ - Bass & Melody တစ်ပြိုင်နက်တီးခတ်ရာတွင် ကြုံတွေ့ရမည့် အခက်အခဲဖြေရှင်းနည်း</li>
+                    <li>သင်ခန်းစာ ၉ - စည်းချက်မလွတ်ဘဲ နှစ်ခုစလုံးကို ပေါင်းစပ်တီးနည်း</li>
+                    <li>သင်ခန်းစာ ၁၀ - Bassline စည်းချက်တိကျမှုအတွက် အထူးလေ့ကျင့်ခန်း</li>
+                </ul>
+                <strong>မော်ဂျူး ၃ - ရိုးရှင်းသော တေးသွား အစပြုခြင်း:</strong>
+                <ul style="padding-left: 15px; margin: 5px 0 0 0;">
+                    <li>သင်ခန်းစာ ၁၁ - လူသိများသော Fingerstyle တေးသွားငယ်များကို လက်တွေ့တီးခြင်း</li>
+                    <li>သင်ခန်းစာ ၁၂ - ရိုးရှင်းသော တေးသွားတစ်ပုဒ်ကို အစပိုင်းတီးနည်း</li>
+                    <li>သင်ခန်းစာ ၁၃ - သီချင်းအဆုံးသတ်ပိုင်းကို လက်ချောင်းစတိုင်ဖြင့် တီးခတ်ပုံ</li>
+                    <li>သင်ခန်းစာ ၁၄ - တီးကွက်အတွင်း ဖီလင် ထည့်သွင်းတီးခတ်နည်း</li>
+                    <li>သင်ခန်းစာ ၁၅ - Fingerstyle သီချင်းတစ်ပုဒ်ကို အစအဆုံးတီးခြင်း</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="course-footer">
+        <div class="price">၁၂၀,၀၀၀ ကျပ်</div>
+        <span class="btn-locked">မကြာမှီထွက်ရှိလာပါမည်</span>
+    </div>
 </div>
 
 <!-- သင်တန်း ၇ (Locked & Coming Soon) -->
 <div class="course-card locked">
-<div class="coming-soon-badge">မကြာမှီထွက်ရှိလာပါမည်</div>
-<img src="01.jpg" alt="Basic Music Theory" style="width: 100%; height: 210px; object-fit: cover;">
-<div class="course-info">
-<h3 style="font-size: 22px;">Basic Music Theory အခြေခံသီအိုရီ</h3>
-<p>ဂီတကို ပိုမိုနားလည်သဘောပေါက်စေရန် မဖြစ်မနေ သိထားရမည့် အခြေခံသီအိုရီနှင့် မှတ်စုများအကြောင်း။</p>
-<div class="syllabus-container">
-<button class="syllabus-btn" onclick="toggleSyllabus(this)">
-<span>ပါဝင်သော သင်ခန်းစာများ (၁၅ ခု)</span> <span>∨</span>
-</button>
-<div class="syllabus-content">
-<strong>မော်ဂျူး ၁ - ဂီတသံစဉ်နှင့် လက်ကွက်နေရာများ:</strong>
-<ul style="padding-left: 15px; margin: 5px 0 10px 0;">
-<li>သင်ခန်းစာ ၁ - Natural Notes များကို Fretboard ပေါ်တွင် ရှာဖွေပုံ</li>
-<li>သင်ခန်းစာ ၂ - Sharps (#) & Flats (b) သံစဉ်များအကြောင်း</li>
-<li>သင်ခန်းစာ ၃ - Fretboard အလွယ်တကူ မှတ်မိစေမည့် နည်းလမ်းများ</li>
-<li>သင်ခန်းစာ ၄ - အခြေခံ သံစဉ်အကွာအဝေးများ</li>
-<li>သင်ခန်းစာ ၅ - Fretboard Octave များကို ရှာဖွေတွေ့ရှိခြင်း</li>
-</ul>
-<strong>မော်ဂျူး ၂ - Scales အခြေခံများ:</strong>
-<ul style="padding-left: 15px; margin: 5px 0 10px 0;">
-<li>သင်ခန်းစာ ၆ - Major Scale တည်ဆောက်ပုံ ဖော်မြူလာ</li>
-<li>သင်ခန်းစာ ၇ - Minor Scale Major နှင့် ကွာခြားချက်များ</li>
-<li>သင်ခန်းစာ ၈ - Scale များကို လက်ကွက်ပေါ်တွင် တီးခတ်လေ့ကျင့်ခြင်း</li>
-<li>သင်ခန်းစာ ၉ - Pentatonic Scale အခြေခံနားလည်မှု</li>
-<li>သင်ခန်းစာ ၁၀ - Scale များ၏ နံပါတ်ဒီဂရီ (Degree) စနစ်များကို လေ့လာခြင်း</li>
-</ul>
-<strong>မော်ဂျူး ၃ - Chord တည်ဆောက်ပုံ:</strong>
-<ul style="padding-left: 15px; margin: 5px 0 0 0;">
-<li>သင်ခန်းစာ ၁၁ - Triads များကို အခြေခံ၍ Major နှင့် Minor Chords များကို နားလည်ခြင်း</li>
-<li>သင်ခန်းစာ ၁၂ - Chord တစ်ခုချင်းစီ၏ ဖွဲ့စည်းပုံကို ခွဲခြမ်းစိတ်ဖြာခြင်း</li>
-<li>သင်ခန်းစာ ၁၃ - ကြိုးတပ်တူရိယာများတွင် ကိုယ်ပိုင်တီးကွက်များ စတင်ဖန်တီးပုံ</li>
-<li>သင်ခန်းစာ ၁၄ - သီအိုရီအရ Chordများကို အလွယ်တကူတွက်ချက်နည်း</li>
-<li>သင်ခန်းစာ ၁၅ - အခြေခံသီအိုရီကို လက်တွေ့တီးကွက်များတွင် အသုံးချခြင်း</li>
-</ul>
-</div>
-</div>
-</div>
-<div style="padding: 0 15px 15px 15px;">
-<div class="price">၅၀,၀၀၀ ကျပ်</div>
-<span class="btn-locked">မကြာမှီထွက်ရှိလာပါမည်</span>
-</div>
+    <div class="coming-soon-badge">မကြာမှီထွက်ရှိလာပါမည်</div>
+    <img src="01.jpg" alt="Basic Music Theory">
+    <div class="course-info">
+        <h3>Basic Music Theory အခြေခံသီအိုရီ</h3>
+        <p>ဂီတကို ပိုမိုနားလည်သဘောပေါက်စေရန် မဖြစ်မနေ သိထားရမည့် အခြေခံသီအိုရီနှင့် မှတ်စုများအကြောင်း။</p>
+        <div class="syllabus-container">
+            <button class="syllabus-btn" onclick="toggleSyllabus(this)">
+                <span>ပါဝင်သော သင်ခန်းစာများ (၁၅ ခု)</span> <span>∨</span>
+            </button>
+            <div class="syllabus-content">
+                <strong>မော်ဂျူး ၁ - ဂီတသံစဉ်နှင့် လက်ကွက်နေရာများ:</strong>
+                <ul style="padding-left: 15px; margin: 5px 0 10px 0;">
+                    <li>သင်ခန်းစာ ၁ - Natural Notes များကို Fretboard ပေါ်တွင် ရှာဖွေပုံ</li>
+                    <li>သင်ခန်းစာ ၂ - Sharps (#) & Flats (b) သံစဉ်များအကြောင်း</li>
+                    <li>သင်ခန်းစာ ၃ - Fretboard အလွယ်တကူ မှတ်မိစေမည့် နည်းလမ်းများ</li>
+                    <li>သင်ခန်းစာ ၄ - အခြေခံ သံစဉ်အကွာအဝေးများ</li>
+                    <li>သင်ခန်းစာ ၅ - Fretboard Octave များကို ရှာဖွေတွေ့ရှိခြင်း</li>
+                </ul>
+                <strong>မော်ဂျူး ၂ - Scales အခြေခံများ:</strong>
+                <ul style="padding-left: 15px; margin: 5px 0 10px 0;">
+                    <li>သင်ခန်းစာ ၆ - Major Scale တည်ဆောက်ပုံ ဖော်မြူလာ</li>
+                    <li>သင်ခန်းစာ ၇ - Minor Scale Major နှင့် ကွာခြားချက်များ</li>
+                    <li>သင်ခန်းစာ ၈ - Scale များကို လက်ကွက်ပေါ်တွင် တီးခတ်လေ့ကျင့်ခြင်း</li>
+                    <li>သင်ခန်းစာ ၉ - Pentatonic Scale အခြေခံနားလည်မှု</li>
+                    <li>သင်ခန်းစာ ၁၀ - Scale များ၏ နံပါတ်ဒီဂရီ (Degree) စနစ်များကို လေ့လာခြင်း</li>
+                </ul>
+                <strong>မော်ဂျူး ၃ - Chord တည်ဆောက်ပုံ:</strong>
+                <ul style="padding-left: 15px; margin: 5px 0 0 0;">
+                    <li>သင်ခန်းစာ ၁၁ - Triads များကို အခြေခံ၍ Major နှင့် Minor Chords များကို နားလည်ခြင်း</li>
+                    <li>သင်ခန်းစာ ၁၂ - Chord တစ်ခုချင်းစီ၏ ဖွဲ့စည်းပုံကို ခွဲခြမ်းစိတ်ဖြာခြင်း</li>
+                    <li>သင်ခန်းစာ ၁၃ - ကြိုးတပ်တူရိယာများတွင် ကိုယ်ပိုင်တီးကွက်များ စတင်ဖန်တီးပုံ</li>
+                    <li>သင်ခန်းစာ ၁၄ - သီအိုရီအရ Chordများကို အလွယ်တကူတွက်ချက်နည်း</li>
+                    <li>သင်ခန်းစာ ၁၅ - အခြေခံသီအိုရီကို လက်တွေ့တီးကွက်များတွင် အသုံးချခြင်း</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="course-footer">
+        <div class="price">၅၀,၀၀၀ ကျပ်</div>
+        <span class="btn-locked">မကြာမှီထွက်ရှိလာပါမည်</span>
+    </div>
 </div>
 
 <!-- သင်တန်း ၈ (Locked & Coming Soon) -->
 <div class="course-card locked">
-<div class="coming-soon-badge">မကြာမှီထွက်ရှိလာပါမည်</div>
-<img src="02.jpg" alt="Intermediate Music Theory" style="width: 100%; height: 210px; object-fit: cover;">
-<div class="course-info">
-<h3 style="font-size: 22px;">Intermediate Music Theory အလယ်အလတ်အဆင့်</h3>
-<p>ဂီတပညာရပ်ကို ပိုမိုနက်ရှိုင်းစွာလေ့လာပြီး သီချင်းခွဲခြမ်းစိတ်ဖြာနိုင်ရန် အဆင့်မြှင့်သီအိုရီများ။</p>
-<div class="syllabus-container">
-<button class="syllabus-btn" onclick="toggleSyllabus(this)">
-<span>ပါဝင်သော သင်ခန်းစာများ (၁၅ ခု)</span> <span>∨</span>
-</button>
-<div class="syllabus-content">
-<strong>မော်ဂျူး ၁ - Chord Progressions & Key Signatures:</strong>
-<ul style="padding-left: 15px; margin: 5px 0 10px 0;">
-<li>သင်ခန်းစာ ၁ - သီချင်းတစ်ပုဒ်၏ Key ကို ခွဲခြားသိရှိနိုင်ပုံ</li>
-<li>သင်ခန်းစာ ၂ - လူသုံးအများဆုံး Chord Progressions လေ့လာခြင်း</li>
-<li>သင်ခန်းစာ ၃ - Key များကို ပြောင်းလဲခြင်း (Transposition)</li>
-<li>သင်ခန်းစာ ၄ - Circle of Fifths အခြေခံ နားလည်သဘောပေါက်ပုံ</li>
-<li>သင်ခန်းစာ ၅ - Key တစ်ခုအတွင်း Chords များ တည်ဆောက်ပုံ</li>
-</ul>
-<strong>မော်ဂျူး ၂ - Intervals & Scale Modes:</strong>
-<ul style="padding-left: 15px; margin: 5px 0 10px 0;">
-<li>သင်ခန်းစာ ၆ - သံစဉ်နှစ်ခုကြား အကွာအဝေး (Intervals)များကို နားလည်ခြင်း</li>
-<li>သင်ခန်းစာ ၇ - Scale Modes များကို လက်တွေ့အသုံးပြုပုံ</li>
-<li>သင်ခန်းစာ ၈ - Melodic Modes များကို ဓါတ်ခွဲခန်းပုံစံဖြင့် လေ့လာခြင်း</li>
-<li>သင်ခန်းစာ ၉ - Improvisation အတွက် Modes များကို အသုံးချနည်း</li>
-<li>သင်ခန်းစာ ၁၀ - Intervals များကို အခြေခံ၍ အသံထွက်များကို နားလည်ခြင်း</li>
-</ul>
-<strong>မော်ဂျူး ၃ - သီအိုရီကို လက်တွေ့အသုံးချခြင်း:</strong>
-<ul style="padding-left: 15px; margin: 5px 0 0 0;">
-<li>သင်ခန်းစာ ၁၁ - ကိုယ်ပိုင်သီချင်းအသစ်များ ရေးသားရာတွင် သီအိုရီကို အသုံးချပုံ</li>
-<li>သင်ခန်းစာ ၁၂ - သီချင်းတစ်ပုဒ်၏ Structure ကို သီအိုရီအရ ခွဲခြမ်းစိတ်ဖြာခြင်း</li>
-<li>သင်ခန်းစာ ၁၃ - အဆင့်မြင့် Chord များကို ကိုယ်တိုင်တည်ဆောက်တီးခတ်ခြင်း</li>
-<li>သင်ခန်းစာ ၁၄ - သီချင်းအမျိုးအစားအလိုက် Chord Progressions ရွေးချယ်ပုံ</li>
-<li>သင်ခန်းစာ ၁၅ - သီအိုရီဗဟုသုတများကို လက်တွေ့တီးကွက်ဖန်တီးမှုတွင် အပြည့်အဝအသုံးချခြင်း</li>
-</ul>
-</div>
-</div>
-</div>
-<div style="padding: 0 15px 15px 15px;">
-<div class="price">၇၀,၀၀၀ ကျပ်</div>
-<span class="btn-locked">မကြာမှီထွက်ရှိလာပါမည်</span>
-</div>
+    <div class="coming-soon-badge">မကြာမှီထွက်ရှိလာပါမည်</div>
+    <img src="02.jpg" alt="Intermediate Music Theory">
+    <div class="course-info">
+        <h3>Intermediate Music Theory အလယ်အလတ်အဆင့်</h3>
+        <p>ဂီတပညာရပ်ကို ပိုမိုနက်ရှိုင်းစွာလေ့လာပြီး သီချင်းခွဲခြမ်းစိတ်ဖြာနိုင်ရန် အဆင့်မြှင့်သီအိုရီများ။</p>
+        <div class="syllabus-container">
+            <button class="syllabus-btn" onclick="toggleSyllabus(this)">
+                <span>ပါဝင်သော သင်ခန်းစာများ (၁၅ ခု)</span> <span>∨</span>
+            </button>
+            <div class="syllabus-content">
+                <strong>မော်ဂျူး ၁ - Chord Progressions & Key Signatures:</strong>
+                <ul style="padding-left: 15px; margin: 5px 0 10px 0;">
+                    <li>သင်ခန်းစာ ၁ - သီချင်းတစ်ပုဒ်၏ Key ကို ခွဲခြားသိရှိနိုင်ပုံ</li>
+                    <li>သင်ခန်းစာ ၂ - လူသုံးအများဆုံး Chord Progressions လေ့လာခြင်း</li>
+                    <li>သင်ခန်းစာ ၃ - Key များကို ပြောင်းလဲခြင်း (Transposition)</li>
+                    <li>သင်ခန်းစာ ၄ - Circle of Fifths အခြေခံ နားလည်သဘောပေါက်ပုံ</li>
+                    <li>သင်ခန်းစာ ၅ - Key တစ်ခုအတွင်း Chords များ တည်ဆောက်ပုံ</li>
+                </ul>
+                <strong>မော်ဂျူး ၂ - Intervals & Scale Modes:</strong>
+                <ul style="padding-left: 15px; margin: 5px 0 10px 0;">
+                    <li>သင်ခန်းစာ ၆ - သံစဉ်နှစ်ခုကြား အကွာအဝေး (Intervals)များကို နားလည်ခြင်း</li>
+                    <li>သင်ခန်းစာ ၇ - Scale Modes များကို လက်တွေ့အသုံးပြုပုံ</li>
+                    <li>သင်ခန်းစာ ၈ - Melodic Modes များကို ဓါတ်ခွဲခန်းပုံစံဖြင့် လေ့လာခြင်း</li>
+                    <li>သင်ခန်းစာ ၉ - Improvisation အတွက် Modes များကို အသုံးချနည်း</li>
+                    <li>သင်ခန်းစာ ၁၀ - Intervals များကို အခြေခံ၍ အသံထွက်များကို နားလည်ခြင်း</li>
+                </ul>
+                <strong>မော်ဂျူး ၃ - သီအိုရီကို လက်တွေ့အသုံးချခြင်း:</strong>
+                <ul style="padding-left: 15px; margin: 5px 0 0 0;">
+                    <li>သင်ခန်းစာ ၁၁ - ကိုယ်ပိုင်သီချင်းအသစ်များ ရေးသားရာတွင် သီအိုရီကို အသုံးချပုံ</li>
+                    <li>သင်ခန်းစာ ၁၂ - သီချင်းတစ်ပုဒ်၏ Structure ကို သီအိုရီအရ ခွဲခြမ်းစိတ်ဖြာခြင်း</li>
+                    <li>သင်ခန်းစာ ၁၃ - အဆင့်မြင့် Chord များကို ကိုယ်တိုင်တည်ဆောက်တီးခတ်ခြင်း</li>
+                    <li>သင်ခန်းစာ ၁၄ - သီချင်းအမျိုးအစားအလိုက် Chord Progressions ရွေးချယ်ပုံ</li>
+                    <li>သင်ခန်းစာ ၁၅ - သီအိုရီဗဟုသုတများကို လက်တွေ့တီးကွက်ဖန်တီးမှုတွင် အပြည့်အဝအသုံးချခြင်း</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="course-footer">
+        <div class="price">၇၀,၀၀၀ ကျပ်</div>
+        <span class="btn-locked">မကြာမှီထွက်ရှိလာပါမည်</span>
+    </div>
 </div>
 
 </div>
 </div>
 
 <footer>
-<p>&copy; 2026 YGLC. All Rights Reserved.</p>
+    <p>&copy; 2026 YGLC (Solo Genius Musical School). All Rights Reserved.</p>
 </footer>
 
-<!-- JavaScript for Dropdown Toggle Script -->
+<!-- JavaScript for Menu and Syllabus Toggles -->
 <script>
-function toggleSyllabus(button) {
-const content = button.nextElementSibling;
-const arrow = button.querySelector('span:last-child');
-content.classList.toggle('active');
-if (content.classList.contains('active')) {
-arrow.textContent = '∧';
-} else {
-arrow.textContent = '∨';
+function toggleMenu() {
+    const nav = document.getElementById('nav-menu');
+    nav.classList.toggle('active');
 }
+
+function toggleSyllabus(button) {
+    const content = button.nextElementSibling;
+    const arrow = button.querySelector('span:last-child');
+    content.classList.toggle('active');
+    if (content.classList.contains('active')) {
+        arrow.textContent = '∧';
+    } else {
+        arrow.textContent = '∨';
+    }
 }
 </script>
+
 </body>
 </html>
