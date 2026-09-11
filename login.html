@@ -2,6 +2,7 @@
 <html lang="my">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YGLC - Login</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -22,17 +23,21 @@
             display: flex; 
             justify-content: center; 
             align-items: center; 
-            height: 100vh; 
+            min-height: 100vh; 
             margin: 0; 
+            padding: 20px;
+            box-sizing: border-box;
         }
         .box { 
             background: var(--bg-card); 
             border: 1px solid var(--border-color); 
             padding: 30px; 
             border-radius: 12px; 
-            width: 360px; 
+            width: 100%;
+            max-width: 380px; 
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
             position: relative;
+            box-sizing: border-box;
         }
         .close-btn {
             position: absolute;
@@ -57,7 +62,7 @@
         h2 { 
             font-family: 'Cinzel', serif;
             color: var(--gold); 
-            font-size: 22px; 
+            font-size: 20px; 
             margin-bottom: 25px; 
             text-align: center; 
             font-weight: 700;
