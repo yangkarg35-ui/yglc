@@ -2,6 +2,7 @@
 <html lang="my">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>YGLC - သင်တန်းအပ်နှံရန်</title>
 <link href="https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -30,8 +31,8 @@ background: none;
 }
 h2 { color: #2c3e50; font-size: 18px; margin-bottom: 20px; text-align: center; font-weight: 700; }
 label { font-size: 13px; color: #555555; display: block; margin-bottom: 5px; font-weight: 700; }
-input[type="text"], input[type="file"] { width: 100%; padding: 10px; margin-bottom: 15px; background: #f9f9f9; border: 1px solid #ccc; color: #333; border-radius: 4px; font-family: 'Padauk', sans-serif; box-sizing: border-box; }
-input[type="text"]:focus, input[type="file"]:focus { border-color: #3498db; outline: none; background: #fff; }
+input[type="text"], input[type="tel"], input[type="file"] { width: 100%; padding: 10px; margin-bottom: 15px; background: #f9f9f9; border: 1px solid #ccc; color: #333; border-radius: 4px; font-family: 'Padauk', sans-serif; box-sizing: border-box; font-size: 16px; outline: none; }
+input[type="text"]:focus, input[type="tel"]:focus, input[type="file"]:focus { border-color: #3498db; background: #fff; }
 .total-box {
 background: #ebf5fb;
 border: 1px solid #aed6f1;
@@ -65,7 +66,7 @@ padding: 15px;
 border-radius: 6px;
 margin-bottom: 15px;
 opacity: 0.6;
-pointer-events: none; /* လက်ရှိ အခြားသင်တန်းများမထွက်သေးသဖြင့် Promotion ကို ခေတ္တပိတ်ထားသည် */
+pointer-events: none;
 }
 .promo-option {
 display: flex;
@@ -170,7 +171,7 @@ button[type="submit"]:disabled { background: #95a5a6; cursor: not-allowed; }
 <label>နာမည်</label>
 <input type="text" id="studentName" required placeholder="ကျောင်းသားနာမည်">
 <label>ဖုန်းနံပတ် (Login ဝင်ရန်)</label>
-<input type="text" id="studentPhone" required placeholder="09xxxxxxxxx">
+<input type="tel" id="studentPhone" required placeholder="09xxxxxxxxx">
 <div class="total-box">
 ပေးချေရမည့် ပမာဏ: <span id="totalPrice">50,000</span> ကျပ်
 </div>
@@ -201,12 +202,10 @@ button[type="submit"]:disabled { background: #95a5a6; cursor: not-allowed; }
 
 <label>ဝယ်ယူလိုသော သင်တန်းများ</label>
 <div class="courses-container" id="coursesContainer">
-<!-- သင်တန်း ၁ - ဖွင့်ထားသည် -->
 <label class="course-item">
 <input type="checkbox" name="course" value="သင်တန်း ၁ - ပလက်ကင်တီးခတ်နည်း အခြေခံ" data-price="50000" checked onclick="return false;" onchange="calculateTotal()">
 <b>သင်တန်း ၁ - ပလက်ကင်တီးခတ်နည်း အခြေခံ (50,000 ကျပ်)</b>
 </label>
-<!-- သင်တန်း ၂ မှ ၈ အထိ - Lock ချထားသည် (မကြာမီထွက်မည်) -->
 <label class="course-item locked"><input type="checkbox" disabled> သင်တန်း ၂ - ပလက်ကင်တီးခတ်နည်း အလယ်အဆင့် <span class="soon-tag">မကြာမီထွက်ရှိမည်</span></label>
 <label class="course-item locked"><input type="checkbox" disabled> သင်တန်း ၃ - Rhythm တီးခတ်နည်း အခြေခံ <span class="soon-tag">မကြာမီထွက်ရှိမည်</span></label>
 <label class="course-item locked"><input type="checkbox" disabled> သင်တန်း ၄ - Rhythm တီးခတ်နည်း အလယ်အဆင့် <span class="soon-tag">မကြာမီထွက်ရှိမည်</span></label>
@@ -230,109 +229,118 @@ button[type="submit"]:disabled { background: #95a5a6; cursor: not-allowed; }
 const TELEGRAM_BOT_TOKEN = "8745766599:AAHFC38Zza-YC56neTJj--9wByQieCd4QFk";
 const TELEGRAM_CHAT_ID = "6868820956";
 
+// ဖုန်းနံပါတ် ပုံစံတူညီစေရန် ညှိပေးသည့် Function
+function normalizePhone(phone) {
+    if (!phone) return "";
+    let cleaned = phone.toString().replace(/\s+/g, '').replace(/[-+]/g, '');
+    if (cleaned.startsWith('959')) {
+        cleaned = '0' + cleaned.substring(2);
+    }
+    return cleaned;
+}
+
 function calculateTotal() {
-// လက်ရှိအနေအထားအရ သင်တန်း ၁ တစ်ခုတည်းသာ 50,000 ကျပ် ဖြစ်သည်
-const totalPriceEl = document.getElementById('totalPrice');
-if(totalPriceEl) totalPriceEl.innerText = "50,000";
+    const totalPriceEl = document.getElementById('totalPrice');
+    if(totalPriceEl) totalPriceEl.innerText = "50,000";
 }
 
 function submitRegistration(e) {
-e.preventDefault();
-const nameEl = document.getElementById('studentName');
-const phoneEl = document.getElementById('studentPhone');
-const fileInput = document.getElementById('paymentScreenshot');
-const submitBtn = document.getElementById('submitBtn');
-const name = nameEl ? nameEl.value.trim() : '';
-const phone = phoneEl ? phoneEl.value.trim() : '';
-if (!fileInput || fileInput.files.length === 0) {
-alert('ကျေးဇူးပြု၍ ငွေလွှဲ Screenshot ပုံကို ရွေးချယ်တင်ပြပါ။');
-return;
-}
+    e.preventDefault();
+    const nameEl = document.getElementById('studentName');
+    const phoneEl = document.getElementById('studentPhone');
+    const fileInput = document.getElementById('paymentScreenshot');
+    const submitBtn = document.getElementById('submitBtn');
+    
+    const name = nameEl ? nameEl.value.trim() : '';
+    const rawPhone = phoneEl ? phoneEl.value : '';
+    const phone = normalizePhone(rawPhone);
 
-let selectedCourses = ["သင်တန်း ၁ - ပလက်ကင်တီးခတ်နည်း အခြေခံ"];
-let totalAmount = 50000;
+    if (!fileInput || fileInput.files.length === 0) {
+        alert('ကျေးဇူးပြု၍ ငွေလွှဲ Screenshot ပုံကို ရွေးချယ်တင်ပြပါ။');
+        return;
+    }
 
-if(submitBtn) {
-submitBtn.disabled = true;
-submitBtn.innerText = "ပေးပို့နေပါသည်...";
-}
+    let selectedCourses = ["သင်တန်း ၁ - ပလက်ကင်တီးခတ်နည်း အခြေခံ"];
+    let totalAmount = 50000;
 
-const file = fileInput.files[0];
-const fileName = file.name;
+    if(submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerText = "ပေးပို့နေပါသည်...";
+    }
 
-try {
-let pendingRequests = [];
-let existingData = localStorage.getItem('pendingRequests');
-if (existingData) {
-try {
-pendingRequests = JSON.parse(existingData);
-if (!Array.isArray(pendingRequests)) pendingRequests = [];
-} catch(err) {
-pendingRequests = [];
-}
-}
+    const file = fileInput.files[0];
+    const fileName = file.name;
 
-let studentData = {
-name,
-phone,
-courses: selectedCourses,
-total: totalAmount,
-screenshotName: fileName,
-date: new Date().toLocaleString()
-};
+    try {
+        let studentData = {
+            name,
+            phone,
+            courses: selectedCourses,
+            total: totalAmount,
+            screenshotName: fileName,
+            date: new Date().toLocaleString()
+        };
 
-pendingRequests.push(studentData);
-localStorage.setItem('pendingRequests', JSON.stringify(pendingRequests));
-localStorage.setItem('pendingStudents', JSON.stringify(pendingRequests));
-} catch (storageErr) {
-console.error('Storage Error:', storageErr);
-}
+        // Admin ဘက်မှ မည်သည့် Key (pendingRequests သို့မဟုတ် pendingStudents) ဖြင့် ဖတ်သည်ဖြစ်စေ အဆင်ပြေစေရန် နှစ်ခုစလုံးထဲသို့ အတူတူ ထည့်သွင်းသိမ်းဆည်းပေးသည်
+        let pendingRequests = JSON.parse(localStorage.getItem('pendingRequests')) || [];
+        if (!Array.isArray(pendingRequests)) pendingRequests = [];
+        pendingRequests.push(studentData);
+        localStorage.setItem('pendingRequests', JSON.stringify(pendingRequests));
 
-const caption = `🎯 အသစ်ဝင်ရောက်လာသော သင်တန်းအပ်နှံမှု\n\n👤 နာမည်: ${name}\n📞 ဖုန်း: ${phone}\n📚 ရွေးချယ်မှု: ${selectedCourses.join(', ')}\n💰 စုစုပေါင်း: ${totalAmount.toLocaleString()} ကျပ်`;
-const formData = new FormData();
-formData.append('chat_id', TELEGRAM_CHAT_ID);
-formData.append('photo', file);
-formData.append('caption', caption);
+        let pendingStudents = JSON.parse(localStorage.getItem('pendingStudents')) || [];
+        if (!Array.isArray(pendingStudents)) pendingStudents = [];
+        pendingStudents.push(studentData);
+        localStorage.setItem('pendingStudents', JSON.stringify(pendingStudents));
 
-fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto`, {
-method: 'POST',
-body: formData
-})
-.then(response => response.json())
-.then(data => {
-finalizeSuccess();
-})
-.catch(error => {
-console.error('Telegram Error:', error);
-finalizeSuccess();
-});
+    } catch (storageErr) {
+        console.error('Storage Error:', storageErr);
+    }
+
+    const caption = `🎯 အသစ်ဝင်ရောက်လာသော သင်တန်းအပ်နှံမှု\n\n👤 နာမည်: ${name}\n📞 ဖုန်း: ${phone}\n📚 ရွေးချယ်မှု: ${selectedCourses.join(', ')}\n💰 စုစုပေါင်း: ${totalAmount.toLocaleString()} ကျပ်`;
+    const formData = new FormData();
+    formData.append('chat_id', TELEGRAM_CHAT_ID);
+    formData.append('photo', file);
+    formData.append('caption', caption);
+
+    fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto`, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        finalizeSuccess();
+    })
+    .catch(error => {
+        console.error('Telegram Error:', error);
+        finalizeSuccess();
+    });
 }
 
 function finalizeSuccess() {
-const successMsg = document.getElementById('successMsg');
-if(successMsg) {
-successMsg.innerHTML = '✔ သင်တန်းအပ်နှံမှု အောင်မြင်ပါသည်။<br>သင်တန်းအပ်ပြီး 24 နာရီ ကျော်ရင် သင်တန်းစတက်လို့ရသွားပါပြီနော်။';
-successMsg.style.display = 'block';
-}
-const regForm = document.getElementById('regForm');
-if(regForm) regForm.reset();
-// သင်တန်း ၁ ကို Default အနေဖြင့် ပြန်အမှန်ခြစ်ပေးရန်
-const course1 = document.querySelector('input[name="course"]');
-if(course1) course1.checked = true;
+    const successMsg = document.getElementById('successMsg');
+    if(successMsg) {
+        successMsg.innerHTML = '✔ သင်တန်းအပ်နှံမှု အောင်မြင်ပါသည်။<br>သင်တန်းအပ်ပြီး 24 နာရီ ကျော်ရင် သင်တန်းစတက်လို့ရသွားပါပြီနော်။';
+        successMsg.style.display = 'block';
+    }
+    const regForm = document.getElementById('regForm');
+    if(regForm) regForm.reset();
+    
+    const course1 = document.querySelector('input[name="course"]');
+    if(course1) course1.checked = true;
 
-resetSubmitButton();
+    resetSubmitButton();
 }
 
 function resetSubmitButton() {
-const submitBtn = document.getElementById('submitBtn');
-if(submitBtn) {
-submitBtn.disabled = false;
-submitBtn.innerText = "ငွေလွှဲအတည်ပြုချက် တင်မည်";
-}
+    const submitBtn = document.getElementById('submitBtn');
+    if(submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerText = "ငွေလွှဲအတည်ပြုချက် တင်မည်";
+    }
 }
 
 function goBack() {
-window.history.back();
+    window.history.back();
 }
 </script>
 </body>
