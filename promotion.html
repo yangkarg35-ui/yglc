@@ -1,158 +1,227 @@
 <!DOCTYPE html>
-<html lang="my">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>YGLC - အထူး Promotion အစီအစဉ်များ</title>
-<link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap" rel="stylesheet">
+<title>YGLC - Exclusive Special Promotions</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+:root {
+  --bg-deep: #0A0506;
+  --bg-card: #0A120E;
+  --bg-card-hover: #101815;
+  --gold: #D4AF37;
+  --gold-light: #F3E5AB;
+  --text-main: #E5E7EB;
+  --text-muted: #9CA3AF;
+  --border-color: rgba(212, 175, 55, 0.2);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
-font-family: 'Padauk', sans-serif;
-background-color: #fcfbfa;
-color: #333;
-margin: 0;
-padding: 0;
+  background-color: var(--bg-deep);
+  color: var(--text-main);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  line-height: 1.6;
 }
+
 .promo-header {
-background: #111;
-color: #fff;
-padding: 20px 40px;
-display: flex;
-justify-content: space-between;
-align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  background: rgba(5, 10, 8, 0.95);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(10px);
 }
+
 .promo-header .logo {
-font-size: 24px;
-font-weight: bold;
-color: #d97706;
+  font-family: 'Cinzel', serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 2px;
 }
+
 .back-home {
-background: #8c5830;
-color: #fff;
-padding: 8px 16px;
-border-radius: 4px;
-text-decoration: none;
-font-weight: bold;
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s;
 }
+
+.back-home:hover {
+  background: var(--gold);
+  color: var(--bg-deep);
+}
+
 .promo-container {
-max-width: 900px;
-margin: 40px auto;
-padding: 0 20px;
+  max-width: 900px;
+  margin: 60px auto;
+  padding: 0 20px;
 }
+
 .promo-card-main {
-background: linear-gradient(135deg, #fffdfa 0%, #f4eee6 100%), #fff7ed;
-border: 3px solid #d97706;
-border-radius: 16px;
-padding: 50px 30px;
-text-align: center;
-box-shadow: 0 15px 35px rgba(217, 119, 6, 0.2);
-margin-bottom: 30px;
-position: relative;
-overflow: hidden;
+  background: var(--bg-card);
+  border: 2px solid var(--gold);
+  border-radius: 16px;
+  padding: 50px 30px;
+  text-align: center;
+  box-shadow: 0 15px 35px rgba(212, 175, 55, 0.1);
+  margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
 }
+
 .badge-top {
-position: absolute;
-top: -15px;
-right: -15px;
-background: #dc2626;
-color: #fff;
-font-size: 14px;
-font-weight: bold;
-padding: 25px 40px 10px 40px;
-transform: rotate(25deg);
-box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  background: #991b1b;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 25px 40px 10px 40px;
+  transform: rotate(25deg);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  letter-spacing: 1px;
 }
+
 .package-box {
-background: #ffffff;
-border: 2px solid #fde68a;
-display: inline-block;
-padding: 20px 40px;
-border-radius: 12px;
-margin: 20px 0;
-box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  background: var(--bg-deep);
+  border: 1px solid var(--border-color);
+  display: inline-block;
+  padding: 20px 40px;
+  border-radius: 12px;
+  margin: 20px 0;
 }
-/* Locked Button Style */
+
 .btn-locked {
-background: #9ca3af !important;
-color: #ffffff !important;
-cursor: not-allowed !important;
-pointer-events: none;
-display: inline-block;
-text-align: center;
-text-decoration: none;
-font-weight: bold;
-box-shadow: none !important;
+  background: #1F2937 !important;
+  color: var(--text-muted) !important;
+  cursor: not-allowed !important;
+  pointer-events: none;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 6px;
+  padding: 15px 40px;
+  font-size: 16px;
+}
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 50px;
+  background: var(--bg-deep);
+  border-top: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-socials a {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.footer-socials a:hover {
+  color: var(--gold);
 }
 </style>
 </head>
 <body>
 
 <header class="promo-header">
-<div class="logo">YGLC - PROMO</div>
-<a href="index.html" class="back-home">🏠 ပင်မစာမျက်နှာသို့ ပြန်ရန်</a>
+    <div class="logo">YGLC - PROMO</div>
+    <a href="index.html" class="back-home">🏠 Back to Home</a>
 </header>
 
 <div class="promo-container">
-<div style="text-align: center; margin-bottom: 40px;">
-<h1 style="font-size: 38px; color: #8c5830; margin-bottom: 10px;">🎁 YGLC ၏ Oct အထူး Promotion အစီအစဉ်များ</h1>
-<p style="font-size: 18px; color: #666;">ဂစ်တာပညာကို တန်ဖိုးအထူးသက်သာစွာဖြင့် အပြည့်အဝ လေ့လာနိုင်မည့် အခွင့်အရေးကြီးများ</p>
+    <div style="text-align: center; margin-bottom: 50px;">
+        <p style="color: var(--gold); font-size: 13px; text-transform: uppercase; letter-spacing: 5px; margin-bottom: 10px;">OCTOBER SPECIALS</p>
+        <h1 style="font-family: 'Cinzel', serif; font-size: 40px; color: #FFFFFF; margin-bottom: 15px;">Exclusive Promotional Packages</h1>
+        <p style="font-size: 16px; color: var(--text-muted);">Master your guitar craft with elite precision at unmatched value.</p>
+    </div>
+
+    <!-- Promotion 1: Bundle Customizer -->
+    <div class="promo-card-main">
+        <div class="badge-top">BEST SELLER</div>
+        <div style="font-size: 60px; margin-bottom: 15px;">🛒🧺</div>
+        <h2 style="font-family: 'Cinzel', serif; font-size: 30px; color: #FFFFFF; margin-bottom: 15px;">
+            Pick Any 4 Custom Courses
+        </h2>
+        <p style="font-size: 16px; color: var(--text-muted); margin-bottom: 25px;">
+            Select any 4 targeted courses of your choice and build your custom technical pathway.
+        </p>
+        
+        <div class="package-box">
+            <span style="font-size: 14px; color: var(--text-muted); display: block; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px;">Special Bundle Investment</span>
+            <span style="font-size: 36px; font-weight: bold; color: var(--gold);">285,000 MMK</span>
+        </div>
+
+        <p style="font-size: 14px; color: var(--text-muted); max-width: 650px; margin: 20px auto 30px auto; line-height: 1.6;">
+            * Freely combine foundational or intermediate modules to construct your definitive training framework.
+        </p>
+
+        <div>
+            <span class="btn-locked">
+                Coming Soon
+            </span>
+        </div>
+    </div>
+
+    <!-- Promotion 2: All-in-One Package -->
+    <div class="promo-card-main" style="border-color: rgba(212, 175, 55, 0.4);">
+        <div style="font-size: 60px; margin-bottom: 15px;">🌟</div>
+        <h2 style="font-family: 'Cinzel', serif; font-size: 30px; color: #FFFFFF; margin-bottom: 15px;">
+            All-in-One Master Package
+        </h2>
+        <p style="font-size: 16px; color: var(--text-muted); margin-bottom: 20px;">
+            Complete access to the entire curriculum suite for absolute structural mastery.
+        </p>
+        
+        <div class="package-box">
+            <span style="font-size: 14px; color: var(--text-muted); display: block; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px;">Special Bundle Investment</span>
+            <span style="font-size: 32px; font-weight: bold; color: var(--gold);">450,000 MMK</span>
+            <span style="text-decoration: line-through; font-size: 18px; color: var(--text-muted); margin-left: 10px;">630,000 MMK</span>
+        </div>
+
+        <div style="margin-top: 20px;">
+            <span class="btn-locked">
+                Coming Soon
+            </span>
+        </div>
+    </div>
+
 </div>
 
-<!-- Promotion 1: ခြင်းတောင်း ပရိုမိုးရှင်း -->
-<div class="promo-card-main">
-<div class="badge-top">🔥 အရောင်းရဆုံး</div>
-<div style="font-size: 72px; margin-bottom: 15px;">🛒🧺</div>
-<h2 style="font-size: 36px; color: #b45309; margin-bottom: 15px; font-weight: 750;">
-မိမိနှစ်သက်ရာ Course 4 ခုယူ
-</h2>
-<p style="font-size: 20px; color: #374151; margin-bottom: 25px; font-weight: bold;">
-ကိုယ်ကြိုက်တဲ့ သင်တန်း ၄ ခုကို ရွေးချယ်ပြီး ခြင်းတောင်းထဲထည့်လိုက်ရုံပါပဲ!
-</p>
-<div class="package-box">
-<span style="font-size: 16px; color: #6b7280; display: block; margin-bottom: 5px;">အထူးပရိုမိုးရှင်း စုစုပေါင်းတန်ဖိုး</span>
-<span style="font-size: 42px; font-weight: bold; color: #16a34a;">၂၈၅,၀၀၀ ကျပ် သီးသန့်</span>
-</div>
-
-<p style="font-size: 15px; color: #555; max-width: 650px; margin: 20px auto 30px auto; line-height: 1.6;">
-* သင်နှစ်သက်ရာ အခြေခံ သို့မဟုတ် အလယ်အဆင့် Course ၄ ခုကို လွတ်လပ်စွာ ရွေးချယ်နိုင်ပြီး ပညာရေးအတွက် အကောင်းဆုံးရင်းနှီးမြှုပ်နှံမှု ပြုလုပ်နိုင်ပါပြီ။
-</p>
-
-<div>
-<!-- Locked Button -->
-<span class="btn-locked" style="background-color: #9ca3af; padding: 18px 45px; font-size: 20px; border-radius: 8px;">
-မကြာမှီထွက်ရှိလာပါမည်
-</span>
-</div>
-</div>
-
-<!-- Promotion 2: All-in-One Package -->
-<div class="promo-card-main" style="background: #fdfbf7; border-color: #8c5830;">
-<div style="font-size: 64px; margin-bottom: 15px;">🌟</div>
-<h2 style="font-size: 32px; color: #8c5830; margin-bottom: 15px; font-weight: 700;">
-All-in-One Special Package
-</h2>
-<p style="font-size: 18px; color: #555; margin-bottom: 20px;">
-သင်တန်းများအားလုံးကို တစ်ပါတည်း စုစည်းပြီး အစအဆုံး လေ့လာနိုင်မည့် အကြီးစား ပက်ကေ့ခ်ျ။
-</p>
-<div class="package-box">
-<span style="font-size: 16px; color: #6b7280; display: block; margin-bottom: 5px;">အထူးပရိုမိုးရှင်း စုစုပေါင်းတန်ဖိုး</span>
-<span style="font-size: 36px; font-weight: bold; color: #2e7d32;">၄၅၀,၀၀၀ ကျပ်</span>
-<span style="text-decoration: line-through; font-size: 20px; color: #888; margin-left: 10px;">၆၃၀,၀၀၀ ကျပ်</span>
-</div>
-
-<div style="margin-top: 20px;">
-<!-- Locked Button -->
-<span class="btn-locked" style="background-color: #9ca3af; padding: 15px 35px; font-size: 18px; border-radius: 8px;">
-မကြာမှီထွက်ရှိလာပါမည်
-</span>
-</div>
-</div>
-
-</div>
-
-<footer style="text-align: center; padding: 30px; color: #771; font-size: 14px; margin-top: 50px; border-top: 1px solid #ddd;">
-<p>&copy; 2026 YGLC. All Rights Reserved.</p>
+<footer>
+    <p>&copy; 2026 YGLC. All Rights Reserved.</p>
+    <div class="footer-socials">
+        <a href="#">YouTube</a>
+        <a href="#">Facebook</a>
+        <a href="#">TikTok</a>
+        <a href="#">Telegram</a>
+    </div>
 </footer>
 
 </body>

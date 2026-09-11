@@ -34,10 +34,9 @@ header {
     padding: 20px 50px;
     background: rgba(5, 10, 8, 0.95);
     border-bottom: 1px solid var(--border-color);
-    position: sticky;
-    top: 0;
+    /* Mobile မှာပါ page နဲ့တစ်ဆက်တည်း ပါသွားအောင် sticky/fixed အစား ပုံမှန်အတိုင်းထားလိုက်ပါပြီ */
+    position: relative;
     z-index: 100;
-    backdrop-filter: blur(10px);
 }
 .logo {
     font-family: 'Cinzel', serif;
@@ -447,10 +446,10 @@ footer {
         padding: 20px 0;
         border-bottom: 1px solid var(--border-color);
         gap: 15px;
+        text-align: center;
     }
     nav.active { display: flex; }
-    .nav-actions { display: none; } /* Can be embedded inside mobile nav if needed */
-    .cta-box { flex-direction: column; gap: 20px; text-align: center; }
+    .nav-actions { display: none; } /* Mobile menu အတွင်းမှာ login/register ထည့်ပေးထားပါတယ် */
 }
 </style>
 </head>
@@ -462,8 +461,8 @@ footer {
 <a href="#courses">Home</a>
 <a href="#courses">Courses</a>
 <a href="promotion.html">Promo</a>
-<a href="register.html">Register / Enroll</a>
-<a href="login.html">Login</a>
+<a href="login.html" style="color: var(--gold);">Login</a>
+<a href="register.html" style="color: var(--gold);">Register / Enroll</a>
 </nav>
 <div class="nav-actions">
 <a href="login.html" class="btn-login-nav">Login</a>
@@ -607,7 +606,7 @@ footer {
 </div>
 <div class="course-footer">
 <div class="price">70,000 MMK</div>
-<a href="register.html" class="btn-locked" style="text-decoration:none; background: var(--gold); color: var(--bg-deep); font-weight:bold;">Enroll / Register</a>
+<a href="register.html" class="btn-locked" style="text-decoration:none; background: var(--gold); color: var(--bg-deep); font-weight:bold; text-align:center;">Enroll / Register</a>
 </div>
 </div>
 
@@ -657,7 +656,7 @@ footer {
 </div>
 <div class="course-footer">
 <div class="price">50,000 MMK</div>
-<a href="register.html" class="btn-locked" style="text-decoration:none; background: var(--gold); color: var(--bg-deep); font-weight:bold;">Enroll / Register</a>
+<a href="register.html" class="btn-locked" style="text-decoration:none; background: var(--gold); color: var(--bg-deep); font-weight:bold; text-align:center;">Enroll / Register</a>
 </div>
 </div>
 
@@ -707,7 +706,7 @@ footer {
 </div>
 <div class="course-footer">
 <div class="price">120,000 MMK</div>
-<a href="register.html" class="btn-locked" style="text-decoration:none; background: var(--gold); color: var(--bg-deep); font-weight:bold;">Enroll / Register</a>
+<a href="register.html" class="btn-locked" style="text-decoration:none; background: var(--gold); color: var(--bg-deep); font-weight:bold; text-align:center;">Enroll / Register</a>
 </div>
 </div>
 
@@ -757,7 +756,7 @@ footer {
 </div>
 <div class="course-footer">
 <div class="price">120,000 MMK</div>
-<a href="register.html" class="btn-locked" style="text-decoration:none; background: var(--gold); color: var(--bg-deep); font-weight:bold;">Enroll / Register</a>
+<a href="register.html" class="btn-locked" style="text-decoration:none; background: var(--gold); color: var(--bg-deep); font-weight:bold; text-align:center;">Enroll / Register</a>
 </div>
 </div>
 
@@ -807,7 +806,7 @@ footer {
 </div>
 <div class="course-footer">
 <div class="price">120,000 MMK</div>
-<a href="register.html" class="btn-locked" style="text-decoration:none; background: var(--gold); color: var(--bg-deep); font-weight:bold;">Enroll / Register</a>
+<a href="register.html" class="btn-locked" style="text-decoration:none; background: var(--gold); color: var(--bg-deep); font-weight:bold; text-align:center;">Enroll / Register</a>
 </div>
 </div>
 
@@ -857,7 +856,7 @@ footer {
 </div>
 <div class="course-footer">
 <div class="price">100,000 MMK</div>
-<a href="register.html" class="btn-locked" style="text-decoration:none; background: var(--gold); color: var(--bg-deep); font-weight:bold;">Enroll / Register</a>
+<a href="register.html" class="btn-locked" style="text-decoration:none; background: var(--gold); color: var(--bg-deep); font-weight:bold; text-align:center;">Enroll / Register</a>
 </div>
 </div>
 
@@ -907,7 +906,7 @@ footer {
 </div>
 <div class="course-footer">
 <div class="price">120,000 MMK</div>
-<a href="register.html" class="btn-locked" style="text-decoration:none; background: var(--gold); color: var(--bg-deep); font-weight:bold;">Enroll / Register</a>
+<a href="register.html" class="btn-locked" style="text-decoration:none; background: var(--gold); color: var(--bg-deep); font-weight:bold; text-align:center;">Enroll / Register</a>
 </div>
 </div>
 

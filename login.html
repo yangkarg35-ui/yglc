@@ -3,12 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>YGLC - Login</title>
-    <link href="https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-deep: #0A0506;
+            --bg-card: #0A120E;
+            --bg-card-hover: #101815;
+            --gold: #D4AF37;
+            --gold-light: #F3E5AB;
+            --text-main: #E5E7EB;
+            --text-muted: #9CA3AF;
+            --border-color: rgba(212, 175, 55, 0.2);
+        }
         body { 
-            background: #f8f9fa; 
-            color: #2d3748; 
-            font-family: 'Padauk', sans-serif; 
+            background-color: var(--bg-deep); 
+            color: var(--text-main); 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
@@ -16,12 +26,12 @@
             margin: 0; 
         }
         .box { 
-            background: #ffffff; 
-            border: 1px solid #e2e8f0; 
+            background: var(--bg-card); 
+            border: 1px solid var(--border-color); 
             padding: 30px; 
             border-radius: 12px; 
-            width: 320px; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            width: 360px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
             position: relative;
         }
         .close-btn {
@@ -30,8 +40,8 @@
             right: 15px;
             background: none;
             border: none;
-            font-size: 20px;
-            color: #a0aec0;
+            font-size: 22px;
+            color: var(--text-muted);
             cursor: pointer;
             font-weight: bold;
             line-height: 1;
@@ -41,80 +51,92 @@
             transition: color 0.2s;
         }
         .close-btn:hover {
-            color: #e53e3e;
+            color: var(--gold);
             background: none;
         }
         h2 { 
-            color: #8B5A2B; 
-            font-size: 20px; 
-            margin-bottom: 20px; 
+            font-family: 'Cinzel', serif;
+            color: var(--gold); 
+            font-size: 22px; 
+            margin-bottom: 25px; 
             text-align: center; 
             font-weight: 700;
+            letter-spacing: 1px;
         }
         label { 
             font-size: 14px; 
-            color: #718096; 
+            color: var(--text-muted); 
             display: block; 
             margin-bottom: 8px; 
-            font-weight: 700;
+            font-weight: 600;
         }
         input { 
             width: 100%; 
             padding: 12px; 
-            margin-bottom: 15px; 
-            background: #f7fafc; 
-            border: 1px solid #e2e8f0; 
-            color: #2d3748; 
+            margin-bottom: 20px; 
+            background: var(--bg-deep); 
+            border: 1px solid var(--border-color); 
+            color: var(--text-main); 
             border-radius: 8px; 
-            font-family: 'Padauk', sans-serif; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
             box-sizing: border-box; 
             font-size: 16px;
             outline: none;
+            transition: border-color 0.3s;
+        }
+        input:focus {
+            border-color: var(--gold);
         }
         button { 
             width: 100%; 
             padding: 12px; 
-            background: #8B5A2B; 
-            color: #ffffff; 
+            background: var(--gold); 
+            color: var(--bg-deep); 
             border: none; 
             font-weight: 700; 
             border-radius: 8px; 
             cursor: pointer; 
-            font-family: 'Padauk', sans-serif; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
             margin-bottom: 12px; 
             font-size: 16px;
-            transition: background 0.2s;
+            transition: all 0.3s;
         }
         button:hover { 
-            background: #6b4420; 
+            background: var(--gold-light); 
         }
         button:disabled {
-            background: #cbd5e0;
+            background: #374151;
+            color: var(--text-muted);
             cursor: not-allowed;
         }
         .register-link-btn { 
             width: 100%; 
             padding: 12px; 
             background: transparent; 
-            border: 1px solid #8B5A2B; 
-            color: #8B5A2B; 
+            border: 1px solid var(--border-color); 
+            color: var(--gold); 
             font-weight: 700; 
             border-radius: 8px; 
             cursor: pointer; 
-            font-family: 'Padauk', sans-serif; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
             text-align: center; 
             display: block; 
             box-sizing: border-box; 
             text-decoration: none; 
             font-size: 15px;
+            transition: all 0.3s;
+        }
+        .register-link-btn:hover {
+            border-color: var(--gold);
+            background: rgba(212, 175, 55, 0.05);
         }
         .error { 
-            color: #e53e3e; 
+            color: #f87171; 
             font-size: 13px; 
             text-align: center; 
-            margin-top: 10px; 
+            margin-bottom: 15px; 
             display: none; 
-            font-weight: 700;
+            font-weight: 600;
         }
     </style>
 </head>
@@ -125,17 +147,15 @@
         <form onsubmit="handleLogin(event)">
             <label>ဖုန်းနံပါတ်ဖြင့် ဝင်ရန်</label>
             <input type="text" id="loginPhone" required placeholder="09xxxxxxxxx">
-            <button type="submit" id="loginBtn">လော့ဂ်အင်ဝင်မည်</button>
             <div id="errorMsg" class="error">ဤဖုန်းနံပါတ်ဖြင့် ငွေပေးချေအတည်ပြုချက် မရှိသေးပါ။</div>
+            <button type="submit" id="loginBtn">လော့ဂ်အင်ဝင်မည်</button>
         </form>
         <a href="register.html" class="register-link-btn">သင်တန်းအသစ် အပ်နှံရန် (Register)</a>
     </div>
 
     <script>
-        // Google Apps Script Web App URL
         const GOOGLE_SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbxuwcRgubS8XQLXC3yIu4D0j5IzWm1Mr6vyXX8pKJDgr9yPAS1JONQa6703BMk7giVIYw/exec';
 
-        // ဖုန်းနံပါတ် စံသတ်မှတ်ချက် ညှိပေးသည့် Function
         function normalizePhone(phone) {
             if (!phone) return "";
             let cleaned = phone.toString().replace(/\s+/g, '').replace(/[-+]/g, '');
@@ -163,21 +183,18 @@
             loginBtn.innerText = 'စစ်ဆေးနေပါသည်...';
 
             try {
-                // Google Sheet မှ ကျောင်းသားစာရင်းများကို ဆွဲထုတ်ခြင်း
                 const response = await fetch(GOOGLE_SHEET_API_URL);
                 const data = await response.json();
 
                 let foundCourses = null;
 
                 if (data && data.status === "success" && data.students) {
-                    // ထည့်သွင်းထားသော ဖုန်းနံပါတ်နှင့် ကိုက်ညီသော ကျောင်းသားကို ရှာမည်
                     const matchedStudent = data.students.find(item => normalizePhone(item.phone) === inputPhone);
                     
                     if (matchedStudent) {
-                        let rawCourses = matchedStudent.courses; // ဥပမာ: "သင်တန်း ၁, သင်တန်း ၂"
+                        let rawCourses = matchedStudent.courses;
                         let courseNumbers = [];
                         
-                        // မြန်မာသင်တန်း စာသားများမှ နံပါတ်များကို ထုတ်ယူခြင်း
                         const myanmarNumbers = {'၀': '0', '၁': '1', '၂': '2', '၃': '3', '၄': '4', '၅': '5', '၆': '6', '၇': '7', '၈': '8', '၉': '9'};
                         let courseNameStr = String(rawCourses);
                         let convertedStr = courseNameStr.replace(/[၀-၉]/g, match => myanmarNumbers[match]);
@@ -195,12 +212,10 @@
                     }
                 }
 
-                // အကယ်၍ Admin ဖုန်းနံပါတ်ဖြစ်ပါက သင်တန်းအားလုံး (၁ မှ ၈ ထိ) ဖွင့်ပေးမည်
                 if (inputPhone === "09971097886") {
                     foundCourses = [1, 2, 3, 4, 5, 6, 7, 8];
                 }
 
-                // အောင်မြင်စွာ တွေ့ရှိပါက Dashboard သို့ ပို့ပေးမည်
                 if (foundCourses) {
                     localStorage.setItem("isLoggedIn", "true");
                     localStorage.setItem("userPhone", inputPhone);

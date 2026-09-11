@@ -4,164 +4,227 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>YGLC - သင်တန်းအပ်နှံရန်</title>
-<link href="https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <!-- Supabase CDN ထည့်သွင်းခြင်း -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-body { background: #f4f7f6; color: #333333; font-family: 'Padauk', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px 0; overflow-x: hidden; }
-.box { background: #ffffff; border: 1px solid #e0e0e0; padding: 30px; border-radius: 12px; width: 480px; box-sizing: border-box; box-shadow: 0 4px 15px rgba(0,0,0,0.08); position: relative; }
+:root {
+    --bg-deep: #0A0506;
+    --bg-card: #0A120E;
+    --bg-card-hover: #101815;
+    --gold: #D4AF37;
+    --gold-light: #F3E5AB;
+    --text-main: #E5E7EB;
+    --text-muted: #9CA3AF;
+    --border-color: rgba(212, 175, 55, 0.2);
+}
+body { 
+    background-color: var(--bg-deep); 
+    color: var(--text-main); 
+    font-family: 'Plus Jakarta Sans', sans-serif; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    min-height: 100vh; 
+    margin: 0; 
+    padding: 20px 0; 
+    overflow-x: hidden; 
+}
+.box { 
+    background: var(--bg-card); 
+    border: 1px solid var(--border-color); 
+    padding: 30px; 
+    border-radius: 12px; 
+    width: 480px; 
+    box-sizing: border-box; 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5); 
+    position: relative; 
+}
 .close-btn {
-position: absolute;
-top: 15px;
-right: 15px;
-background: none;
-border: none;
-font-size: 20px;
-color: #a0aec0;
-cursor: pointer;
-font-weight: bold;
-line-height: 1;
-padding: 0;
-width: auto;
-margin: 0;
-transition: color 0.2s;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 22px;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-weight: bold;
+    line-height: 1;
+    padding: 0;
+    width: auto;
+    margin: 0;
+    transition: color 0.2s;
 }
 .close-btn:hover {
-color: #e53e3e;
-background: none;
+    color: var(--gold);
+    background: none;
 }
-h2 { color: #2c3e50; font-size: 18px; margin-bottom: 20px; text-align: center; font-weight: 700; }
-label { font-size: 13px; color: #555555; display: block; margin-bottom: 5px; font-weight: 700; }
-input[type="text"], input[type="tel"], input[type="file"] { width: 100%; padding: 10px; margin-bottom: 15px; background: #f9f9f9; border: 1px solid #ccc; color: #333; border-radius: 4px; font-family: 'Padauk', sans-serif; box-sizing: border-box; font-size: 16px; outline: none; }
-input[type="text"]:focus, input[type="tel"]:focus, input[type="file"]:focus { border-color: #3498db; background: #fff; }
+h2 { 
+    font-family: 'Cinzel', serif;
+    color: var(--gold); 
+    font-size: 20px; 
+    margin-bottom: 25px; 
+    text-align: center; 
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+label { 
+    font-size: 13px; 
+    color: var(--text-muted); 
+    display: block; 
+    margin-bottom: 6px; 
+    font-weight: 600; 
+}
+input[type="text"], input[type="tel"], input[type="file"] { 
+    width: 100%; 
+    padding: 11px; 
+    margin-bottom: 15px; 
+    background: var(--bg-deep); 
+    border: 1px solid var(--border-color); 
+    color: var(--text-main); 
+    border-radius: 8px; 
+    font-family: 'Plus Jakarta Sans', sans-serif; 
+    box-sizing: border-box; 
+    font-size: 15px; 
+    outline: none; 
+    transition: border-color 0.3s;
+}
+input[type="text"]:focus, input[type="tel"]:focus, input[type="file"]:focus { 
+    border-color: var(--gold); 
+}
+input[type="file"] {
+    padding: 8px;
+    color: var(--text-muted);
+}
 .total-box {
-background: #ebf5fb;
-border: 1px solid #aed6f1;
-padding: 12px;
-border-radius: 6px;
-margin-bottom: 15px;
-text-align: center;
-font-size: 15px;
-color: #2980b9;
-font-weight: 700;
+    background: rgba(212, 175, 55, 0.05);
+    border: 1px solid var(--border-color);
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 15px;
+    color: var(--gold);
+    font-weight: 700;
 }
 
 .kpay-box {
-background: #fdfefe;
-border: 1px dashed #3498db;
-padding: 12px;
-border-radius: 6px;
-margin-bottom: 15px;
-font-size: 13px;
-color: #2c3e50;
-line-height: 1.5;
+    background: var(--bg-deep);
+    border: 1px dashed var(--border-color);
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
 }
 .kpay-box b {
-color: #2980b9;
+    color: var(--gold);
 }
 
 .promo-section {
-background: #fffdfa;
-border: 2px dashed #d97706;
-padding: 15px;
-border-radius: 6px;
-margin-bottom: 15px;
-opacity: 0.6;
-pointer-events: none;
+    background: var(--bg-deep);
+    border: 2px dashed rgba(212, 175, 55, 0.3);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    opacity: 0.5;
+    pointer-events: none;
 }
 .promo-option {
-display: flex;
-align-items: center;
-margin-bottom: 10px;
-font-size: 13px;
-color: #b45309;
-font-weight: 700;
-cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 600;
+    cursor: pointer;
 }
 .promo-option:last-child {
-margin-bottom: 0;
+    margin-bottom: 0;
 }
 .promo-option input {
-margin-right: 8px;
-cursor: pointer;
+    margin-right: 8px;
+    cursor: pointer;
 }
 
 .promo-notice {
-background: #fffbeb;
-border-left: 4px solid #d97706;
-padding: 12px;
-font-size: 13px;
-color: #92400e;
-border-radius: 4px;
-margin-bottom: 15px;
-display: none;
-line-height: 1.6;
-font-weight: 700;
+    background: rgba(212, 175, 55, 0.1);
+    border-left: 4px solid var(--gold);
+    padding: 12px;
+    font-size: 13px;
+    color: var(--gold-light);
+    border-radius: 4px;
+    margin-bottom: 15px;
+    display: none;
+    line-height: 1.6;
+    font-weight: 600;
 }
 
 .courses-container {
-max-height: 220px;
-overflow-y: auto;
-border: 1px solid #e0e0e0;
-padding: 10px;
-border-radius: 4px;
-margin-bottom: 15px;
-background: #f9f9f9;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    background: var(--bg-deep);
 }
 .course-item {
-display: flex;
-align-items: center;
-margin-bottom: 8px;
-font-size: 13px;
-color: #333;
-cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: var(--text-main);
+    cursor: pointer;
 }
 .course-item.locked {
-color: #95a5a6;
-cursor: not-allowed;
+    color: #4b5563;
+    cursor: not-allowed;
 }
 .course-item input {
-margin-right: 8px;
-cursor: pointer;
+    margin-right: 8px;
+    cursor: pointer;
 }
 .course-item.locked input {
-cursor: not-allowed;
+    cursor: not-allowed;
 }
 .soon-tag {
-font-size: 11px;
-color: #e67e22;
-background: #fef5e7;
-padding: 2px 6px;
-border-radius: 4px;
-margin-left: 6px;
-border: 1px solid #f39c12;
-font-weight: bold;
+    font-size: 10px;
+    color: var(--gold);
+    background: rgba(212, 175, 55, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 6px;
+    border: 1px solid var(--border-color);
+    font-weight: bold;
 }
 
 button[type="submit"] {
-width: 100%;
-padding: 12px;
-background: #27ae60;
-color: #ffffff;
-border: none;
-font-weight: 700;
-border-radius: 4px;
-cursor: pointer;
-font-family: 'Padauk', sans-serif;
-text-align: center;
-display: block;
-box-sizing: border-box;
-margin-bottom: 10px;
-transition: background 0.3s;
+    width: 100%;
+    padding: 12px;
+    background: var(--gold);
+    color: var(--bg-deep);
+    border: none;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    text-align: center;
+    display: block;
+    box-sizing: border-box;
+    margin-bottom: 12px;
+    transition: all 0.3s;
 }
-button[type="submit"]:hover { background: #219653; }
-button[type="submit"]:disabled { background: #95a5a6; cursor: not-allowed; }
+button[type="submit"]:hover { background: var(--gold-light); }
+button[type="submit"]:disabled { background: #374151; color: var(--text-muted); cursor: not-allowed; }
 
-.login-guide { text-align: center; margin-top: 15px; margin-bottom: 5px; font-size: 13px; color: #e67e22; font-weight: 700; line-height: 1.4; }
-.back-btn { width: 100%; padding: 10px; background: transparent; border: 1px solid #bdc3c7; color: #7f8c8d; font-weight: 700; border-radius: 4px; cursor: pointer; font-family: 'Padauk', sans-serif; text-align: center; display: block; box-sizing: border-box; text-decoration: none; transition: all 0.3s; }
-.back-btn:hover { border-color: #3498db; color: #3498db; }
-.success-msg { color: #27ae60; font-size: 14px; font-weight: 700; text-align: center; margin-top: 15px; display: none; line-height: 1.6; background: #e8f8f5; padding: 12px; border-radius: 6px; border: 1px solid #a3e4d7; }
+.login-guide { text-align: center; margin-top: 15px; margin-bottom: 8px; font-size: 13px; color: var(--text-muted); font-weight: 600; line-height: 1.5; }
+.back-btn { width: 100%; padding: 12px; background: transparent; border: 1px solid var(--border-color); color: var(--gold); font-weight: 700; border-radius: 8px; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif; text-align: center; display: block; box-sizing: border-box; text-decoration: none; transition: all 0.3s; }
+.back-btn:hover { border-color: var(--gold); background: rgba(212, 175, 55, 0.05); }
+.success-msg { color: #34d399; font-size: 14px; font-weight: 600; text-align: center; margin-top: 15px; display: none; line-height: 1.6; background: rgba(52, 211, 153, 0.1); padding: 12px; border-radius: 8px; border: 1px solid rgba(52, 211, 153, 0.3); }
 </style>
 </head>
 <body>
@@ -297,7 +360,6 @@ async function submitRegistration(e) {
 
     try {
         if (dbClient) {
-            // ၁. Supabase Cloud Database သို့ pending status ဖြင့် တိုက်ရိုက်သိမ်းဆည်းခြင်း
             const { data, error } = await dbClient
                 .from('registrations')
                 .insert([
@@ -318,7 +380,6 @@ async function submitRegistration(e) {
             console.error('dbClient is not initialized!');
         }
 
-        // ၂. LocalStorage တွင်လည်း မူလအတိုင်း ထပ်မံသိမ်းဆည်းပေးခြင်း (Backup အနေဖြင့်)
         let pendingRequests = JSON.parse(localStorage.getItem('pendingRequests')) || [];
         if (!Array.isArray(pendingRequests)) pendingRequests = [];
         pendingRequests.push(studentData);
@@ -333,7 +394,6 @@ async function submitRegistration(e) {
         console.error('Storage/Database Error:', storageErr);
     }
 
-    // ၃. Telegram သို့ Screenshot ပုံနှင့်တကွ တိုက်ရိုက်ပို့ဆောင်ခြင်း
     const caption = `🎯 အသစ်ဝင်ရောက်လာသော သင်တန်းအပ်နှံမှု\n\n👤 နာမည်: ${name}\n📞 ဖုန်း: ${phone}\n📚 ရွေးချယ်မှု: ${selectedCourses.join(', ')}\n💰 စုစုပေါင်း: ${totalAmount.toLocaleString()} ကျပ်`;
     const formData = new FormData();
     formData.append('chat_id', TELEGRAM_CHAT_ID);
