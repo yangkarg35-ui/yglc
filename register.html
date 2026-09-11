@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+<meta charset="UTF-8">
+<title>YGLC - သင်တန်းအပ်နှံရန်</title>
+<link href="https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<style>
+body { background: #f4f7f6; color: #333333; font-family: 'Padauk', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px 0; overflow-x: hidden; }
+.box { background: #ffffff; border: 1px solid #e0e0e0; padding: 30px; border-radius: 12px; width: 480px; box-sizing: border-box; box-shadow: 0 4px 15px rgba(0,0,0,0.08); position: relative; }
+.close-btn {
+position: absolute;
+top: 15px;
+right: 15px;
+background: none;
+border: none;
+font-size: 20px;
+color: #a0aec0;
+cursor: pointer;
+font-weight: bold;
+line-height: 1;
+padding: 0;
+width: auto;
+margin: 0;
+transition: color 0.2s;
+}
+.close-btn:hover {
+color: #e53e3e;
+background: none;
+}
+h2 { color: #2c3e50; font-size: 18px; margin-bottom: 20px; text-align: center; font-weight: 700; }
+label { font-size: 13px; color: #555555; display: block; margin-bottom: 5px; font-weight: 700; }
+input[type="text"], input[type="file"] { width: 100%; padding: 10px; margin-bottom: 15px; background: #f9f9f9; border: 1px solid #ccc; color: #333; border-radius: 4px; font-family: 'Padauk', sans-serif; box-sizing: border-box; }
+input[type="text"]:focus, input[type="file"]:focus { border-color: #3498db; outline: none; background: #fff; }
+.total-box {
+background: #ebf5fb;
+border: 1px solid #aed6f1;
+padding: 12px;
+border-radius: 6px;
+margin-bottom: 15px;
+text-align: center;
+font-size: 15px;
+color: #2980b9;
+font-weight: 700;
+}
+
+.kpay-box {
+background: #fdfefe;
+border: 1px dashed #3498db;
+padding: 12px;
+border-radius: 6px;
+margin-bottom: 15px;
+font-size: 13px;
+color: #2c3e50;
+line-height: 1.5;
+}
+.kpay-box b {
+color: #2980b9;
+}
+
+.promo-section {
+background: #fffdfa;
+border: 2px dashed #d97706;
+padding: 15px;
+border-radius: 6px;
+margin-bottom: 15px;
+opacity: 0.6;
+pointer-events: none; /* လက်ရှိ အခြားသင်တန်းများမထွက်သေးသဖြင့် Promotion ကို ခေတ္တပိတ်ထားသည် */
+}
+.promo-option {
+display: flex;
+align-items: center;
+margin-bottom: 10px;
+font-size: 13px;
+color: #b45309;
+font-weight: 700;
+cursor: pointer;
+}
+.promo-option:last-child {
+margin-bottom: 0;
+}
+.promo-option input {
+margin-right: 8px;
+cursor: pointer;
+}
+
+.promo-notice {
+background: #fffbeb;
+border-left: 4px solid #d97706;
+padding: 12px;
+font-size: 13px;
+color: #92400e;
+border-radius: 4px;
+margin-bottom: 15px;
+display: none;
+line-height: 1.6;
+font-weight: 700;
+}
+
+.courses-container {
+max-height: 220px;
+overflow-y: auto;
+border: 1px solid #e0e0e0;
+padding: 10px;
+border-radius: 4px;
+margin-bottom: 15px;
+background: #f9f9f9;
+}
+.course-item {
+display: flex;
+align-items: center;
+margin-bottom: 8px;
+font-size: 13px;
+color: #333;
+cursor: pointer;
+}
+.course-item.locked {
+color: #95a5a6;
+cursor: not-allowed;
+}
+.course-item input {
+margin-right: 8px;
+cursor: pointer;
+}
+.course-item.locked input {
+cursor: not-allowed;
+}
+.soon-tag {
+font-size: 11px;
+color: #e67e22;
+background: #fef5e7;
+padding: 2px 6px;
+border-radius: 4px;
+margin-left: 6px;
+border: 1px solid #f39c12;
+font-weight: bold;
+}
+
+button[type="submit"] {
+width: 100%;
+padding: 12px;
+background: #27ae60;
+color: #ffffff;
+border: none;
+font-weight: 700;
+border-radius: 4px;
+cursor: pointer;
+font-family: 'Padauk', sans-serif;
+text-align: center;
+display: block;
+box-sizing: border-box;
+margin-bottom: 10px;
+transition: background 0.3s;
+}
+button[type="submit"]:hover { background: #219653; }
+button[type="submit"]:disabled { background: #95a5a6; cursor: not-allowed; }
+
+.login-guide { text-align: center; margin-top: 15px; margin-bottom: 5px; font-size: 13px; color: #e67e22; font-weight: 700; line-height: 1.4; }
+.back-btn { width: 100%; padding: 10px; background: transparent; border: 1px solid #bdc3c7; color: #7f8c8d; font-weight: 700; border-radius: 4px; cursor: pointer; font-family: 'Padauk', sans-serif; text-align: center; display: block; box-sizing: border-box; text-decoration: none; transition: all 0.3s; }
+.back-btn:hover { border-color: #3498db; color: #3498db; }
+.success-msg { color: #27ae60; font-size: 14px; font-weight: 700; text-align: center; margin-top: 15px; display: none; line-height: 1.6; background: #e8f8f5; padding: 12px; border-radius: 6px; border: 1px solid #a3e4d7; }
+</style>
+</head>
+<body>
+
+<div class="box">
+<button class="close-btn" onclick="goBack()" title="ပိတ်ရန် / ပြန်ထွက်ရန်">&times;</button>
+<h2>YGLC - သင်တန်းအပ်ရန်</h2>
+<form id="regForm" onsubmit="submitRegistration(event)">
+<label>နာမည်</label>
+<input type="text" id="studentName" required placeholder="ကျောင်းသားနာမည်">
+<label>ဖုန်းနံပတ် (Login ဝင်ရန်)</label>
+<input type="text" id="studentPhone" required placeholder="09xxxxxxxxx">
+<div class="total-box">
+ပေးချေရမည့် ပမာဏ: <span id="totalPrice">50,000</span> ကျပ်
+</div>
+
+<div class="kpay-box">
+<b>KBZPay ဖြင့် ငွေလွှဲရန်:</b><br>
+📞 ဖုန်းနံပတ် - <b>09-971097886</b><br>
+👤 အမည် - <b>Yan..kha</b><br>
+* ငွေလွှဲပြီးပါက အောက်ပါနေရာတွင် ငွေလွှဲ Screenshot ပုံကို ရွေးချယ်တင်ပြပါ။
+</div>
+
+<label>ငွေလွှဲ Screenshot ပုံ တင်ရန်</label>
+<input type="file" id="paymentScreenshot" accept="image/*" required>
+
+<label>🎯 အထူး Promotion အစီအစဉ်များ (ခေတ္တပိတ်ထားသည်)</label>
+<div class="promo-section">
+<label class="promo-option">
+<input type="radio" name="promoSelection" value="promo_4_courses" disabled>
+✨ မိမိနှစ်သက်ရာ Course 4 ခုယူ (၂၈၅,၀၀၀ ကျပ် သီးသန့်)
+</label>
+<label class="promo-option">
+<input type="radio" name="promoSelection" value="all_in_one_package" disabled>
+🌟 All-in-One Special Package (၄၅၀,၀၀၀ ကျပ်)
+</label>
+</div>
+
+<div id="promoNoticeBox" class="promo-notice"></div>
+
+<label>ဝယ်ယူလိုသော သင်တန်းများ</label>
+<div class="courses-container" id="coursesContainer">
+<!-- သင်တန်း ၁ - ဖွင့်ထားသည် -->
+<label class="course-item">
+<input type="checkbox" name="course" value="သင်တန်း ၁ - ပလက်ကင်တီးခတ်နည်း အခြေခံ" data-price="50000" checked onclick="return false;" onchange="calculateTotal()">
+<b>သင်တန်း ၁ - ပလက်ကင်တီးခတ်နည်း အခြေခံ (50,000 ကျပ်)</b>
+</label>
+<!-- သင်တန်း ၂ မှ ၈ အထိ - Lock ချထားသည် (မကြာမီထွက်မည်) -->
+<label class="course-item locked"><input type="checkbox" disabled> သင်တန်း ၂ - ပလက်ကင်တီးခတ်နည်း အလယ်အဆင့် <span class="soon-tag">မကြာမီထွက်ရှိမည်</span></label>
+<label class="course-item locked"><input type="checkbox" disabled> သင်တန်း ၃ - Rhythm တီးခတ်နည်း အခြေခံ <span class="soon-tag">မကြာမီထွက်ရှိမည်</span></label>
+<label class="course-item locked"><input type="checkbox" disabled> သင်တန်း ၄ - Rhythm တီးခတ်နည်း အလယ်အဆင့် <span class="soon-tag">မကြာမီထွက်ရှိမည်</span></label>
+<label class="course-item locked"><input type="checkbox" disabled> သင်တန်း ၅ - Advanced Rhythm တီးခတ်နည်း <span class="soon-tag">မကြာမီထွက်ရှိမည်</span></label>
+<label class="course-item locked"><input type="checkbox" disabled> သင်တန်း ၆ - Fingerstyle တီးခတ်နည်း အခြေခံ <span class="soon-tag">မကြာမီထွက်ရှိမည်</span></label>
+<label class="course-item locked"><input type="checkbox" disabled> သင်တန်း ၇ - Basic Music Theory အခြေခံသီအိုရီ <span class="soon-tag">မကြာမီထွက်ရှိမည်</span></label>
+<label class="course-item locked"><input type="checkbox" disabled> သင်တန်း ၈ - Intermediate Music Theory အလယ်အလတ်အဆင့် <span class="soon-tag">မကြာမီထွက်ရှိမည်</span></label>
+</div>
+<button type="submit" id="submitBtn">ငွေလွှဲအတည်ပြုချက် တင်မည်</button>
+<div id="successMsg" class="success-msg"></div>
+</form>
+
+<div class="login-guide">
+အောက်ပါ Member Login နေရာတွင် ဝင်ရောက်၍<br>သင်ခန်းစာများကို ဆက်လက်လေ့လာနိုင်ပါသည် 👇
+</div>
+
+<a href="login.html" class="back-btn">လော့ဂ်အင်သို့ ပြန်သွားရန်</a>
+</div>
+
+<script>
+const TELEGRAM_BOT_TOKEN = "8745766599:AAHFC38Zza-YC56neTJj--9wByQieCd4QFk";
+const TELEGRAM_CHAT_ID = "6868820956";
+
+function calculateTotal() {
+// လက်ရှိအနေအထားအရ သင်တန်း ၁ တစ်ခုတည်းသာ 50,000 ကျပ် ဖြစ်သည်
+const totalPriceEl = document.getElementById('totalPrice');
+if(totalPriceEl) totalPriceEl.innerText = "50,000";
+}
+
+function submitRegistration(e) {
+e.preventDefault();
+const nameEl = document.getElementById('studentName');
+const phoneEl = document.getElementById('studentPhone');
+const fileInput = document.getElementById('paymentScreenshot');
+const submitBtn = document.getElementById('submitBtn');
+const name = nameEl ? nameEl.value.trim() : '';
+const phone = phoneEl ? phoneEl.value.trim() : '';
+if (!fileInput || fileInput.files.length === 0) {
+alert('ကျေးဇူးပြု၍ ငွေလွှဲ Screenshot ပုံကို ရွေးချယ်တင်ပြပါ။');
+return;
+}
+
+let selectedCourses = ["သင်တန်း ၁ - ပလက်ကင်တီးခတ်နည်း အခြေခံ"];
+let totalAmount = 50000;
+
+if(submitBtn) {
+submitBtn.disabled = true;
+submitBtn.innerText = "ပေးပို့နေပါသည်...";
+}
+
+const file = fileInput.files[0];
+const fileName = file.name;
+
+try {
+let pendingRequests = [];
+let existingData = localStorage.getItem('pendingRequests');
+if (existingData) {
+try {
+pendingRequests = JSON.parse(existingData);
+if (!Array.isArray(pendingRequests)) pendingRequests = [];
+} catch(err) {
+pendingRequests = [];
+}
+}
+
+let studentData = {
+name,
+phone,
+courses: selectedCourses,
+total: totalAmount,
+screenshotName: fileName,
+date: new Date().toLocaleString()
+};
+
+pendingRequests.push(studentData);
+localStorage.setItem('pendingRequests', JSON.stringify(pendingRequests));
+localStorage.setItem('pendingStudents', JSON.stringify(pendingRequests));
+} catch (storageErr) {
+console.error('Storage Error:', storageErr);
+}
+
+const caption = `🎯 အသစ်ဝင်ရောက်လာသော သင်တန်းအပ်နှံမှု\n\n👤 နာမည်: ${name}\n📞 ဖုန်း: ${phone}\n📚 ရွေးချယ်မှု: ${selectedCourses.join(', ')}\n💰 စုစုပေါင်း: ${totalAmount.toLocaleString()} ကျပ်`;
+const formData = new FormData();
+formData.append('chat_id', TELEGRAM_CHAT_ID);
+formData.append('photo', file);
+formData.append('caption', caption);
+
+fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto`, {
+method: 'POST',
+body: formData
+})
+.then(response => response.json())
+.then(data => {
+finalizeSuccess();
+})
+.catch(error => {
+console.error('Telegram Error:', error);
+finalizeSuccess();
+});
+}
+
+function finalizeSuccess() {
+const successMsg = document.getElementById('successMsg');
+if(successMsg) {
+successMsg.innerHTML = '✔ သင်တန်းအပ်နှံမှု အောင်မြင်ပါသည်။<br>သင်တန်းအပ်ပြီး 24 နာရီ ကျော်ရင် သင်တန်းစတက်လို့ရသွားပါပြီနော်။';
+successMsg.style.display = 'block';
+}
+const regForm = document.getElementById('regForm');
+if(regForm) regForm.reset();
+// သင်တန်း ၁ ကို Default အနေဖြင့် ပြန်အမှန်ခြစ်ပေးရန်
+const course1 = document.querySelector('input[name="course"]');
+if(course1) course1.checked = true;
+
+resetSubmitButton();
+}
+
+function resetSubmitButton() {
+const submitBtn = document.getElementById('submitBtn');
+if(submitBtn) {
+submitBtn.disabled = false;
+submitBtn.innerText = "ငွေလွှဲအတည်ပြုချက် တင်မည်";
+}
+}
+
+function goBack() {
+window.history.back();
+}
+</script>
+</body>
+</html>

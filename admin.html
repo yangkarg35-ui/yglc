@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+<meta charset="UTF-8">
+<title>YGLC Admin Control Panel</title>
+<link href="https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap" rel="stylesheet">
+<style>
+body { background: #0b0b0b; color: #f7f4ef; font-family: 'Padauk', sans-serif; padding: 40px; }
+h2 { color: #d4af37; margin-bottom: 20px; }
+table { width: 100%; border-collapse: collapse; background: #141414; border: 1px solid #222; }
+th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #222; font-size: 14px; vertical-align: middle; }
+th { background: #1a1a1a; color: #d4af37; }
+.confirm-btn { background: #d4af37; color: #0b0b0b; border: none; padding: 6px 14px; font-weight: 700; border-radius: 4px; cursor: pointer; font-family: 'Padauk', sans-serif; }
+.confirm-btn:hover { background: #b3922e; }
+.empty { color: #777; text-align: center; padding: 20px; }
+.course-list { margin: 0; padding-left: 18px; font-size: 13px; color: #e2e8f0; }
+.screenshot-link { color: #38bdf8; text-decoration: none; font-size: 12px; display: inline-block; margin-top: 5px; }
+</style>
+</head>
+<body>
+<h2>Boss ၏ Admin အတည်ပြုရန် စာရင်းများ</h2>
+<table>
+<thead>
+<tr>
+<th>ကျောင်းသားနာမည်</th>
+<th>ဖုန်းနံပါတ်</th>
+<th>တောင်းဆိုထားသော သင်တန်းများ</th>
+<th>ရက်စွဲ</th>
+<th>လုပ်ဆောင်ချက်</th>
+</tr>
+</thead>
+<tbody id="pendingTableBody"></tbody>
+</table>
+
+<script>
+function loadPendingRequests() {
+    const tbody = document.getElementById('pendingTableBody');
+    if (!tbody) return;
+    tbody.innerHTML = '';
+    
+    let pendingRequests = [];
+    try {
+        let data = localStorage.getItem('pendingRequests') || localStorage.getItem('pending Students');
+        if (data) {
+            pendingRequests = JSON.parse(data);
+            if (!Array.isArray(pendingRequests)) pendingRequests = [];
+        }
+    } catch (e) {
+        pendingRequests = [];
+    }
+
+    if (pendingRequests.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" class="empty">စောင့်ဆိုင်းဆဲ စာရင်း မရှိသေးပါ။</td></tr>`;
+        return;
+    }
+
+    pendingRequests.forEach((req, index) => {
+        const tr = document.createElement('tr');
+        let coursesHtml = "";
+        if (Array.isArray(req.courses)) {
+            coursesHtml = `<ul class="course-list">` + req.courses.map(c => `<li>${c}</li>`).join('') + `</ul>`;
+        } else if (req.course) {
+            coursesHtml = `<ul class="course-list"><li>${req.course}</li></ul>`;
+        } else {
+            coursesHtml = `<span style="color: #f87171;">သင်တန်း အချက်အလက် မပါရှိပါ</span>`;
+        }
+
+        let screenshotHtml = req.screenshot ? `<br><a href="${req.screenshot}" target="_blank" class="screenshot-link">ငွေလွှဲပုံ ကြည့်ရန်</a>` : "";
+
+        tr.innerHTML = `
+            <td><b>${req.name || ''}</b>${screenshotHtml}</td>
+            <td>${req.phone || '-'}</td>
+            <td>${coursesHtml}</td>
+            <td>${req.date || '-'}</td>
+            <td><button class="confirm-btn" onclick="approveStudent(${index})">Confirm 🟢</button></td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+function approveStudent(index) {
+    try {
+        let pendingRequests = JSON.parse(localStorage.getItem('pendingRequests') || localStorage.getItem('pending Students') || '[]');
+        let student = pendingRequests[index];
+        if (!student) return;
+
+        let approvedUsers = JSON.parse(localStorage.getItem('approvedUsers')) || {};
+        
+        let rawCourses = [];
+        if (Array.isArray(student.courses)) {
+            rawCourses = student.courses;
+        } else if (student.courses) {
+            rawCourses = [student.courses];
+        }
+        
+        if (student.course) {
+            rawCourses.push(student.course);
+        }
+
+        let courseNumbers = [];
+        const myanmarNumbers = {'၀': '0', '၁': '1', '၂': '2', '၃': '3', '၄': '4', '၅': '5', '၆': '6', '၇': '7', '৮': '8', '၉': '9'};
+
+        rawCourses.forEach(c => {
+            let courseNameStr = String(c);
+            
+            // မြန်မာဂဏန်းများကို အင်္ဂလိပ်ဂဏန်းသို့ ပြောင်းလဲခြင်း
+            let convertedStr = courseNameStr.replace(/[၀-၉]/g, match => myanmarNumbers[match]);
+
+            // Promotion စာသားပါသော်လည်း အထဲတွင် ပါရှိသည့် (သို့မဟုတ် ဘေးတွင်ပါသော) နံပါတ်များကိုသာ တိကျစွာ ဆွဲထုတ်မည်
+            let matches = convertedStr.match(/\d+/g);
+            if (matches) {
+                matches.forEach(m => {
+                    let num = parseInt(m, 10);
+                    // 1 ကနေ 8 ကြား သင်တန်းနံပါတ်များကိုသာ ထည့်မည် (Promotion ဆိုတဲ့ ဂဏန်း '4' ပါလာရင်လည်း သင်တန်း ၄ ခုရွေးထားတာမို့ အဲ့ဒီနံပါတ်က တိုက်ဆိုင်နေရင် ပါသွားနိုင်ပါတယ်။ တကယ်လို့ Promotion ဆိုတဲ့ စာသားပါတဲ့ '4' က အရေအတွက်ဖြစ်ပြီး သင်တန်းနံပါတ်မဟုတ်ရင် အောက်ပါအခြေအနေကို ထပ်စစ်ရပါမယ်)
+                    if (num >= 1 && num <= 8 && !courseNumbers.includes(num)) {
+                        // သတိပြုရန်: "Promotion (Course ၄ ခု)" ဆိုရင် '4' က အရေအတွက်ဖြစ်နေလို့ သင်တန်း ၄ လို့ မှားယူနိုင်ပါတယ်။ အဲ့ဒါကြောင့် အောက်မှာ သီးသန့်စစ်ပေးထားပါတယ်။
+                    }
+                });
+            }
+        });
+
+        // ပိုမိုတိကျစေရန်: သင်တန်းစာရင်းအတန်းလိုက် (ဥပမာ သင်တန်း ၅၊ သင်တန်း ၆ စသည်ဖြင့်) ပါလာသော နံပါတ်များကိုသာ အတိအကျဖမ်းယူခြင်း
+        rawCourses.forEach(c => {
+            let courseNameStr = String(c);
+            let convertedStr = courseNameStr.replace(/[၀-၉]/g, match => myanmarNumbers[match]);
+
+            // 'သင်တန်း' ဆိုတဲ့ စာသားပါဝင်မှသာ ထိုစာကြောင်းထဲက ဂဏန်းကို သင်တန်းနံပါတ်အဖြစ် သတ်မှတ်မည် (Promotion ဆိုတဲ့ စာသားပါတဲ့ အရေအတွက် '4' ကို ရှောင်ရှားရန်)
+            if (convertedStr.includes("သင်တန်း") || convertedStr.includes("Course")) {
+                let matches = convertedStr.match(/\d+/g);
+                if (matches) {
+                    matches.forEach(m => {
+                        let num = parseInt(m, 10);
+                        if (num >= 1 && num <= 8 && !courseNumbers.includes(num)) {
+                            courseNumbers.push(num);
+                        }
+                    });
+                }
+            }
+        });
+
+        if (courseNumbers.length === 0) {
+            courseNumbers = [1];
+        }
+
+        approvedUsers[student.phone] = courseNumbers;
+        localStorage.setItem('approvedUsers', JSON.stringify(approvedUsers));
+
+        pendingRequests.splice(index, 1);
+        localStorage.setItem('pendingRequests', JSON.stringify(pendingRequests));
+        localStorage.setItem('pending Students', JSON.stringify(pendingRequests));
+
+        alert(student.name + " (" + student.phone + ") ၏ သင်တန်းနံပါတ် (" + courseNumbers.join(', ') + ") များကို အောင်မြင်စွာ အတည်ပြုပြီးပါပြီ။");
+        loadPendingRequests();
+    } catch (err) {
+        alert('အတည်ပြုရာတွင် အမှားအယွင်း ရှိသွားပါသည်။');
+    }
+}
+
+window.onload = loadPendingRequests;
+</script>
+</body>
+</html>

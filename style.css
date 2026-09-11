@@ -1,0 +1,209 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Padauk', sans-serif;
+}
+body {
+    background-color: #fcfbfa;
+    color: #2c2c2c;
+    line-height: 1.6;
+}
+/* Header */
+header {
+    background: #ffffff;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eae5df;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #8c5830;
+    letter-spacing: 0.5px;
+}
+nav a {
+    color: #555555;
+    text-decoration: none;
+    margin-left: 25px;
+    font-size: 15px;
+    font-weight: 500;
+}
+nav a:hover {
+    color: #8c5830;
+}
+
+/* Member Login Button / Nav Login */
+.login-nav-btn, .member-login-btn {
+    background-color: #8c5830;
+    color: #ffffff !important;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+.login-nav-btn:hover, .member-login-btn:hover {
+    background-color: #724624;
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: 70px 20px;
+    background: linear-gradient(135deg, #f7f4ef 0%, #fcfbfa 100%);
+    border-bottom: 1px solid #eae5df;
+}
+.hero h1 {
+    font-size: 34px;
+    margin-bottom: 15px;
+    color: #1a1a1a;
+    font-weight: 700;
+}
+.hero p {
+    font-size: 16px;
+    color: #666666;
+    max-width: 600px;
+    margin: 0 auto 25px auto;
+}
+.btn-primary {
+    background-color: #8c5830;
+    color: #ffffff;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.2s;
+    display: inline-block;
+}
+.btn-primary:hover {
+    background-color: #724624;
+}
+/* Container */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 50px 20px;
+}
+h2.section-title {
+    text-align: center;
+    margin-bottom: 35px;
+    font-size: 24px;
+    color: #1a1a1a;
+}
+/* Courses Grid */
+.courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+}
+.course-card {
+    background: #ffffff;
+    border: 1px solid #eae5df;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    transition: transform 0.2s;
+}
+.course-card:hover {
+    transform: translateY(-4px);
+}
+.course-info {
+    padding: 25px;
+}
+.course-info h3 {
+    font-size: 19px;
+    margin-bottom: 10px;
+    color: #1a1a1a;
+}
+.course-info p {
+    font-size: 14px;
+    color: #666666;
+    margin-bottom: 20px;
+}
+.price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #8c5830;
+    margin-bottom: 20px;
+}
+
+/* Login / Membership Area Styles */
+.auth-container, .dashboard-container {
+    max-width: 500px;
+    margin: 60px auto;
+    background: #ffffff;
+    border: 1px solid #eae5df;
+    border-radius: 10px;
+    padding: 40px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+.auth-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #8c5830;
+    margin-bottom: 25px;
+}
+
+/* Enrollment & Form Section */
+.enroll-section {
+    background: #ffffff;
+    border: 1px solid #eae5df;
+    border-radius: 10px;
+    padding: 35px;
+    margin-top: 60px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+.form-group {
+    margin-bottom: 20px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #444444;
+}
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 12px;
+    background: #faf8f5;
+    border: 1px solid #dcd6cd;
+    border-radius: 6px;
+    color: #2c2c2c;
+    font-size: 15px;
+}
+.form-group input:focus, .form-group select:focus {
+    outline: none;
+    border-color: #8c5830;
+}
+.payment-info {
+    background: #f7f4ef;
+    padding: 15px 20px;
+    border-left: 4px solid #8c5830;
+    border-radius: 0 6px 6px 0;
+    margin-bottom: 25px;
+    font-size: 14px;
+    color: #555555;
+}
+/* Footer */
+footer {
+    text-align: center;
+    padding: 25px;
+    background: #ffffff;
+    border-top: 1px solid #eae5df;
+    font-size: 14px;
+    color: #777777;
+    margin-top: 60px;
+}

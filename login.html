@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <title>YGLC - Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            background: #f8f9fa; 
+            color: #2d3748; 
+            font-family: 'Padauk', sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            margin: 0; 
+        }
+        .box { 
+            background: #ffffff; 
+            border: 1px solid #e2e8f0; 
+            padding: 30px; 
+            border-radius: 12px; 
+            width: 320px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            position: relative;
+        }
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: #a0aec0;
+            cursor: pointer;
+            font-weight: bold;
+            line-height: 1;
+            padding: 0;
+            width: auto;
+            margin: 0;
+            transition: color 0.2s;
+        }
+        .close-btn:hover {
+            color: #e53e3e;
+            background: none;
+        }
+        h2 { 
+            color: #8B5A2B; 
+            font-size: 20px; 
+            margin-bottom: 20px; 
+            text-align: center; 
+            font-weight: 700;
+        }
+        label { 
+            font-size: 14px; 
+            color: #718096; 
+            display: block; 
+            margin-bottom: 8px; 
+            font-weight: 700;
+        }
+        input { 
+            width: 100%; 
+            padding: 12px; 
+            margin-bottom: 15px; 
+            background: #f7fafc; 
+            border: 1px solid #e2e8f0; 
+            color: #2d3748; 
+            border-radius: 8px; 
+            font-family: 'Padauk', sans-serif; 
+            box-sizing: border-box; 
+            font-size: 16px;
+            outline: none;
+        }
+        button { 
+            width: 100%; 
+            padding: 12px; 
+            background: #8B5A2B; 
+            color: #ffffff; 
+            border: none; 
+            font-weight: 700; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-family: 'Padauk', sans-serif; 
+            margin-bottom: 12px; 
+            font-size: 16px;
+        }
+        button:hover { 
+            background: #6b4420; 
+        }
+        .register-link-btn { 
+            width: 100%; 
+            padding: 12px; 
+            background: transparent; 
+            border: 1px solid #8B5A2B; 
+            color: #8B5A2B; 
+            font-weight: 700; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-family: 'Padauk', sans-serif; 
+            text-align: center; 
+            display: block; 
+            box-sizing: border-box; 
+            text-decoration: none; 
+            font-size: 15px;
+        }
+        .error { 
+            color: #e53e3e; 
+            font-size: 13px; 
+            text-align: center; 
+            margin-top: 10px; 
+            display: none; 
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <button class="close-btn" onclick="goBack()" title="ပိတ်ရန်">&times;</button>
+        <h2>YGLC MEMBER LOGIN</h2>
+        <form onsubmit="handleLogin(event)">
+            <label>ဖုန်းနံပါတ်ဖြင့် ဝင်ရန်</label>
+            <input type="text" id="loginPhone" required placeholder="09xxxxxxxxx">
+            <button type="submit">လော့ဂ်အင်ဝင်မည်</button>
+            <div id="errorMsg" class="error">ဤဖုန်းနံပါတ်ဖြင့် ငွေပေးချေအတည်ပြုချက် မရှိသေးပါ။</div>
+        </form>
+        <a href="register.html" class="register-link-btn">သင်တန်းအသစ် အပ်နှံရန် (Register)</a>
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem("isLoggedIn") === "true") {
+                window.location.href = "dashboard.html";
+            }
+        });
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const phone = document.getElementById('loginPhone').value.trim();
+            const approvedUsers = JSON.parse(localStorage.getItem('approvedUsers')) || {};
+
+            if (approvedUsers[phone]) {
+                localStorage.setItem("isLoggedIn", "true");
+                localStorage.setItem("userPhone", phone);
+                // Dashboard မှ မှန်ကန်စွာဖတ်ရှုနိုင်ရန် Space မပါသော Key ဖြင့် သိမ်းဆည်းပေးသည်
+                localStorage.setItem("userPurchasedCourses", JSON.stringify(approvedUsers[phone]));
+                window.location.href = "dashboard.html";
+            } else {
+                document.getElementById('errorMsg').style.display = 'block';
+            }
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

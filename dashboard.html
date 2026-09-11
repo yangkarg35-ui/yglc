@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YGLC - Secure Guitar Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap" rel="stylesheet">
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+body {
+    background-color: #0b0b0b;
+    color: #f7f4ef;
+    font-family: 'Padauk', sans-serif;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    border-bottom: 1px solid #222;
+    background: #141414;
+}
+.logo {
+    font-size: 18px;
+    font-weight: 700;
+    color: #d4af37;
+    letter-spacing: 2px;
+}
+.user-info {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    font-size: 14px;
+    color: #aaa;
+}
+.nav-btn {
+    background: transparent;
+    border: 1px solid #444;
+    color: #ccc;
+    padding: 5px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Padauk', sans-serif;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+.nav-btn:hover {
+    border-color: #d4af37;
+    color: #d4af37;
+}
+.logout-btn {
+    background: transparent;
+    border: 1px solid #d4af37;
+    color: #d4af37;
+    padding: 5px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Padauk', sans-serif;
+    transition: all 0.3s;
+}
+.logout-btn:hover {
+    background: #d4af37;
+    color: #0b0b0b;
+}
+.main-container {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+.video-section {
+    flex: 3;
+    padding: 20px 30px;
+    overflow-y: auto;
+    border-right: 1px solid #222;
+    display: flex;
+    flex-direction: column;
+}
+.video-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    max-height: 78vh;
+    background: #000;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #222;
+    margin-bottom: 15px;
+}
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+.video-shield-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 55px;
+    z-index: 10;
+    background: transparent;
+}
+.video-shield-bottom {
+    position: absolute;
+    bottom: 0;
+    right: 45px;
+    width: 120px;
+    height: 45px;
+    z-index: 10;
+    background: transparent;
+}
+.video-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #f7f4ef;
+    margin-bottom: 8px;
+}
+.video-desc {
+    font-size: 13px;
+    color: #999;
+    line-height: 1.5;
+}
+.playlist-section {
+    flex: 1;
+    padding: 20px;
+    background: #121212;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+.course-tabs {
+    display: flex;
+    gap: 5px;
+    overflow-x: auto;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+}
+.course-tab {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    color: #aaa;
+    padding: 6px 10px;
+    font-size: 12px;
+    font-family: 'Padauk', sans-serif;
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+}
+.course-tab.active {
+    background: #d4af37;
+    color: #0b0b0b;
+    border-color: #d4af37;
+    font-weight: 700;
+}
+.course-tab.locked {
+    opacity: 0.4;
+    border-style: dashed;
+}
+.playlist-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #d4af37;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #222;
+    padding-bottom: 8px;
+}
+.playlist-items {
+    overflow-y: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.lesson-item {
+    background: #1a1a1a;
+    border: 1px solid #282828;
+    padding: 10px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+.lesson-item:hover, .lesson-item.active {
+    border-color: #d4af37;
+    background: #1f1b10;
+}
+.lesson-item h4 {
+    font-size: 13px;
+    color: #fff;
+    margin-bottom: 4px;
+}
+.lesson-item span {
+    font-size: 11px;
+    color: #777;
+}
+.locked-notice {
+    text-align: center;
+    padding: 40px 15px;
+    color: #aaa;
+}
+.locked-notice h3 {
+    color: #d4af37;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+.pay-btn {
+    display: inline-block;
+    margin-top: 15px;
+    background: #d4af37;
+    color: #0b0b0b;
+    padding: 8px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 13px;
+}
+@media (max-width: 768px) {
+    .main-container {
+        flex-direction: column;
+        overflow-y: auto;
+    }
+    body {
+        height: auto;
+        overflow: auto;
+    }
+    .video-section {
+        border-right: none;
+        border-bottom: 1px solid #222;
+    }
+}
+</style>
+</head>
+<body>
+<header>
+    <div class="logo">YGLC GUITAR SCHOOL</div>
+    <div class="user-info">
+        <span>ကြိုဆိုပါတယ် Boss</span>
+        <a href="index.html" class="nav-btn">Home</a>
+        <button class="logout-btn" onclick="logout()">ထွက်ရန်</button>
+    </div>
+</header>
+<div class="main-container" id="mainContainer">
+    <!-- ဗီဒီယိုပြသမည့်နေရာ -->
+    <div class="video-section" id="videoSection">
+        <div class="video-container">
+            <div class="video-shield-top"></div>
+            <div class="video-shield-bottom"></div>
+            <iframe id="videoPlayer" src="" title="YGLC GUITAR LESSON" allowfullscreen></iframe>
+        </div>
+        <div id="videoTitle" class="video-title"></div>
+        <div id="videoDesc" class="video-desc"></div>
+    </div>
+    <!-- သင်တန်းတက်ဘ်များနှင့် သင်ခန်းစာစာရင်း -->
+    <div class="playlist-section">
+        <div class="course-tabs" id="courseTabs"></div>
+        <div class="playlist-title" id="currentCourseTitle">📚 သင်တန်း ၁</div>
+        <div class="playlist-items" id="playlistItems">
+            <!-- Dynamic ဖြင့် ဝင်လာမည် -->
+        </div>
+    </div>
+</div>
+
+<script>
+if (localStorage.getItem("isLoggedIn") !== "true") {
+    window.location.href = "login.html";
+}
+
+const coursesData = {
+    1: {
+        name: "သင်တန်း ၁ - အခြေခံပလက်ကင် (Plucking Basic)",
+        desc: "ဂီတစတင်ကိုင်တွယ်ပုံမှစ၍ လက်ချောင်းများဖြင့် လှပစွာ ပလက်ဂင်တီးခတ်တတ်စေရန် အခြေခံသင်ခန်းစာများ[cite: 1]။",
+        lessons: [
+            { id: "_zJue2rScV4", title: "သင်ခန်းစာ ၁ - ဂစ်တာကိုယ်ဟန်အနေအထား မှန်ကန်စွာ ထိုင်ပုံ/ကိုင်ပုံ", desc: "ဂီတတီးခတ်မည့် ပုံစံကို လွယ်ကူသန့်စင်စွာ တီးနိုင်ရန် အခြေခံအဆုံးဆုံး အချက်များ[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၂ - ဘယ်လက်နှင့် ညာလက် လက်ချောင်းအမည်များ", desc: "လက်ဝဲနှင့် လက်ညာလက်တို့၏ အခြေခံ positioning ကို စနစ်တကျ လေ့လာခြင်း[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၃ - ဂစ်တာကြိုးညှိခြင်း (Tuning)", desc: "တူရိယာ၏ အသံစဉ်မှန်ကန်စေရန် ကြိုးညှိခြင်း အခြေခံ[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၄ - Fretboard လက်ချောင်းများ တည်နေရာချထားပုံ", desc: "လက်ကွက်ပေါ်တွင် လက်ချောင်းများကို တိကျစွာ ချထားခြင်း[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၅ - ကြိုးများကို ထိတွေ့ရာတွင် လက်ချောင်းနာကျင်မှုသက်သာစေရန် နည်းလမ်းများ", desc: "အစပြုသူများအတွက် လက်ချောင်းကြံ့ခိုင်မှု တည်ဆောက်ခြင်း[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၆ - လက်မ (Thumb) ဖြင့် ဘေ့စ် + ကြိုးတီးခတ်ခြင်း", desc: "ညာလက် လက်မ၏ တီးခတ်မှု အခန်းကဏ္ဍ[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၇ - လက်ညှိုး၊ လက်ခလယ်၊ လက်သန်း (i, m, a) အသုံးပြုပုံ", desc: "လက်ချောင်းတစ်ချောင်းချင်းစီ၏ တီးခတ်မှု တာဝန်ခွဲဝေမှု[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၈ - အခြေခံ Arpeggio လေ့ကျင့်ခန်းများ", desc: "ကြိုးများကို တစ်ချောင်းချင်း ခွဲခြမ်းတီးခတ်သည့် ပုံစံ[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၉ - ကြိုးပြောင်းလဲရာတွင် အသံသန့်စင်စေရန် ထိန်းချုပ်ခြင်း", desc: "အသံပြတ်တောက်မှု မရှိစေရန် ထိန်းသိမ်းခြင်း[cite: 1]." },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၀ - လက်ချောင်းများ လွတ်လပ်စွာ လှုပ်ရှားနိုင်မှု အထူးလေ့ကျင့်ခန်း", desc: "လက်ချောင်းပြောင်းလဲမှုကို မြန်ဆန်စေခြင်း[cite: 1]." },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၁ - Plucking Pattern တည်းဖြင့် တီးခြင်း", desc: "ရိုးရှင်းသော ပုံစံဖြင့် တီးခတ်ခြင်း အစပျိုးခြင်း[cite: 1]." },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၂ - ရိုးရှင်းသော Chord နှစ်ခု ချိတ်ဆက်၍ တီးခတ်ခြင်း", desc: "ကြိုးကိုင်မှုပြောင်းလဲခြင်း အခြေခံ[cite: 1]." },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၃ - ပလက်ကင်ဖြင့် တေးသွားငယ် စတင်တီးခြင်း", desc: "တေးသွားစတင်ဖန်တီးမှု လေ့ကျင့်ခန်း[cite: 1]." },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၄ - သီချင်းတစ်ပုဒ်၏ အစပိုင်းကို တီးခတ်လေ့ကျင့်ခြင်း", desc: "လက်တွေ့တီးကွက် ဖန်တီးမှု[cite: 1]." },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၅ - ပထမဆုံး အခြေခံ သီချင်းငယ်ကို အစအဆုံးတီးခြင်း", desc: "သင်တန်း ၁ ၏ အဆုံးသတ် လက်တွေ့တီးခတ်မှု[cite: 1]." }
+        ]
+    },
+    2: {
+        name: "သင်တန်း ၂ - ပလက်ကင်အလယ်အဆင့် (Plucking Intermediate)",
+        desc: "ပလက်ကင်တီးခတ်မှုကို ပိုမိုကျွမ်းကျင်လာစေရန်နှင့် လက်ကွက်ပိုခက်ခဲသည်များကို အဆင့်မြှင့်တင် လေ့လာရန်[cite: 1]。",
+        lessons: [
+            { id: "_zJue2rScV4", title: "သင်ခန်းစာ ၁ - Chord များကို ချောမွေ့စွာ ကူးပြောင်းသည့် နည်းလမ်းများ", desc: "လက်ကွက်ပြောင်းလဲမှု အမြန်နှုန်း တည်ဆောက်ခြင်း[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၂ - လက်ချောင်းကြွက်သားများ လိုက်လျောညီထွေဖြစ်စေရန် လေ့ကျင့်ခန်း", desc: "ကြွက်သားများ ပြေလျော့စေခြင်း[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၃ - ပါဝင်သော Plucking ပုံစံများ", desc: "အဆင့်မြင့် ပလက်ကင်ပုံစံအသစ်များ[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၄ - Barre Chords နှင့် လက်ချောင်းများ လွတ်လပ်စွာ လှုပ်ရှားမှု", desc: "ဘားချော့ပ်များကို ကျွမ်းကျင်စွာ ကိုင်တွယ်ခြင်း[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၅ - လက်ကွက်ပြောင်းချိန်တွင် အသံပြတ်တောက်မှုမရှိစေရန် လုပ်ဆောင်ပုံ", desc: "အသံထွက် ချောမွေ့စေခြင်း[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၆ - စုံလင်ခက်ခဲသော Arpeggio ပုံစံအသစ်များ", desc: "အဆင့်မြင့် အာပက်ဂျီယို တီးကွက်များ[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၇ - စည်းချက်ခွဲဝေမှုနှင့် မြန်နှုန်းမြှင့်တင်ခြင်း", desc: "အရှိန်အဟုန် ထိန်းချုပ်တီးခတ်ခြင်း[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၈ - Dynamics ထိန်းချုပ်တီးခတ်ပုံ", desc: "အသံအက်နှင့် အသံသိပ်သည်းမှု ဖန်တီးခြင်း[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၉ - Bassline ကို ပိုမိုထင်ရှားစေရန် တီးခတ်နည်း", desc: "ဘေ့စ်သံစဉ်ကို ထင်ရှားစေခြင်း[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၀ - လက်ချောင်းများ၏ အရှိန်အဟုန် (Velocity) ထိန်းချုပ်ခြင်း", desc: "တီးခတ်မှု အမြန်နှုန်းနှင့် အားကို ညီညာစေခြင်း[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၁ - နာမည်ကျော် သီချင်းတစ်ပုဒ်၏ အစပိုင်းတီးနည်း", desc: "နာမည်ကျော် သီချင်းလက်တွေ့တီးခြင်း[cite: 1]." },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၂ - Chorus အတွက် အဆင့်မြင့် တီးကွက်များ", desc: "သီချင်း၏ ရင်ခုန်စရာအကောင်းဆုံး အပိုင်းကို တီးခတ်ခြင်း[cite: 1]." },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၃ - သီချင်းအဆုံးသတ် (Outro) တီးခတ်ပုံ", desc: "သီချင်းကို လှပစွာ အဆုံးသတ်ခြင်း[cite: 1]." },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၄ - ဖီလင်ထည့်သွင်းတီးခတ်နည်း", desc: "ဖီလင်ထည့်သွင်း တီးခတ်မှု[cite: 1]." },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၅ - သီချင်းတစ်ပုဒ်လုံးကို ပလက်ကင်ဖြင့် အစအဆုံး ချောမွေ့စွာ တီးပြခြင်း", desc: "အလယ်အဆင့် Masterpiece လက်တွေ့တီးပြချက်[cite: 1]." }
+        ]
+    },
+    3: {
+        name: "သင်တန်း ၃ - ရစ်သမ်အခြေခံ (Rhythm Basic)",
+        desc: "ဂီတစည်းချက်ကို မှန်ကန်စွာဖမ်းဆုပ်နိုင်ပြီး သီချင်းတစ်ပုဒ်ကို ပျော်ရွှင်စွာ Strumming ပြုလုပ်ရန်[cite: 1]。",
+        lessons: [
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁ - Pick ကိုင်ပုံနှင့် မှန်ကန်သော ကိုင်တွယ်မှု", desc: "ပစ်ခ်ကိုင်ခြင်း၏ အခြေခံသဘောတရား[cite: 1]." },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၂ - လက်ကောက်ဝတ် လှုပ်ရှားမှုနှင့် Down Strumming အခြေခံ", desc: "လက်ကောက်ဝတ်ဖြင့် Strumming ပြုလုပ်ခြင်း[cite: 1]." },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၃ - အောက်သို့ တီးခတ်သည့် စည်းချက်လေ့ကျင့်ခန်း", desc: "အောက်သို့ တီးခတ်သည့် စည်းချက်[cite: 1]." },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၄ - Down & Up Strumming ပေါင်းစပ်တီးနည်း", desc: "အောက်နှင့်အပေါ် ပေါင်းစပ်တီးခတ်မှု[cite: 1]." },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၅ - လက်မောင်းကြွက်သားများ တင်းမာမှုမရှိစေရန် ဖြေလျော့နည်း", desc: "လက်မောင်းပြေလျော့စေခြင်း[cite: 1]." },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၆ - ပုံမှန် 4/4 စည်းချက်အတွက် ရစ်သမ်တီးခတ်ပုံ", desc: "လေးပုံလေးသံ စည်းချက်များ[cite: 1]." },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၇ - အနှေးသီချင်းများအတွက် Strumming Patterns", desc: "အနှေးသီချင်း စည်းချက်များ[cite: 1]." },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၈ - အမြန်သီချင်းများအတွက် လက်ချောင်းလှုပ်ရှားမှုထိန်းချုပ်ခြင်း", desc: "အမြန်နှုန်းနှင့် ကိုက်ညီသော စည်းချက်[cite: 1]." },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၉ - စည်းချက်မလွတ်စေရန် Metronome ဖြင့် တွဲဖက်လေ့ကျင့်ခြင်း", desc: "အချိန်ကိုက်တိကျမှု လေ့ကျင့်ခန်း[cite: 1]." },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၀ - စည်းချက်အမျိုးမျိုးကို စိတ်တွင် မှတ်သားလေ့ကျင့်နည်း", desc: "ရစ်သမ်ကို သဘာဝကျကျ ခံစားခြင်း[cite: 1]." },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၁ - ရိုးရှင်းသော Chord များနှင့် Strumming ချိတ်ဆက်ခြင်း", desc: "ချော့ပ်နှင့် ရစ်သမ် ပေါင်းစပ်မှု[cite: 1]." },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၂ - သီချင်းတစ်ပုဒ်၏ Verse နှင့် Chorus ပိုင်းတီးနည်း", desc: "သီချင်းအခန်းဆက်များ တီးခတ်ပုံ[cite: 1]." },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၃ - အကူးအပြောင်းများတွင် စည်းချက်မလွတ်အောင် ထိန်းပုံ", desc: "ချောမွေ့သော အကူးအပြောင်းများ[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၄ - သီချင်း၏ အစ၊ အလယ်၊ အဆုံး စည်းချက်ပြောင်းလဲမှုများ", desc: "သီချင်းဖွဲ့စည်းပုံ ပြောင်းအလဲ[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၅ - သီချင်းတစ်ပုဒ်လုံးကို Strumming ဖြင့် အစအဆုံးတီးခြင်း", desc: "သင်တန်း ၃ ၏ လက်တွေ့ဖျော်ဖြေမှု[cite: 1]।" }
+        ]
+    },
+    4: {
+        name: "သင်တန်း ၄ - Rhythm အလယ်အဆင့် (Rhythm Intermediate)",
+        desc: "ပုံစံအမျိုးမျိုးသော စည်းချက်များနှင့် ခေတ်ပေါ်သီချင်းများ အတွက် လိုအပ်သော Rhythm များကို လေ့လာရန်[cite: 1]。",
+        lessons: [
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁ - အချိတ်အဆက်လွှဲသော တက်လွှဲ off-beat strumming", desc: "စည်းချက်အသစ်များ[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၂ - ရော့ခ်နှင့် ပေါ့ပ်သီချင်းများ အတွက် အထူးတီးကွက်များ", desc: "ခေတ်ပေါ်ဂီတ စည်းချက်ပုံစံများ[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၃ - စည်းချက်အမျိုးမျိုးကို ခွဲခြမ်းစိတ်ဖြာလေ့လာခြင်း", desc: "ရစ်သမ်ဒေတာ ခွဲခြမ်းစိတ်ဖြာမှု[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၄ - လက်ချောင်းများနှင့် Strumming ရောနှောတီးခတ်ပုံ", desc: "လက်ချောင်းနှင့် ပစ်ခ် ရောစပ်မှု[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၅ - သီချင်းတစ်ပုဒ်အတွင်း Syncopation အသုံးချမှု", desc: "စည်းချက်လွှဲ တီးကွက်များ အသုံးပြုခြင်း[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၆ - Palm Muting အသံသိပ်သည်းမှု ဖန်တီးခြင်း", desc: "ပန်းမြူတင် နည်းပညာ[cite: 1]." },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၇ - Chops & Percussive Strumming", desc: "တူရိယာသံ ဖန်တီးသည့် စည်းချက်[cite: 1]." },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၈ - အသံတိတ်တီးခတ်ခြင်း (Dead Notes) လေ့ကျင့်ခန်း", desc: "ဒက်ခ်နုတ်စ် တီးခတ်နည်း[cite: 1]." },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၉ - တီးခတ်မှုသန့်ရှင်းစေရန် ဘယ်လက် Mute ပြုလုပ်နည်း", desc: "ဘယ်လက်ဖြင့် အသံသိပ်သည်းစေခြင်း[cite: 1]." },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၀ - Percussive Strumming ဖြင့် သီချင်းများကို အသက်ဝင်စေခြင်း", desc: "စည်းချက်ဖြင့် အသက်သွင်းခြင်း[cite: 1]." },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၁ - တီးကွက်အမျိုးမျိုးကို ပေါင်းစပ်၍ တီးခတ်ခြင်း", desc: "စည်းချက်အမျိုးမျိုး ပေါင်းစပ်မှု[cite: 1]." },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၂ - ခေတ်ပေါ်သီချင်းများတွင် Rhythm တီထွင်တီးခတ်ပုံ", desc: "ကိုယ်ပိုင်ရစ်သမ် ဖန်တီးခြင်း[cite: 1]." },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၃ - အမြန်နှုန်းအမျိုးမျိုးဖြင့် တီးခတ်လေ့ကျင့်ခြင်း", desc: "အမြန်နှုန်း အပြောင်းအလဲ လေ့ကျင့်ခန်း[cite: 1]." },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၄ - ဖျော်ဖြေပွဲများအတွက် စည်းချက်ပြင်ဆင်ပုံ", desc: "စင်တင်ဖျော်ဖြေရေး စည်းချက်များ[cite: 1]." },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၅ - အလယ်အဆင့် Rhythm ပုံစံများကို အစအဆုံး အသုံးပြုခြင်း", desc: "သင်တန်း ၄ ၏ အနှစ်ချုပ်လက်တွေ့လုပ်ဆောင်မှု[cite: 1]।" }
+        ]
+    },
+    5: {
+        name: "သင်တန်း ၅ - အဆင့်မြင့် ရစ်သမ်တီးခတ်နည်း (Advanced Rhythm)",
+        desc: "ပရော်ဖက်ရှင်နယ် တီးခတ်သူများကဲ့သို့ ရှုပ်ထွေးခက်ခဲသော စည်းချက်များနှင့် အဆင့်မြင့်တီးကွက်များ လေ့လာရန်[cite: 1]。",
+        lessons: [
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁ - 5/4 နှင့် 7/8 ကဲ့သို့သော Time Signatures များ", desc: "မတူညီသော အချိန်စည်းချက် အဆန်းများ[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၂ - ပုံမှန်မဟုတ်သော စည်းချက်များကို ဖမ်းဆုပ်တီးခတ်ပုံ", desc: "ခက်ခဲသော ရစ်သမ်ကို ကိုင်တွယ်ခြင်း[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၃ - Polyrhythms အခြေခံ သဘောတရားများ", desc: "စည်းချက်ကွဲများ ပေါင်းစပ်တီးခတ်မှု[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၄ - ရှုပ်ထွေးသော စည်းချက်များကို လွယ်ကူစွာ လေ့ကျင့်နည်း", desc: "အဆင့်မြင့် လေ့ကျင့်ခန်း စနစ်[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၅ - အချိန်စည်းချက်အမျိုးမျိုးကို လွယ်ကူစွာ ကူးပြောင်းခြင်း", desc: "စည်းချက်ပြောင်းလဲမှု တိကျခြင်း[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၆ - ကိုယ်ပိုင် Groove နှင့် စိတ်ကြိုက်အရှိန်အဟုန်ဖန်တီးခြင်း", desc: "ဂရုဗ် ဖန်တီးမှု[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၇ - တီးခတ်မှုအလွန်အကျွံ မဖြစ်စေရန် အသံထွက်များကို ထိန်းချုပ်ခြင်း", desc: "အလွန်အကျွံမဖြစ်စေရန် ထိန်းချုပ်မှု[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၈ - အသံပြင်းအားနှင့် အသံလျော့အား ထိန်းချုပ်မှု", desc: "ဒိုင်နမစ် တိကျမှု[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၉ - ပရော်ဖက်ရှင်နယ် တီးခတ်မှုပုံစံ စံနှုန်းများ", desc: "ပရော်ဖက်ရှင်နယ် စံချိန်စံညွှန်း[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၀ - တီးခတ်မှုတစ်လျှောက် တည်ငြိမ်သော အရှိန်အဟုန် ထိန်းသိမ်းခြင်း", desc: "အရှိန်အဟုန် မပျက်စေရန် ထိန်းသိမ်းခြင်း[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၁ - စင်ပေါ်တွင် တီးခတ်ရာ၌ အမှားအယွင်းကင်းစေရန် လေ့ကျင့်ခန်းများ", desc: "စင်တင်လေ့ကျင့်ခန်းများ[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၂ - ဘန်းအဖွဲ့ (Band) နှင့်အတူ တီးခတ်ရာတွင် Rhythm ထိန်းပုံ", desc: "တူရိယာအဖွဲ့နှင့် တွဲဖက်တီးခြင်း[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၃ - ရှုပ်ထွေးသော တီးကွက်များကို စင်တင်ဖျော်ဖြေပွဲအတွက် ပြင်ဆင်ခြင်း", desc: "ဖျော်ဖြေပွဲ ပြင်ဆင်မှု[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၄ - အလွတ်တန်း တီးခတ်မှုများတွင် စည်းချက်လွတ်မသွားအောင် ထိန်းနည်း", desc: "အလွတ်တန်း ထိန်းချုပ်မှု[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၅ - အဆင့်မြင့် Rhythm အစအဆုံး လက်တွေ့ဖျော်ဖြေတီးခတ်မှု", desc: "သင်တန်း ၅ ၏ ထိပ်တန်းဖျော်ဖြေမှု[cite: 1]।" }
+        ]
+    },
+    6: {
+        name: "သင်တန်း ၆ - ဖင်ဂါစတိုင် တီးနည်းအခြေခံ (Fingerstyle Basic)",
+        desc: "သီချင်းတစ်ပုဒ်၏ အဓိကတေးသွားနှင့် အသံနှိမ့်များကို လက်ချောင်းများဖြင့် တစ်ပြိုင်နက်တီးခတ်နိုင်ရန်[cite: 1]。",
+        lessons: [
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁ - Fingerstyle နှင့် တာဝန်ခွဲဝေမှု", desc: "ဖင်ဂါစတိုင် အခြေခံမူများ[cite: 1]." },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၂ - ညာလက်လက်သည်း အနေအထားနှင့် ထိတွေ့မှုစံနှုန်း", desc: "လက်သည်းပုံစံနှင့် အသံထွက်[cite: 1]." },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၃ - လက်ချောင်းတစ်ချောင်းချင်းစီ၏ သီးသန့်လေ့ကျင့်ခန်းများ", desc: "လက်ချောင်းလွတ်လပ်မှု လေ့ကျင့်ခန်း[cite: 1]." },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၄ - ဘယ်လက်နှင့် ညာလက် အချိတ်အဆက်မိစေရန် လေ့ကျင့်ခြင်း", desc: "လက်နှစ်ဖက် ညီညာမှု[cite: 1]." },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၅ - ညာလက်လက်ချောင်းများ မှန်ကန်စွာ အနားယူပုံ", desc: "အနားယူသည့် ပုံစံစံနှုန်း[cite: 1]." },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၆ - အသံနိမ့် (Bass) ကို လက်မဖြင့် သီးသန့်ထိန်းချုပ်ပုံ", desc: "ဘေ့စ်သံ ထိန်းချုပ်ခြင်း[cite: 1]." },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၇ - Bass နှင့် Melody လက်ချောင်းများဖြင့် တွဲဖက်တီးခြင်း", desc: "မယ်လိုဒီနှင့် ဘေ့စ် တွဲစပ်ခြင်း[cite: 1]." },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၈ - Bass & Melody တီးခတ်ရာတွင် ကြုံတွေ့ရမည့် အခက်အခဲဖြေရှင်းနည်း", desc: "အခက်အခဲ ကျော်လွှားခြင်း[cite: 1]." },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၉ - စည်းချက်မလွတ်ဘဲ နှစ်ခုစလုံးကို ပေါင်းစပ်တီးနည်း", desc: "စည်းချက်မလွတ်ဘဲ တီးခြင်း[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၀ - Bassline စည်းချက်တိကျမှုအတွက် အထူးလေ့ကျင့်ခန်း", desc: "ဘေ့စ်တိကျမှုလေ့ကျင့်ခန်း[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၁ - လူသိများသော Fingerstyle တေးသွားငယ်များကို လက်တွေ့တီးခြင်း", desc: "နာမည်ကျော် တေးသွားငယ်များ[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၂ - ရိုးရှင်းသော တေးသွားတစ်ပုဒ်ကို အစပိုင်းတီးနည်း", desc: "တေးသွားအစပိုင်း တီးခတ်မှု[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၃ - သီချင်းအဆုံးသတ်ပိုင်းကို လက်ချောင်းစတိုင်ဖြင့် တီးခတ်ပုံ", desc: "အဆုံးသတ်ပိုင်း တီးခတ်မှု[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၄ - တီးကွက်အတွင်း ဖီလင်ထည့်သွင်းတီးခတ်နည်း", desc: "ခံစားချက်ထည့်သွင်းခြင်း[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၅ - Fingerstyle သီချင်းတစ်ပုဒ်ကို အစအဆုံးတီးခြင်း", desc: "သင်တန်း ၆ ၏ အဆုံးသတ် လက်တွေ့တီးကွက်[cite: 1]।" }
+        ]
+    },
+    7: {
+        name: "သင်တန်း ၇ - အခြေခံသီအိုရီ (Basic Music Theory)",
+        desc: "ဂီတကို ပိုမိုနားလည်သဘောပေါက်စေရန် မဖြစ်မနေ သိထားရမည့် အခြေခံသီအိုရီနှင့် မှတ်စုများအကြောင်း[cite: 1]。",
+        lessons: [
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁ - Natural Notes များကို Fretboard ပေါ်တွင် ရှာဖွေပုံ", desc: "သံစဉ်သဘာဝနေရာများ ရှာဖွေခြင်း[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၂ - Sharps (#) & Flats (b) သံစဉ်များအကြောင်း", desc: "ရှပ်နှင့်ဖလက် သံစဉ်များ[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၃ - Fretboard အလွယ်တကူ မှတ်မိစေမည့် နည်းလမ်းများ", desc: "လက်ကွက်မှတ်ဉာဏ် နည်းပညာ[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၄ - အခြေခံ သံစဉ်အကွာအဝေးများ", desc: "အင်တာဗယ် အခြေခံ[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၅ - Fretboard Octave ကို ရှာဖွေတွေ့ရှိခြင်း", desc: "အော့တဗ် နေရာချထားမှု[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၆ - Major Scale တည်ဆောက်ပုံ ဖော်မြူလာ", desc: "မေဂျာစကေး ဖော်မြူလာ[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၇ - Minor Scale အမျိုးအစားနှင့် ကွာခြားချက်များ", desc: "မိုင်းနားစကေး နှိုင်းယှဉ်ချက်[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၈ - Scale များကို လက်ကွက်ပေါ်တွင် တီးခတ်လေ့ကျင့်ခြင်း", desc: "လက်ကွက်ပေါ်စကေး တီးခြင်း[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၉ - Pentatonic Scale အခြေခံ နားလည်မှု", desc: "ပင်တာတိုးနစ် စကေးအခြေခံ[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၀ - Scale များ၏ နံပါတ်ဒီဂရီ (Degree) စနစ်များကို လေ့လာခြင်း", desc: "ဒီဂရီနံပါတ်စနစ် သုံးစွဲခြင်း[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၁ - Triads များကို အခြေခံ၍ Major နှင့် Minor Chords များကို နားလည်ခြင်း", desc: "ထရိုင်ယာ့ဒ် ချော့ပ်တည်ဆောက်ပုံ[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၂ - Chord တစ်ခုချင်းစီ၏ ဖွဲ့စည်းပုံကို ခွဲခြမ်းစိတ်ဖြာခြင်း", desc: "ချော့ပ်ဖွဲ့စည်းပုံ ဆန်းစစ်ခြင်း[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၃ - ကြိုးတပ်တူရိယာများတွင် ကိုယ်ပိုင်တီးကွက်များ စတင်ဖန်တီးပုံ", desc: "ကိုယ်ပိုင်တီးကွက် ဖန်တီးမှု[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၄ - သီအိုရီအရ Chord များကို အလွယ်တကူတွက်ချက်နည်း", desc: "သီအိုရီ တွက်ချက်မှုစနစ်[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၅ - အခြေခံသီအိုရီကို လက်တွေ့တီးကွက်များတွင် အသုံးပြုခြင်း", desc: "သင်တန်း ၇ ၏ သီအိုရီလက်တွေ့အသုံးပြုမှု[cite: 1]।" }
+        ]
+    },
+    8: {
+        name: "သင်တန်း ၈ - အလယ်အလတ် သီအိုရီ (Intermediate Music Theory)",
+        desc: "ဂီတပညာရပ်ကို ပိုမိုနက်ရှိုင်းစွာလေ့လာပြီး သီချင်းခွဲခြမ်းစိတ်ဖြာနိုင်ရန် အဆင့်မြှင့်တင်ထားသော သီအိုရီများ[cite: 1]。",
+        lessons: [
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁ - သီချင်းတစ်ပုဒ်၏ Key ကို ခွဲခြားသိရှိနိုင်ပုံ", desc: "ကီးခွဲခြားခြင်း နည်းပညာ[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၂ - လူသုံးအများဆုံး Chord Progressions လေ့လာခြင်း", desc: "လူသုံးများသော ပိုဂရက်ရှင်းများ[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၃ - Key များကို ပြောင်းလဲခြင်း (Transposition)", desc: "ကီးပြောင်းလဲတီးခတ်ခြင်း[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၄ - Circle of Fifths အခြေခံ နားလည်သဘောပေါက်ပုံ", desc: "ဆာကယ်အော့ဖ်ဖစ်ဗ် အခြေခံ[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၅ - Key တစ်ခုအတွင်း Chords များ တည်ဆောက်ပုံ", desc: "ကီးအတွင်းချော့ပ် တည်ဆောက်ခြင်း[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၆ - သံစဉ်နှစ်ခုကြား အကွာအဝေး (Intervals) များကို နားလည်ခြင်း", desc: "အင်တာဗယ် အကွာအဝေးများ[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၇ - Scale Modes များကို လက်တွေ့အသုံးပြုပုံ", desc: "မုဒ်စကေးများ အသုံးပြုခြင်း[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၈ - Melodic Modes များကို ဓာတ်ခွဲခနဲပုံစံဖြင့် လေ့လာခြင်း", desc: "မယ်လိုဒစ်မုဒ် လေ့လာမှု[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၉ - Improvisation အတွက် Modes များကို အသုံးပြုနည်း", desc: "အင်ပရိုဗိုက်ဆေရှင်းအတွက် အသုံးပြုခြင်း[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၀ - Intervals များကို အခြေခံ၍ အသံထွက်များကို နားလည်ခြင်း", desc: "အသံထွက် နားလည်သဘောပေါက်ခြင်း[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၁ - ကိုယ်ပိုင်သီချင်းအသစ်များ ရေးသားရာတွင် သီအိုရီကို အသုံးပြုပုံ", desc: "သီချင်းသစ်ရေးသားခြင်း သီအိုရီ[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၂ - သီချင်းတစ်ပုဒ်၏ Structure ကို သီအိုရီအရ ခွဲခြမ်းစိတ်ဖြာခြင်း", desc: "သီချင်းပုံစံ ခွဲခြမ်းခြင်း[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၃ - အဆင့်မြင့် Chord များကို ကိုယ်တိုင်တည်ဆောက်တီးခတ်ခြင်း", desc: "အဆင့်မြင့်ချော့ပ် တည်ဆောက်မှု[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၄ - သီချင်းအမျိုးအစားအလိုက် Chord Progressions ရွေးချယ်ပုံ", desc: "ပိုဂရက်ရှင်း ရွေးချယ်မှုစနစ်[cite: 1]।" },
+            { id: "dQw4w9WgXcQ", title: "သင်ခန်းစာ ၁၅ - သီအိုရီဗဟုသုတများကို လက်တွေ့တီးကွက်ဖန်တီးမှုတွင် အပြည့်အဝအသုံးပြုခြင်း", desc: "သင်တန်း ၈ ၏ အထွတ်အထိပ် အသုံးပြုမှု[cite: 1]।" }
+        ]
+    }
+};
+
+let userPurchasedCourses = JSON.parse(localStorage.getItem("userPurchasedCourses")) || [1, 2, 3, 4, 5, 6, 7, 8];
+let currentActiveCourse = userPurchasedCourses[0] || 1;
+let activeVideoIndex = 0;
+
+function initDashboard() {
+    renderTabs();
+    switchCourse(currentActiveCourse);
+}
+
+function renderTabs() {
+    const tabsContainer = document.getElementById('courseTabs');
+    tabsContainer.innerHTML = '';
+    for (let i = 1; i <= 8; i++) {
+        const isOwned = userPurchasedCourses.includes(i);
+        const btn = document.createElement('button');
+        btn.className = `course-tab ${i === currentActiveCourse ? 'active' : ''} ${!isOwned ? 'locked' : ''}`;
+        btn.innerHTML = `သင်တန်း ${i} ${!isOwned ? '🔒 ' : ''}`;
+        btn.onclick = () => switchCourse(i);
+        tabsContainer.appendChild(btn);
+    }
+}
+
+function switchCourse(courseNum) {
+    currentActiveCourse = courseNum;
+    activeVideoIndex = 0;
+    renderTabs();
+    
+    const isOwned = userPurchasedCourses.includes(courseNum);
+    const videoSection = document.getElementById('videoSection');
+    const playlistItems = document.getElementById('playlistItems');
+    const courseTitleElem = document.getElementById('currentCourseTitle');
+    
+    if (!isOwned) {
+        courseTitleElem.innerText = `သင်တန်း ${courseNum} (လော့ခ်ကျနေပါသည်)`;
+        videoSection.innerHTML = `
+            <div class="locked-notice">
+                <h3>ဤသင်တန်းကို လော့ခ်ဖွင့်ရန် လိုအပ်ပါသည်။</h3>
+                <p>သင်တန်း ${courseNum} ၏ ဗီဒီယို ၁၅ ပုဒ်လုံးကို လေ့လာရန် ငွေပေးချေမှု ပြုလုပ်ပါ။</p>
+                <a href="index.html" class="pay-btn">ငွေပေးချေရန်</a>
+            </div>
+        `;
+        playlistItems.innerHTML = '<div style="text-align:center; color:#777; padding:20px; font-size:12px;">ရောက်ခွင့် မရှိသေးပါ။</div>';
+        return;
+    }
+    
+    videoSection.innerHTML = `
+        <div class="video-container">
+            <div class="video-shield-top"></div>
+            <div class="video-shield-bottom"></div>
+            <iframe id="videoPlayer" src="" title="YGLC GUITAR LESSON" allowfullscreen></iframe>
+        </div>
+        <div id="videoTitle" class="video-title"></div>
+        <div id="videoDesc" class="video-desc"></div>
+    `;
+    
+    courseTitleElem.innerText = coursesData[courseNum].name;
+    loadPlaylist();
+    changeLesson(
+        coursesData[courseNum].lessons[0].id,
+        coursesData[courseNum].lessons[0].title,
+        coursesData[courseNum].lessons[0].desc,
+        0
+    );
+}
+
+function loadPlaylist() {
+    const playlistContainer = document.getElementById('playlistItems');
+    playlistContainer.innerHTML = '';
+    const courseLessons = coursesData[currentActiveCourse].lessons;
+    
+    courseLessons.forEach((lesson, index) => {
+        const item = document.createElement('div');
+        item.className = `lesson-item ${index === activeVideoIndex ? 'active' : ''}`;
+        item.onclick = () => {
+            changeLesson(lesson.id, lesson.title, lesson.desc, index);
+        };
+        item.innerHTML = `
+            <h4>${lesson.title}</h4>
+            <span>YouTube Secure (${index + 1}/15)</span>
+        `;
+        playlistContainer.appendChild(item);
+    });
+}
+
+function changeLesson(videoId, title, desc, index) {
+    activeVideoIndex = index;
+    const playerElement = document.getElementById('videoPlayer');
+    const titleElement = document.getElementById('videoTitle');
+    const descElement = document.getElementById('videoDesc');
+    
+    if (playerElement) {
+        playerElement.src = "https://www.youtube.com/embed/" + videoId + "?controls=1&modestbranding=1&rel=0&disablekb=1&fs=1";
+        titleElement.innerText = title;
+        descElement.innerText = desc;
+    }
+    
+    const items = document.querySelectorAll('.lesson-item');
+    items.forEach((item, idx) => {
+        if (idx === index) {
+            item.classList.add('active');
+        } else {
+            item.classList.remove('active');
+        }
+    });
+}
+
+function logout() {
+    localStorage.removeItem("isLoggedIn");
+    window.location.href = "login.html";
+}
+
+window.onload = function() {
+    initDashboard();
+};
+
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+    alert("YGLC GUITAR SCHOOL: Protected Content.");
+});
+
+document.addEventListener('keydown', function(e) {
+    if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && e.keyCode === 73) || (e.ctrlKey && e.keyCode === 85) || (e.ctrlKey && e.keyCode === 83)) {
+        e.preventDefault();
+        return false;
+    }
+});
+</script>
+</body>
+</html>
