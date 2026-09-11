@@ -277,10 +277,20 @@ async function submitRegistration(e) {
 
     const file = fileInput.files[0];
     const fileName = file.name;
+    const registrationDate = new Date().toLocaleString();
+
+    let studentData = {
+        name,
+        phone,
+        courses: selectedCourses,
+        total: totalAmount,
+        screenshotName: fileName,
+        date: registrationDate
+    };
 
     try {
-        // Supabase Cloud Database သို့ တိုက်ရိုက်သိမ်းဆည်းခြင်း
-        const { data, error } = await supabase
+        // ၁. Supabase Cloud Database သို့ pending status ဖြင့် တိုက်ရိုက်သိမ်းဆည်းခြင်း
+        const { error } = await supabase
             .from('registrations')
             .insert([
                 { 
@@ -295,19 +305,24 @@ async function submitRegistration(e) {
 
         if (error) {
             console.error('Supabase Error:', error);
-            alert('အချက်အလက် ပို့ဆောင်ရာတွင် အမှားအယွင်း ရှိသွားပါသည်။');
-            resetSubmitButton();
-            return;
         }
+
+        // ၂. LocalStorage တွင်လည်း မူလအတိုင်း ထပ်မံသိမ်းဆည်းပေးခြင်း (Backup အနေဖြင့်)
+        let pendingRequests = JSON.parse(localStorage.getItem('pendingRequests')) || [];
+        if (!Array.isArray(pendingRequests)) pendingRequests = [];
+        pendingRequests.push(studentData);
+        localStorage.setItem('pendingRequests', JSON.stringify(pendingRequests));
+
+        let pendingStudents = JSON.parse(localStorage.getItem('pendingStudents')) || [];
+        if (!Array.isArray(pendingStudents)) pendingStudents = [];
+        pendingStudents.push(studentData);
+        localStorage.setItem('pendingStudents', JSON.stringify(pendingStudents));
 
     } catch (storageErr) {
         console.error('Storage Error:', storageErr);
-        alert('ချိတ်ဆက်မှု အမှားအယွင်း ရှိပါသည်။');
-        resetSubmitButton();
-        return;
     }
 
-    // Telegram သို့ ပို့ရန် (မူလအတိုင်း ဆက်လက် လုပ်ဆောင်သည်)
+    // ၃. Telegram သို့ Screenshot ပုံနှင့်တကွ တိုက်ရိုက်ပို့ဆောင်ခြင်း
     const caption = `🎯 အသစ်ဝင်ရောက်လာသော သင်တန်းအပ်နှံမှု\n\n👤 နာမည်: ${name}\n📞 ဖုန်း: ${phone}\n📚 ရွေးချယ်မှု: ${selectedCourses.join(', ')}\n💰 စုစုပေါင်း: ${totalAmount.toLocaleString()} ကျပ်`;
     const formData = new FormData();
     formData.append('chat_id', TELEGRAM_CHAT_ID);

@@ -12,11 +12,12 @@ h2 { color: #d4af37; margin-bottom: 20px; }
 table { width: 100%; border-collapse: collapse; background: #141414; border: 1px solid #222; }
 th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #222; font-size: 14px; vertical-align: middle; }
 th { background: #1a1a1a; color: #d4af37; }
-.confirm-btn { background: #d4af37; color: #0b0b0b; border: none; padding: 6px 14px; font-weight: 700; border-radius: 4px; cursor: pointer; font-family: 'Padauk', sans-serif; }
+.confirm-btn { background: #d4af37; color: #0b0b0b; border: none; padding: 6px 14px; font-weight: 700; border-radius: 4px; cursor: pointer; font-family: 'Padauk', sans-serif; transition: background 0.2s; }
 .confirm-btn:hover { background: #b3922e; }
+.confirm-btn:disabled { background: #555; color: #888; cursor: not-allowed; }
 .empty { color: #777; text-align: center; padding: 20px; }
 .course-list { margin: 0; padding-left: 18px; font-size: 13px; color: #e2e8f0; }
-.screenshot-link { color: #38bdf8; text-decoration: none; font-size: 12px; display: inline-block; margin-top: 5px; }
+.screenshot-text { color: #a0aec0; font-size: 12px; display: inline-block; margin-top: 5px; }
 </style>
 </head>
 <body>
@@ -27,12 +28,13 @@ th { background: #1a1a1a; color: #d4af37; }
 <th>ကျောင်းသားနာမည်</th>
 <th>ဖုန်းနံပါတ်</th>
 <th>တောင်းဆိုထားသော သင်တန်းများ</th>
+<th>ငွေလွှဲပုံအမည်</th>
 <th>ရက်စွဲ</th>
 <th>လုပ်ဆောင်ချက်</th>
 </tr>
 </thead>
 <tbody id="pendingTableBody">
-    <tr><td colspan="5" class="empty">ဒေတာများကို ရယူနေပါသည်...</td></tr>
+<tr><td colspan="6" class="empty">ဒေတာများကို ဆွဲထုတ်နေပါသည်...</td></tr>
 </tbody>
 </table>
 
@@ -52,11 +54,13 @@ function normalizePhone(phone) {
     return cleaned;
 }
 
-// Supabase မှ Pending စာရင်းများကို လှမ်းဆွဲထုတ်ခြင်း
+// Supabase မှ pending စာရင်းများကို လှမ်းဆွဲထုတ်ခြင်း
 async function loadPendingRequests() {
     const tbody = document.getElementById('pendingTableBody');
     if (!tbody) return;
     
+    tbody.innerHTML = `<tr><td colspan="6" class="empty">ဒေတာများကို ဆွဲထုတ်နေပါသည်...</td></tr>`;
+
     try {
         const { data: registrations, error } = await supabase
             .from('registrations')
@@ -65,67 +69,135 @@ async function loadPendingRequests() {
             .order('created_at', { ascending: false });
 
         if (error) {
-            console.error('Supabase Error:', error);
-            tbody.innerHTML = `<tr><td colspan="5" class="empty" style="color: #f87171;">ဒေတာ ရယူရာတွင် အမှားအယွင်း ရှိပါသည်။</td></tr>`;
+            console.error('Supabase fetch error:', error);
+            tbody.innerHTML = `<tr><td colspan="6" class="empty" style="color: #f87171;">ဒေတာရယူရာတွင် အမှားအယွင်း ရှိခဲ့ပါသည်။</td></tr>`;
             return;
         }
 
         if (!registrations || registrations.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="5" class="empty">စောင့်ဆိုင်းဆဲ စာရင်း မရှိသေးပါ။</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="6" class="empty">စောင့်ဆိုင်းဆဲ စာရင်း မရှိသေးပါ။</td></tr>`;
             return;
         }
 
         tbody.innerHTML = '';
+
         registrations.forEach((req) => {
             const tr = document.createElement('tr');
             let coursesHtml = "";
             
-            if (Array.isArray(req.courses)) {
-                coursesHtml = `<ul class="course-list">` + req.courses.map(c => `<li>${c}</li>`).join('') + `</ul>`;
-            } else if (req.courses) {
-                coursesHtml = `<ul class="course-list"><li>${req.courses}</li></ul>`;
+            let coursesArr = req.courses;
+            if (typeof coursesArr === 'string') {
+                try { coursesArr = JSON.parse(coursesArr); } catch(e) { coursesArr = [req.courses]; }
+            }
+
+            if (Array.isArray(coursesArr)) {
+                coursesHtml = `<ul class="course-list">` + coursesArr.map(c => `<li>${c}</li>`).join('') + `</ul>`;
             } else {
                 coursesHtml = `<span style="color: #f87171;">သင်တန်း အချက်အလက် မပါရှိပါ</span>`;
             }
 
-            let screenshotHtml = req.screenshot_name ? `<br><span style="font-size: 12px; color: #aaa;">ဖိုင်: ${req.screenshot_name}</span>` : "";
+            let screenshotInfo = req.screenshot_name ? `<br><span class="screenshot-text">📁 ပုံအမည်: ${req.screenshot_name}</span>` : "";
+            let formattedDate = req.created_at ? new Date(req.created_at).toLocaleString() : '-';
 
             tr.innerHTML = `
-                <td><b>${req.name || ''}</b>${screenshotHtml}</td>
+                <td><b>${req.name || ''}</b>${screenshotInfo}</td>
                 <td>${req.phone || '-'}</td>
                 <td>${coursesHtml}</td>
-                <td>${req.created_at ? new Date(req.created_at).toLocaleDateString() : '-'}</td>
-                <td><button class="confirm-btn" onclick="approveStudent('${req.id}', '${req.name}', '${req.phone}')">Confirm 🟢</button></td>
+                <td>${req.screenshot_name || '-'}</td>
+                <td>${formattedDate}</td>
+                <td><button class="confirm-btn" id="btn-${req.id}" onclick="approveStudent('${req.id}', '${req.phone}', '${encodeURIComponent(JSON.stringify(coursesArr || []))}', '${encodeURIComponent(req.name || '')}')">Confirm 🟢</button></td>
             `;
             tbody.appendChild(tr);
         });
+
     } catch (err) {
-        console.error(err);
-        tbody.innerHTML = `<tr><td colspan="5" class="empty" style="color: #f87171;">ချိတ်ဆက်မှု အမှားအယွင်း ရှိပါသည်။</td></tr>`;
+        console.error('Error loading pending requests:', err);
+        tbody.innerHTML = `<tr><td colspan="6" class="empty" style="color: #f87171;">ချိတ်ဆက်မှု အမှားအယွင်း ရှိနေပါသည်။</td></tr>`;
     }
 }
 
-// Admin မှ Confirm ပေးလိုက်သောအခါ Supabase တွင် status ကို 'approved' သို့ ပြောင်းခြင်း
-async function approveStudent(id, name, phone) {
-    if (!confirm(`${name} (${phone}) ကို အတည်ပြုရန် သေချာပါသလား?`)) return;
+// ကျောင်းသားကို အတည်ပြုပေးခြင်း (Supabase Update + LocalStorage Sync)
+async function approveStudent(id, rawPhone, encodedCourses, encodedName) {
+    const btn = document.getElementById(`btn-${id}`);
+    if (btn) {
+        btn.disabled = true;
+        btn.innerText = "အတည်ပြုနေသည်...";
+    }
 
     try {
-        const { error } = await supabase
+        let cleanPhone = normalizePhone(rawPhone);
+        let coursesArr = JSON.parse(decodeURIComponent(encodedCourses));
+        let studentName = decodeURIComponent(encodedName);
+
+        let courseNumbers = [];
+        const myanmarNumbers = {'၀': '0', '၁': '1', '၂': '2', '၃': '3', '၄': '4', '၅': '5', '၆': '6', '၇': '7', '၈': '8', '၉': '9'};
+
+        coursesArr.forEach(c => {
+            let courseNameStr = String(c);
+            let convertedStr = courseNameStr.replace(/[၀-၉]/g, match => myanmarNumbers[match]);
+
+            if (convertedStr.includes("သင်တန်း") || convertedStr.includes("Course")) {
+                let matches = convertedStr.match(/\d+/g);
+                if (matches) {
+                    matches.forEach(m => {
+                        let num = parseInt(m, 10);
+                        if (num >= 1 && num <= 8 && !courseNumbers.includes(num)) {
+                            courseNumbers.push(num);
+                        }
+                    });
+                }
+            }
+        });
+
+        if (courseNumbers.length === 0) {
+            courseNumbers = [1];
+        }
+
+        // ၁. Supabase ထဲတွင် status ကို approved သို့ ပြောင်းလဲခြင်း
+        const { error: updateError } = await supabase
             .from('registrations')
             .update({ status: 'approved' })
             .eq('id', id);
 
-        if (error) {
-            console.error('Error approving student:', error);
-            alert('အတည်ပြုရာတွင် အမှားအယွင်း ရှိသွားပါသည်။');
+        if (updateError) {
+            console.error('Supabase update error:', updateError);
+            alert('Database အပ်ဒိတ်လုပ်ရာတွင် အမှားအယွင်း ရှိသွားပါသည်။');
+            if(btn) { btn.disabled = false; btn.innerText = "Confirm 🟢"; }
             return;
         }
 
-        alert(name + " (" + phone + ") ကို အောင်မြင်စွာ အတည်ပြုပြီးပါပြီ။ ယခု မည်သည့်ဖုန်းမှမဆို Login ဝင်လို့ရပါပြီ။");
+        // ၂. Login ဝင်နိုင်ရန် LocalStorage တွင်ပါ Sync လုပ်သိမ်းပေးခြင်း
+        let approvedUsers = JSON.parse(localStorage.getItem('approvedUsers')) || {};
+        approvedUsers[cleanPhone] = courseNumbers;
+        localStorage.setItem('approvedUsers', JSON.stringify(approvedUsers));
+
+        let studentObj = {
+            name: studentName,
+            phone: cleanPhone,
+            courses: coursesArr,
+            approvedCourses: courseNumbers
+        };
+
+        const approvalKeys = ['approvedStudents', 'registeredStudents', 'users'];
+        approvalKeys.forEach(key => {
+            let list = JSON.parse(localStorage.getItem(key)) || [];
+            if (!Array.isArray(list)) list = [];
+            let exists = list.some(u => normalizePhone(u.phone || u.phoneNumber) === cleanPhone);
+            if (!exists) {
+                list.push(studentObj);
+            } else {
+                list = list.map(u => normalizePhone(u.phone || u.phoneNumber) === cleanPhone ? studentObj : u);
+            }
+            localStorage.setItem(key, JSON.stringify(list));
+        });
+
+        alert(studentName + " (" + cleanPhone + ") ကို အောင်မြင်စွာ အတည်ပြုပြီးပါပြီ။");
         loadPendingRequests();
+
     } catch (err) {
-        console.error(err);
+        console.error('Approval execution error:', err);
         alert('အတည်ပြုရာတွင် အမှားအယွင်း ရှိသွားပါသည်။');
+        if(btn) { btn.disabled = false; btn.innerText = "Confirm 🟢"; }
     }
 }
 
