@@ -33,6 +33,16 @@ th { background: #1a1a1a; color: #d4af37; }
 </table>
 
 <script>
+// ဖုန်းနံပါတ် စံသတ်မှတ်ချက် ညှိပေးသည့် Function (Space နဲ့ +959 တွေ မကွဲအောင်)
+function normalizePhone(phone) {
+    if (!phone) return "";
+    let cleaned = phone.toString().replace(/\s+/g, '').replace(/[-+]/g, '');
+    if (cleaned.startsWith('959')) {
+        cleaned = '0' + cleaned.substring(2);
+    }
+    return cleaned;
+}
+
 function loadPendingRequests() {
     const tbody = document.getElementById('pendingTableBody');
     if (!tbody) return;
@@ -84,8 +94,9 @@ function approveStudent(index) {
         let student = pendingRequests[index];
         if (!student) return;
 
-        let approvedUsers = JSON.parse(localStorage.getItem('approvedUsers')) || {};
-        
+        let cleanPhone = normalizePhone(student.phone);
+        student.phone = cleanPhone; // ဖုန်းကို Standard ဖြစ်အောင် ညှိမည်
+
         let rawCourses = [];
         if (Array.isArray(student.courses)) {
             rawCourses = student.courses;
@@ -102,29 +113,8 @@ function approveStudent(index) {
 
         rawCourses.forEach(c => {
             let courseNameStr = String(c);
-            
-            // မြန်မာဂဏန်းများကို အင်္ဂလိပ်ဂဏန်းသို့ ပြောင်းလဲခြင်း
             let convertedStr = courseNameStr.replace(/[၀-၉]/g, match => myanmarNumbers[match]);
 
-            // Promotion စာသားပါသော်လည်း အထဲတွင် ပါရှိသည့် (သို့မဟုတ် ဘေးတွင်ပါသော) နံပါတ်များကိုသာ တိကျစွာ ဆွဲထုတ်မည်
-            let matches = convertedStr.match(/\d+/g);
-            if (matches) {
-                matches.forEach(m => {
-                    let num = parseInt(m, 10);
-                    // 1 ကနေ 8 ကြား သင်တန်းနံပါတ်များကိုသာ ထည့်မည် (Promotion ဆိုတဲ့ ဂဏန်း '4' ပါလာရင်လည်း သင်တန်း ၄ ခုရွေးထားတာမို့ အဲ့ဒီနံပါတ်က တိုက်ဆိုင်နေရင် ပါသွားနိုင်ပါတယ်။ တကယ်လို့ Promotion ဆိုတဲ့ စာသားပါတဲ့ '4' က အရေအတွက်ဖြစ်ပြီး သင်တန်းနံပါတ်မဟုတ်ရင် အောက်ပါအခြေအနေကို ထပ်စစ်ရပါမယ်)
-                    if (num >= 1 && num <= 8 && !courseNumbers.includes(num)) {
-                        // သတိပြုရန်: "Promotion (Course ၄ ခု)" ဆိုရင် '4' က အရေအတွက်ဖြစ်နေလို့ သင်တန်း ၄ လို့ မှားယူနိုင်ပါတယ်။ အဲ့ဒါကြောင့် အောက်မှာ သီးသန့်စစ်ပေးထားပါတယ်။
-                    }
-                });
-            }
-        });
-
-        // ပိုမိုတိကျစေရန်: သင်တန်းစာရင်းအတန်းလိုက် (ဥပမာ သင်တန်း ၅၊ သင်တန်း ၆ စသည်ဖြင့်) ပါလာသော နံပါတ်များကိုသာ အတိအကျဖမ်းယူခြင်း
-        rawCourses.forEach(c => {
-            let courseNameStr = String(c);
-            let convertedStr = courseNameStr.replace(/[၀-၉]/g, match => myanmarNumbers[match]);
-
-            // 'သင်တန်း' ဆိုတဲ့ စာသားပါဝင်မှသာ ထိုစာကြောင်းထဲက ဂဏန်းကို သင်တန်းနံပါတ်အဖြစ် သတ်မှတ်မည် (Promotion ဆိုတဲ့ စာသားပါတဲ့ အရေအတွက် '4' ကို ရှောင်ရှားရန်)
             if (convertedStr.includes("သင်တန်း") || convertedStr.includes("Course")) {
                 let matches = convertedStr.match(/\d+/g);
                 if (matches) {
@@ -142,16 +132,38 @@ function approveStudent(index) {
             courseNumbers = [1];
         }
 
-        approvedUsers[student.phone] = courseNumbers;
+        student.approvedCourses = courseNumbers;
+
+        // 1. approvedUsers (Object ပုံစံဖြင့် သိမ်းဆည်းခြင်း - Login ဘက်က ဖတ်ရန်)
+        let approvedUsers = JSON.parse(localStorage.getItem('approvedUsers')) || {};
+        approvedUsers[cleanPhone] = courseNumbers;
         localStorage.setItem('approvedUsers', JSON.stringify(approvedUsers));
 
+        // 2. approvedStudents / registeredStudents (Array ပုံစံဖြင့်လည်း Sync လုပ်သိမ်းပေးခြင်း)
+        const approvalKeys = ['approvedStudents', 'registeredStudents', 'users'];
+        approvalKeys.forEach(key => {
+            let list = JSON.parse(localStorage.getItem(key)) || [];
+            if (!Array.isArray(list)) list = [];
+            // ထိုဖုန်းနံပါတ် မရှိသေးမှသာ အသစ်ထည့်မည်
+            let exists = list.some(u => normalizePhone(u.phone || u.phoneNumber) === cleanPhone);
+            if (!exists) {
+                list.push(student);
+            } else {
+                // ရှိပြီးသားဆိုရင် Update လုပ်မည်
+                list = list.map(u => normalizePhone(u.phone || u.phoneNumber) === cleanPhone ? student : u);
+            }
+            localStorage.setItem(key, JSON.stringify(list));
+        });
+
+        // Pending စာရင်းထဲမှ ဖယ်ရှားမည်
         pendingRequests.splice(index, 1);
         localStorage.setItem('pendingRequests', JSON.stringify(pendingRequests));
         localStorage.setItem('pending Students', JSON.stringify(pendingRequests));
 
-        alert(student.name + " (" + student.phone + ") ၏ သင်တန်းနံပါတ် (" + courseNumbers.join(', ') + ") များကို အောင်မြင်စွာ အတည်ပြုပြီးပါပြီ။");
+        alert(student.name + " (" + cleanPhone + ") ကို အောင်မြင်စွာ အတည်ပြုပြီးပါပြီ။ ယခု မည်သည့်ဖုန်းမှမဆို Login ဝင်လို့ရပါပြီ။");
         loadPendingRequests();
     } catch (err) {
+        console.error(err);
         alert('အတည်ပြုရာတွင် အမှားအယွင်း ရှိသွားပါသည်။');
     }
 }
