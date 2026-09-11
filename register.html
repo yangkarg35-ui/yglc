@@ -6,6 +6,8 @@
 <title>YGLC - သင်တန်းအပ်နှံရန်</title>
 <link href="https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<!-- Supabase CDN ထည့်သွင်းခြင်း -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 body { background: #f4f7f6; color: #333333; font-family: 'Padauk', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px 0; overflow-x: hidden; }
 .box { background: #ffffff; border: 1px solid #e0e0e0; padding: 30px; border-radius: 12px; width: 480px; box-sizing: border-box; box-shadow: 0 4px 15px rgba(0,0,0,0.08); position: relative; }
@@ -226,6 +228,11 @@ button[type="submit"]:disabled { background: #95a5a6; cursor: not-allowed; }
 </div>
 
 <script>
+// Supabase ချိတ်ဆက်ရန် အချက်အလက်များ
+const SUPABASE_URL = 'https://qyoyxagrkpzppacnpdbc.supabase.co'; 
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF5b3l4YWdya3B6cHBhY25wZGJjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkxMTg0MTIsImV4cCI6MjEwNDY5NDQxMn0.giB8iSYSZCUQijzUGW6pp1Uo-CB2DUIEt1faZnip9l0';
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
 const TELEGRAM_BOT_TOKEN = "8745766599:AAHFC38Zza-YC56neTJj--9wByQieCd4QFk";
 const TELEGRAM_CHAT_ID = "6868820956";
 
@@ -244,7 +251,7 @@ function calculateTotal() {
     if(totalPriceEl) totalPriceEl.innerText = "50,000";
 }
 
-function submitRegistration(e) {
+async function submitRegistration(e) {
     e.preventDefault();
     const nameEl = document.getElementById('studentName');
     const phoneEl = document.getElementById('studentPhone');
@@ -272,30 +279,35 @@ function submitRegistration(e) {
     const fileName = file.name;
 
     try {
-        let studentData = {
-            name,
-            phone,
-            courses: selectedCourses,
-            total: totalAmount,
-            screenshotName: fileName,
-            date: new Date().toLocaleString()
-        };
+        // Supabase Cloud Database သို့ တိုက်ရိုက်သိမ်းဆည်းခြင်း
+        const { data, error } = await supabase
+            .from('registrations')
+            .insert([
+                { 
+                    name: name, 
+                    phone: phone, 
+                    courses: selectedCourses, 
+                    total: totalAmount, 
+                    screenshot_name: fileName,
+                    status: 'pending' 
+                }
+            ]);
 
-        // Admin ဘက်မှ မည်သည့် Key (pendingRequests သို့မဟုတ် pendingStudents) ဖြင့် ဖတ်သည်ဖြစ်စေ အဆင်ပြေစေရန် နှစ်ခုစလုံးထဲသို့ အတူတူ ထည့်သွင်းသိမ်းဆည်းပေးသည်
-        let pendingRequests = JSON.parse(localStorage.getItem('pendingRequests')) || [];
-        if (!Array.isArray(pendingRequests)) pendingRequests = [];
-        pendingRequests.push(studentData);
-        localStorage.setItem('pendingRequests', JSON.stringify(pendingRequests));
-
-        let pendingStudents = JSON.parse(localStorage.getItem('pendingStudents')) || [];
-        if (!Array.isArray(pendingStudents)) pendingStudents = [];
-        pendingStudents.push(studentData);
-        localStorage.setItem('pendingStudents', JSON.stringify(pendingStudents));
+        if (error) {
+            console.error('Supabase Error:', error);
+            alert('အချက်အလက် ပို့ဆောင်ရာတွင် အမှားအယွင်း ရှိသွားပါသည်။');
+            resetSubmitButton();
+            return;
+        }
 
     } catch (storageErr) {
         console.error('Storage Error:', storageErr);
+        alert('ချိတ်ဆက်မှု အမှားအယွင်း ရှိပါသည်။');
+        resetSubmitButton();
+        return;
     }
 
+    // Telegram သို့ ပို့ရန် (မူလအတိုင်း ဆက်လက် လုပ်ဆောင်သည်)
     const caption = `🎯 အသစ်ဝင်ရောက်လာသော သင်တန်းအပ်နှံမှု\n\n👤 နာမည်: ${name}\n📞 ဖုန်း: ${phone}\n📚 ရွေးချယ်မှု: ${selectedCourses.join(', ')}\n💰 စုစုပေါင်း: ${totalAmount.toLocaleString()} ကျပ်`;
     const formData = new FormData();
     formData.append('chat_id', TELEGRAM_CHAT_ID);

@@ -2,8 +2,11 @@
 <html lang="my">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YGLC - Login</title>
     <link href="https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Supabase CDN ထည့်သွင်းခြင်း -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         body { 
             background: #f8f9fa; 
@@ -83,9 +86,14 @@
             font-family: 'Padauk', sans-serif; 
             margin-bottom: 12px; 
             font-size: 16px;
+            transition: background 0.3s;
         }
         button:hover { 
             background: #6b4420; 
+        }
+        button:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
         }
         .register-link-btn { 
             width: 100%; 
@@ -110,6 +118,7 @@
             margin-top: 10px; 
             display: none; 
             font-weight: 700;
+            line-height: 1.4;
         }
     </style>
 </head>
@@ -119,34 +128,89 @@
         <h2>YGLC MEMBER LOGIN</h2>
         <form onsubmit="handleLogin(event)">
             <label>ဖုန်းနံပါတ်ဖြင့် ဝင်ရန်</label>
-            <input type="text" id="loginPhone" required placeholder="09xxxxxxxxx">
-            <button type="submit">လော့ဂ်အင်ဝင်မည်</button>
-            <div id="errorMsg" class="error">ဤဖုန်းနံပါတ်ဖြင့် ငွေပေးချေအတည်ပြုချက် မရှိသေးပါ။</div>
+            <input type="tel" id="loginPhone" required placeholder="09xxxxxxxxx">
+            <button type="submit" id="loginBtn">လော့ဂ်အင်ဝင်မည်</button>
+            <div id="errorMsg" class="error">ဤဖုန်းနံပါတ်ဖြင့် ငွေပေးချေအတည်ပြုချက် မရှိသေးပါ (သို့မဟုတ်) Admin မှ အတည်မပြုသေးပါ။</div>
         </form>
         <a href="register.html" class="register-link-btn">သင်တန်းအသစ် အပ်နှံရန် (Register)</a>
     </div>
 
     <script>
+        // Supabase ချိတ်ဆက်ရန် အချက်အလက်များ
+        const SUPABASE_URL = 'https://qyoyxagrkpzppacnpdbc.supabase.co'; 
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF5b3l4YWdya3B6cHBhY25wZGJjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkxMTg0MTIsImV4cCI6MjEwNDY5NDQxMn0.giB8iSYSZCUQijzUGW6pp1Uo-CB2DUIEt1faZnip9l0';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
         window.addEventListener('DOMContentLoaded', () => {
             if (localStorage.getItem("isLoggedIn") === "true") {
                 window.location.href = "dashboard.html";
             }
         });
 
-        function handleLogin(e) {
-            e.preventDefault();
-            const phone = document.getElementById('loginPhone').value.trim();
-            const approvedUsers = JSON.parse(localStorage.getItem('approvedUsers')) || {};
-
-            if (approvedUsers[phone]) {
-                localStorage.setItem("isLoggedIn", "true");
-                localStorage.setItem("userPhone", phone);
-                // Dashboard မှ မှန်ကန်စွာဖတ်ရှုနိုင်ရန် Space မပါသော Key ဖြင့် သိမ်းဆည်းပေးသည်
-                localStorage.setItem("userPurchasedCourses", JSON.stringify(approvedUsers[phone]));
-                window.location.href = "dashboard.html";
-            } else {
-                document.getElementById('errorMsg').style.display = 'block';
+        // ဖုန်းနံပါတ် ပုံစံများကို တူညီအောင် ညှိပေးသည့် Helper Function
+        function normalizePhone(phone) {
+            if (!phone) return "";
+            let cleaned = phone.toString().replace(/\s+/g, '').replace(/[-+]/g, '');
+            if (cleaned.startsWith('959')) {
+                cleaned = '0' + cleaned.substring(2);
             }
+            return cleaned;
+        }
+
+        async function handleLogin(e) {
+            e.preventDefault();
+            const rawPhone = document.getElementById('loginPhone').value;
+            const inputPhone = normalizePhone(rawPhone);
+            const loginBtn = document.getElementById('loginBtn');
+            const errorMsg = document.getElementById('errorMsg');
+
+            errorMsg.style.display = 'none';
+            loginBtn.disabled = true;
+            loginBtn.innerText = "စစ်ဆေးနေပါသည်...";
+
+            try {
+                // Supabase Database ထဲမှ ဖုန်းနံပါတ်နှင့် ကိုက်ညီပြီး status က approved ဖြစ်နေသော အချက်အလက်ကို ရှာမည်
+                const { data, error } = await supabase
+                    .from('registrations')
+                    .select('*')
+                    .eq('phone', inputPhone)
+                    .eq('status', 'approved')
+                    .maybeSingle();
+
+                if (error) {
+                    console.error('Supabase Login Error:', error);
+                    errorMsg.innerText = 'ချိတ်ဆက်မှု အမှားအယွင်း ရှိပါသည်။ ကျေးဇူးပြု၍ ခဏနေထပ်ကြိုးစားပါ။';
+                    errorMsg.style.display = 'block';
+                    resetButton();
+                    return;
+                }
+
+                if (data) {
+                    // အောင်မြင်ပါက LocalStorage တွင် သိမ်းဆည်းပြီး Dashboard သို့ ပို့မည်
+                    localStorage.setItem("isLoggedIn", "true");
+                    localStorage.setItem("userPhone", data.phone);
+                    localStorage.setItem("userName", data.name || '');
+                    localStorage.setItem("userPurchasedCourses", JSON.stringify(data.courses || []));
+                    window.location.href = "dashboard.html";
+                } else {
+                    // မတွေ့ပါက သို့မဟုတ် pending ဖြစ်နေပါက Error ပြမည်
+                    errorMsg.innerText = 'ဤဖုန်းနံပါတ်ဖြင့် ငွေပေးချေအတည်ပြုချက် မရှိသေးပါ (သို့မဟုတ်) Admin မှ အတည်မပြုသေးပါ။';
+                    errorMsg.style.display = 'block';
+                    resetButton();
+                }
+
+            } catch (err) {
+                console.error('Error:', err);
+                errorMsg.innerText = 'စနစ် အမှားအယွင်း ရှိသွားပါသည်။';
+                errorMsg.style.display = 'block';
+                resetButton();
+            }
+        }
+
+        function resetButton() {
+            const loginBtn = document.getElementById('loginBtn');
+            loginBtn.disabled = false;
+            loginBtn.innerText = "လော့ဂ်အင်ဝင်မည်";
         }
 
         function goBack() {

@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <title>YGLC Admin Control Panel</title>
 <link href="https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap" rel="stylesheet">
+<!-- Supabase CDN ထည့်သွင်းခြင်း -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 body { background: #0b0b0b; color: #f7f4ef; font-family: 'Padauk', sans-serif; padding: 40px; }
 h2 { color: #d4af37; margin-bottom: 20px; }
@@ -18,7 +20,7 @@ th { background: #1a1a1a; color: #d4af37; }
 </style>
 </head>
 <body>
-<h2>Boss ၏ Admin အတည်ပြုရန် စာရင်းများ</h2>
+<h2>Boss ၏ Admin အတည်ပြုရန် စာရင်းများ (Supabase Cloud)</h2>
 <table>
 <thead>
 <tr>
@@ -29,11 +31,18 @@ th { background: #1a1a1a; color: #d4af37; }
 <th>လုပ်ဆောင်ချက်</th>
 </tr>
 </thead>
-<tbody id="pendingTableBody"></tbody>
+<tbody id="pendingTableBody">
+    <tr><td colspan="5" class="empty">ဒေတာများကို ရယူနေပါသည်...</td></tr>
+</tbody>
 </table>
 
 <script>
-// ဖုန်းနံပါတ် စံသတ်မှတ်ချက် ညှိပေးသည့် Function (Space နဲ့ +959 တွေ မကွဲအောင်)
+// Supabase ချိတ်ဆက်ရန် အချက်အလက်များ
+const SUPABASE_URL = 'https://qyoyxagrkpzppacnpdbc.supabase.co'; 
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF5b3l4YWdya3B6cHBhY25wZGJjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkxMTg0MTIsImV4cCI6MjEwNDY5NDQxMn0.giB8iSYSZCUQijzUGW6pp1Uo-CB2DUIEt1faZnip9l0';
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// ဖုန်းနံပါတ် စံသတ်မှတ်ချက် ညှိပေးသည့် Function
 function normalizePhone(phone) {
     if (!phone) return "";
     let cleaned = phone.toString().replace(/\s+/g, '').replace(/[-+]/g, '');
@@ -43,124 +52,76 @@ function normalizePhone(phone) {
     return cleaned;
 }
 
-function loadPendingRequests() {
+// Supabase မှ Pending စာရင်းများကို လှမ်းဆွဲထုတ်ခြင်း
+async function loadPendingRequests() {
     const tbody = document.getElementById('pendingTableBody');
     if (!tbody) return;
-    tbody.innerHTML = '';
     
-    let pendingRequests = [];
     try {
-        let data = localStorage.getItem('pendingRequests') || localStorage.getItem('pending Students');
-        if (data) {
-            pendingRequests = JSON.parse(data);
-            if (!Array.isArray(pendingRequests)) pendingRequests = [];
-        }
-    } catch (e) {
-        pendingRequests = [];
-    }
+        const { data: registrations, error } = await supabase
+            .from('registrations')
+            .select('*')
+            .eq('status', 'pending')
+            .order('created_at', { ascending: false });
 
-    if (pendingRequests.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" class="empty">စောင့်ဆိုင်းဆဲ စာရင်း မရှိသေးပါ။</td></tr>`;
-        return;
-    }
-
-    pendingRequests.forEach((req, index) => {
-        const tr = document.createElement('tr');
-        let coursesHtml = "";
-        if (Array.isArray(req.courses)) {
-            coursesHtml = `<ul class="course-list">` + req.courses.map(c => `<li>${c}</li>`).join('') + `</ul>`;
-        } else if (req.course) {
-            coursesHtml = `<ul class="course-list"><li>${req.course}</li></ul>`;
-        } else {
-            coursesHtml = `<span style="color: #f87171;">သင်တန်း အချက်အလက် မပါရှိပါ</span>`;
+        if (error) {
+            console.error('Supabase Error:', error);
+            tbody.innerHTML = `<tr><td colspan="5" class="empty" style="color: #f87171;">ဒေတာ ရယူရာတွင် အမှားအယွင်း ရှိပါသည်။</td></tr>`;
+            return;
         }
 
-        let screenshotHtml = req.screenshot ? `<br><a href="${req.screenshot}" target="_blank" class="screenshot-link">ငွေလွှဲပုံ ကြည့်ရန်</a>` : "";
+        if (!registrations || registrations.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="5" class="empty">စောင့်ဆိုင်းဆဲ စာရင်း မရှိသေးပါ။</td></tr>`;
+            return;
+        }
 
-        tr.innerHTML = `
-            <td><b>${req.name || ''}</b>${screenshotHtml}</td>
-            <td>${req.phone || '-'}</td>
-            <td>${coursesHtml}</td>
-            <td>${req.date || '-'}</td>
-            <td><button class="confirm-btn" onclick="approveStudent(${index})">Confirm 🟢</button></td>
-        `;
-        tbody.appendChild(tr);
-    });
+        tbody.innerHTML = '';
+        registrations.forEach((req) => {
+            const tr = document.createElement('tr');
+            let coursesHtml = "";
+            
+            if (Array.isArray(req.courses)) {
+                coursesHtml = `<ul class="course-list">` + req.courses.map(c => `<li>${c}</li>`).join('') + `</ul>`;
+            } else if (req.courses) {
+                coursesHtml = `<ul class="course-list"><li>${req.courses}</li></ul>`;
+            } else {
+                coursesHtml = `<span style="color: #f87171;">သင်တန်း အချက်အလက် မပါရှိပါ</span>`;
+            }
+
+            let screenshotHtml = req.screenshot_name ? `<br><span style="font-size: 12px; color: #aaa;">ဖိုင်: ${req.screenshot_name}</span>` : "";
+
+            tr.innerHTML = `
+                <td><b>${req.name || ''}</b>${screenshotHtml}</td>
+                <td>${req.phone || '-'}</td>
+                <td>${coursesHtml}</td>
+                <td>${req.created_at ? new Date(req.created_at).toLocaleDateString() : '-'}</td>
+                <td><button class="confirm-btn" onclick="approveStudent('${req.id}', '${req.name}', '${req.phone}')">Confirm 🟢</button></td>
+            `;
+            tbody.appendChild(tr);
+        });
+    } catch (err) {
+        console.error(err);
+        tbody.innerHTML = `<tr><td colspan="5" class="empty" style="color: #f87171;">ချိတ်ဆက်မှု အမှားအယွင်း ရှိပါသည်။</td></tr>`;
+    }
 }
 
-function approveStudent(index) {
+// Admin မှ Confirm ပေးလိုက်သောအခါ Supabase တွင် status ကို 'approved' သို့ ပြောင်းခြင်း
+async function approveStudent(id, name, phone) {
+    if (!confirm(`${name} (${phone}) ကို အတည်ပြုရန် သေချာပါသလား?`)) return;
+
     try {
-        let pendingRequests = JSON.parse(localStorage.getItem('pendingRequests') || localStorage.getItem('pending Students') || '[]');
-        let student = pendingRequests[index];
-        if (!student) return;
+        const { error } = await supabase
+            .from('registrations')
+            .update({ status: 'approved' })
+            .eq('id', id);
 
-        let cleanPhone = normalizePhone(student.phone);
-        student.phone = cleanPhone; // ဖုန်းကို Standard ဖြစ်အောင် ညှိမည်
-
-        let rawCourses = [];
-        if (Array.isArray(student.courses)) {
-            rawCourses = student.courses;
-        } else if (student.courses) {
-            rawCourses = [student.courses];
-        }
-        
-        if (student.course) {
-            rawCourses.push(student.course);
+        if (error) {
+            console.error('Error approving student:', error);
+            alert('အတည်ပြုရာတွင် အမှားအယွင်း ရှိသွားပါသည်။');
+            return;
         }
 
-        let courseNumbers = [];
-        const myanmarNumbers = {'၀': '0', '၁': '1', '၂': '2', '၃': '3', '၄': '4', '၅': '5', '၆': '6', '၇': '7', '৮': '8', '၉': '9'};
-
-        rawCourses.forEach(c => {
-            let courseNameStr = String(c);
-            let convertedStr = courseNameStr.replace(/[၀-၉]/g, match => myanmarNumbers[match]);
-
-            if (convertedStr.includes("သင်တန်း") || convertedStr.includes("Course")) {
-                let matches = convertedStr.match(/\d+/g);
-                if (matches) {
-                    matches.forEach(m => {
-                        let num = parseInt(m, 10);
-                        if (num >= 1 && num <= 8 && !courseNumbers.includes(num)) {
-                            courseNumbers.push(num);
-                        }
-                    });
-                }
-            }
-        });
-
-        if (courseNumbers.length === 0) {
-            courseNumbers = [1];
-        }
-
-        student.approvedCourses = courseNumbers;
-
-        // 1. approvedUsers (Object ပုံစံဖြင့် သိမ်းဆည်းခြင်း - Login ဘက်က ဖတ်ရန်)
-        let approvedUsers = JSON.parse(localStorage.getItem('approvedUsers')) || {};
-        approvedUsers[cleanPhone] = courseNumbers;
-        localStorage.setItem('approvedUsers', JSON.stringify(approvedUsers));
-
-        // 2. approvedStudents / registeredStudents (Array ပုံစံဖြင့်လည်း Sync လုပ်သိမ်းပေးခြင်း)
-        const approvalKeys = ['approvedStudents', 'registeredStudents', 'users'];
-        approvalKeys.forEach(key => {
-            let list = JSON.parse(localStorage.getItem(key)) || [];
-            if (!Array.isArray(list)) list = [];
-            // ထိုဖုန်းနံပါတ် မရှိသေးမှသာ အသစ်ထည့်မည်
-            let exists = list.some(u => normalizePhone(u.phone || u.phoneNumber) === cleanPhone);
-            if (!exists) {
-                list.push(student);
-            } else {
-                // ရှိပြီးသားဆိုရင် Update လုပ်မည်
-                list = list.map(u => normalizePhone(u.phone || u.phoneNumber) === cleanPhone ? student : u);
-            }
-            localStorage.setItem(key, JSON.stringify(list));
-        });
-
-        // Pending စာရင်းထဲမှ ဖယ်ရှားမည်
-        pendingRequests.splice(index, 1);
-        localStorage.setItem('pendingRequests', JSON.stringify(pendingRequests));
-        localStorage.setItem('pending Students', JSON.stringify(pendingRequests));
-
-        alert(student.name + " (" + cleanPhone + ") ကို အောင်မြင်စွာ အတည်ပြုပြီးပါပြီ။ ယခု မည်သည့်ဖုန်းမှမဆို Login ဝင်လို့ရပါပြီ။");
+        alert(name + " (" + phone + ") ကို အောင်မြင်စွာ အတည်ပြုပြီးပါပြီ။ ယခု မည်သည့်ဖုန်းမှမဆို Login ဝင်လို့ရပါပြီ။");
         loadPendingRequests();
     } catch (err) {
         console.error(err);
