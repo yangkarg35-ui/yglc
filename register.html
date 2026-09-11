@@ -172,7 +172,7 @@ button[type="submit"]:disabled { background: #95a5a6; cursor: not-allowed; }
 <form id="regForm" onsubmit="submitRegistration(event)">
 <label>နာမည်</label>
 <input type="text" id="studentName" required placeholder="ကျောင်းသားနာမည်">
-<label>ဖုန်းနံပတ် (Login ဝင်ရန်)</label>
+<label>ဖုန်းနံပါတ် (Login ဝင်ရန်)</label>
 <input type="tel" id="studentPhone" required placeholder="09xxxxxxxxx">
 <div class="total-box">
 ပေးချေရမည့် ပမာဏ: <span id="totalPrice">50,000</span> ကျပ်
@@ -180,7 +180,7 @@ button[type="submit"]:disabled { background: #95a5a6; cursor: not-allowed; }
 
 <div class="kpay-box">
 <b>KBZPay ဖြင့် ငွေလွှဲရန်:</b><br>
-📞 ဖုန်းနံပတ် - <b>09-971097886</b><br>
+📞 ဖုန်းနံပါတ် - <b>09-971097886</b><br>
 👤 အမည် - <b>Yan..kha</b><br>
 * ငွေလွှဲပြီးပါက အောက်ပါနေရာတွင် ငွေလွှဲ Screenshot ပုံကို ရွေးချယ်တင်ပြပါ။
 </div>
@@ -211,10 +211,10 @@ button[type="submit"]:disabled { background: #95a5a6; cursor: not-allowed; }
 <label class="course-item locked"><input type="checkbox" disabled> သင်တန်း ၂ - ပလက်ကင်တီးခတ်နည်း အလယ်အဆင့် <span class="soon-tag">မကြာမီထွက်ရှိမည်</span></label>
 <label class="course-item locked"><input type="checkbox" disabled> သင်တန်း ၃ - Rhythm တီးခတ်နည်း အခြေခံ <span class="soon-tag">မကြာမီထွက်ရှိမည်</span></label>
 <label class="course-item locked"><input type="checkbox" disabled> သင်တန်း ၄ - Rhythm တီးခတ်နည်း အလယ်အဆင့် <span class="soon-tag">မကြာမီထွက်ရှိမည်</span></label>
-<label class="course-item locked"><input type="checkbox" disabled> သင်တန်း ၅ - Advanced Rhythm တီးခတ်နည်း <span class="soon-tag">မကြာမီထွက်ရှိမည်</span></label>
+<label class="course-item locked"><input type="checkbox" disabled> သင်တန်း ۵ - Advanced Rhythm တီးခတ်နည်း <span class="soon-tag">မကြာမီထွက်ရှိမည်</span></label>
 <label class="course-item locked"><input type="checkbox" disabled> သင်တန်း ၆ - Fingerstyle တီးခတ်နည်း အခြေခံ <span class="soon-tag">မကြာမီထွက်ရှိမည်</span></label>
-<label class="course-item locked"><input type="checkbox" disabled> သင်တန်း ၇ - Basic Music Theory အခြေခံသီအိုရီ <span class="soon-tag">မကြာမီထွက်ရှိမည်</span></label>
-<label class="course-item locked"><input type="checkbox" disabled> သင်တန်း ၈ - Intermediate Music Theory အလယ်အလတ်အဆင့် <span class="soon-tag">မကြာမီထွက်ရှိမည်</span></label>
+<label class="course-item locked"><input type="checkbox" disabled> သင်တန်း ٧ - Basic Music Theory အခြေခံသီအိုရီ <span class="soon-tag">မကြာမီထွက်ရှိမည်</span></label>
+<label class="course-item locked"><input type="checkbox" disabled> သင်တန်း ٨ - Intermediate Music Theory အလယ်အလတ်အဆင့် <span class="soon-tag">မကြာမီထွက်ရှိမည်</span></label>
 </div>
 <button type="submit" id="submitBtn">ငွေလွှဲအတည်ပြုချက် တင်မည်</button>
 <div id="successMsg" class="success-msg"></div>
@@ -228,10 +228,10 @@ button[type="submit"]:disabled { background: #95a5a6; cursor: not-allowed; }
 </div>
 
 <script>
-// Supabase ချိတ်ဆက်ရန် အချက်အလက်များ
-const SUPABASE_URL = 'https://qyoyxagrkpzppacnpdbc.supabase.co'; 
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF5b3l4YWdya3B6cHBhY25wZGJjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkxMTg0MTIsImV4cCI6MjEwNDY5NDQxMn0.giB8iSYSZCUQijzUGW6pp1Uo-CB2DUIEt1faZnip9l0';
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+// Supabase ချိတ်ဆက်ရန် အချက်အလက်များ (Duplicate မဖြစ်စေရန် တစ်ကြိမ်တည်းသာ ကြေညာသည်)
+const SUPABASE_URL_VAL = 'https://qyoyxagrkpzppacnpdbc.supabase.co'; 
+const SUPABASE_ANON_KEY_VAL = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF5b3l4YWdya3B6cHBhY25wZGJjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkxMTg0MTIsImV4cCI6MjEwNDY5NDQxMn0.giB8iSYSZCUQijzUGW6pp1Uo-CB2DUIEt1faZnip9l0';
+const dbClient = window.supabase.createClient(SUPABASE_URL_VAL, SUPABASE_ANON_KEY_VAL);
 
 const TELEGRAM_BOT_TOKEN = "8745766599:AAHFC38Zza-YC56neTJj--9wByQieCd4QFk";
 const TELEGRAM_CHAT_ID = "6868820956";
@@ -290,7 +290,7 @@ async function submitRegistration(e) {
 
     try {
         // ၁. Supabase Cloud Database သို့ pending status ဖြင့် တိုက်ရိုက်သိမ်းဆည်းခြင်း
-        const { error } = await supabase
+        const { error } = await dbClient
             .from('registrations')
             .insert([
                 { 
