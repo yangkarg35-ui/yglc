@@ -34,7 +34,6 @@ header {
     padding: 20px 50px;
     background: rgba(5, 10, 8, 0.95);
     border-bottom: 1px solid var(--border-color);
-    /* Mobile မှာပါ page နဲ့တစ်ဆက်တည်း ပါသွားအောင် sticky/fixed အစား ပုံမှန်အတိုင်းထားလိုက်ပါပြီ */
     position: relative;
     z-index: 100;
 }
@@ -90,7 +89,6 @@ nav a:hover {
 .btn-register-nav:hover {
     background: var(--gold-light);
 }
-/* Mobile Menu Toggle Button */
 .menu-toggle {
     display: none;
     background: transparent;
@@ -427,13 +425,11 @@ footer {
 .footer-socials a:hover {
     color: var(--gold);
 }
-
 @media (max-width: 968px) {
     .courses-grid { grid-template-columns: 1fr; }
     .features-bar { grid-template-columns: 1fr 1fr; }
     .movement-grid { grid-template-columns: 1fr 1fr; }
     header { padding: 15px 20px; }
-    
     .menu-toggle { display: block; }
     nav {
         display: none;
@@ -449,14 +445,17 @@ footer {
         text-align: center;
     }
     nav.active { display: flex; }
-    .nav-actions { display: none; } /* Mobile menu အတွင်းမှာ login/register ထည့်ပေးထားပါတယ် */
+    .nav-actions { display: none; }
 }
 </style>
 </head>
 <body>
 <header>
 <div class="logo">YGLC</div>
-<button class="menu-toggle" onclick="toggleMenu()">☰</button>
+<div style="display: flex; align-items: center; gap: 10px;">
+  <a href="login.html" class="btn-login-nav" id="mobileLoginBtn" style="display: none; padding: 6px 14px; font-size: 13px;">Login</a>
+  <button class="menu-toggle" onclick="toggleMenu()">=</button>
+</div>
 <nav id="navMenu">
 <a href="#courses">Home</a>
 <a href="#courses">Courses</a>
@@ -469,18 +468,16 @@ footer {
 <a href="register.html" class="btn-register-nav">Register</a>
 </div>
 </header>
-
 <section class="hero">
 <div class="hero-content">
 <h1>Master the Guitar, <span>Command Your Sound</span></h1>
 <p>Welcome to YGLC Guitar Learning. Elevate your technique, simplify your knowledge, and step up to the next level.</p>
 <div style="display: flex; gap: 15px; flex-wrap: wrap; align-items: center;">
 <a href="register.html" class="btn-primary">Enroll Now</a>
-<a href="promotion.html" class="btn-outline">Watch Intro <span style="font-size: 24px; margin-left: 5px;">▶</span></a>
+<a href="promotion.html" class="btn-outline">Watch Promo <span style="font-size: 24px; margin-left: 5px;"></span></a>
 </div>
 </div>
 </section>
-
 <div class="features-bar">
 <div class="feature-item">
 <h4>Y1</h4>
@@ -499,7 +496,6 @@ footer {
 <p>Lifelong Mastery</p>
 </div>
 </div>
-
 <div class="container">
 <div class="section-header">
 <div>
@@ -509,7 +505,6 @@ footer {
 </div>
 <a href="promotion.html" class="view-all">View All Courses</a>
 </div>
-
 <div class="courses-grid">
 <!-- Course 1: Plucking Basic -->
 <div class="course-card">
@@ -526,29 +521,29 @@ footer {
 <span>Syllabus (15 Lessons)</span> <span>v</span>
 </button>
 <div class="syllabus-content">
-<strong>Module 1: Posture & Basics</strong>
+<strong>Module 1: Posture & Basics (ကိုယ်ဟန်အနေအထားနှင့် အခြေခံများ)</strong>
 <ul style="padding-left: 15px; margin: 5px 0 10px 0;">
-<li>Lesson 1: Correct seating and guitar posture</li>
-<li>Lesson 2: Left and right hand finger naming conventions</li>
-<li>Lesson 3: Guitar tuning fundamentals</li>
-<li>Lesson 4: Fretboard navigation and finger placement</li>
-<li>Lesson 5: Minimizing finger pain and tension</li>
+<li>Lesson 1: Correct seating and guitar posture (မှန်ကန်သော ထိုင်ပုံနှင့် ဂီတာကိုင်ပုံ ကိုယ်ဟန်အနေအထား)</li>
+<li>Lesson 2: Left and right hand finger naming conventions (ဘယ်နှင့်ညာလက် လက်ချောင်းအမည်ခေါ်ဝေါ်ပုံ စံများ)</li>
+<li>Lesson 3: Guitar tuning fundamentals (ဂီတာသံညှိခြင်းဆိုင်ရာ အခြေခံမူများ)</li>
+<li>Lesson 4: Fretboard navigation and finger placement (ဖရက်ဘုတ်ပေါ်တွင် သွားလာလှုပ်ရှားခြင်းနှင့် လက်ချောင်းနေရာချထားမှု)</li>
+<li>Lesson 5: Minimizing finger pain and tension (လက်ချောင်းနာကျင်မှုနှင့် တင်းအားကို အနည်းဆုံးဖြစ်အောင် လျှော့ချခြင်း)</li>
 </ul>
-<strong>Module 2: Right-Hand Finger Independence</strong>
+<strong>Module 2: Right-Hand Finger Independence (ညာလက် လက်ချောင်းများ လွတ်လပ်စွာလှုပ်ရှားနိုင်မှု)</strong>
 <ul style="padding-left: 15px; margin: 5px 0 10px 0;">
-<li>Lesson 6: Bass string plucking with thumb</li>
-<li>Lesson 7: Utilizing index, middle, and ring fingers (i, m, a)</li>
-<li>Lesson 8: Basic arpeggio exercises</li>
-<li>Lesson 9: Tone control during string changes</li>
-<li>Lesson 10: Advanced finger mobility drills</li>
+<li>Lesson 6: Bass string plucking with thumb (မလက်မဖြင့် ဘေ့စ်ကြိုးတီးခတ်ခြင်း)</li>
+<li>Lesson 7: Utilizing index, middle, and ring fingers (i, m, a) (ညွှန်လက်၊ လက်ခလယ်နှင့် လက်စွပ်လက်ချောင်းများကို အသုံးပြုခြင်း)</li>
+<li>Lesson 8: Basic arpeggio exercises (အခြေခံ အာပီဂျီယို လေ့ကျင့်ခန်းများ)</li>
+<li>Lesson 9: Tone control during string changes (ကြိုးပြောင်းချိန်တွင် အသံထွက်ကို ထိန်းချုပ်ခြင်း)</li>
+<li>Lesson 10: Advanced finger mobility drills (လက်ချောင်းများ ပိုမိုသွက်လက်လာစေရန် အဆင့်မြင့်လေ့ကျင့်ခန်းများ)</li>
 </ul>
-<strong>Module 3: Simple Melody Introduction</strong>
+<strong>Module 3: Simple Melody Introduction (ရိုးရှင်းသော တေးသွားအခြေခံ မိတ်ဆက်)</strong>
 <ul style="padding-left: 15px; margin: 0;">
-<li>Lesson 11: Playing with a single plucking pattern</li>
-<li>Lesson 12: Connecting two simple chords smoothly</li>
-<li>Lesson 13: Introduction to melodic plucking</li>
-<li>Lesson 14: Practicing song intros</li>
-<li>Lesson 15: Playing your first complete simple song</li>
+<li>Lesson 11: Playing with a single plucking pattern (တီးခတ်ပုံ ပုံစံတစ်မျိုးတည်းဖြင့် တီးခတ်ခြင်း)</li>
+<li>Lesson 12: Connecting two simple chords smoothly (ရိုးရှင်းသော ကော့ဒ်နှစ်ခုကို ချောမွေ့စွာ ဆက်စပ်တီးခတ်ခြင်း)</li>
+<li>Lesson 13: Introduction to melodic plucking (တေးသွားပါသော ပလပ်ကင်တီးခတ်ခြင်းသို့ မိတ်ဆက်)</li>
+<li>Lesson 14: Practicing song intros (သီချင်းအစ နိဒါန်းများကို လေ့ကျင့်ခြင်း)</li>
+<li>Lesson 15: Playing your first complete simple song (သင်၏ ပထမဆုံး ရိုးရှင်းသော သီချင်းတစ်ပုဒ်ကို အစအဆုံး တီးခတ်ခြင်း)</li>
 </ul>
 </div>
 </div>
@@ -559,7 +554,6 @@ footer {
 <a href="register.html" class="btn-primary" style="width: 100%;">Enroll Now</a>
 </div>
 </div>
-
 <!-- Course 2: Plucking Level 2 (Intermediate) -->
 <div class="course-card">
 <div>
@@ -576,29 +570,29 @@ footer {
 <span>Syllabus (15 Lessons)</span> <span>v</span>
 </button>
 <div class="syllabus-content">
-<strong>Module 1: Chord Transitions & Speed</strong>
+<strong>Module 1: Chord Transitions & Speed (ကော့ဒ်ပြောင်းလဲခြင်းနှင့် အမြန်နှုန်း)</strong>
 <ul style="padding-left: 15px; margin: 5px 0 10px 0;">
-<li>Lesson 1: Fluid chord shifting techniques</li>
-<li>Lesson 2: Finger muscle flexibility exercises</li>
-<li>Lesson 3: Barre chords plucking integration</li>
-<li>Lesson 4: Independent thumb and finger coordination</li>
-<li>Lesson 5: Eliminating gaps during transitions</li>
+<li>Lesson 1: Fluid chord shifting techniques (ချောမွေ့ပြေပြစ်သော ကော့ဒ်ရွှေ့ပြောင်းခြင်း နည်းပညာများ)</li>
+<li>Lesson 2: Finger muscle flexibility exercises (လက်ချောင်းကြွက်သားများ ပျော့ပြောင်းေစရန် လေ့ကျင့်ခန်းများ)</li>
+<li>Lesson 3: Barre chords plucking integration (ဘားကော့ဒ်များဖြင့် ပလပ်ကင်တီးခတ်မှုကို ပေါင်းစပ်ခြင်း)</li>
+<li>Lesson 4: Independent thumb and finger coordination (လက်မနှင့် အခြားလက်ချောင်းများ လွတ်လပ်စွာ ညှိနှိုင်းအလုပ်လုပ်ခြင်း)</li>
+<li>Lesson 5: Eliminating gaps during transitions (ပြောင်းလဲချိန်များတွင် အသံပြတ်တောက်မှုကို ဖယ်ရှားခြင်း)</li>
 </ul>
-<strong>Module 2: Advanced Plucking Patterns</strong>
+<strong>Module 2: Advanced Plucking Patterns (အဆင့်မြင့် ပလပ်ကင်တီးခတ်ပုံ ပုံစံများ)</strong>
 <ul style="padding-left: 15px; margin: 5px 0 10px 0;">
-<li>Lesson 6: Complex arpeggio variations</li>
-<li>Lesson 7: Rhythm division and speed scaling</li>
-<li>Lesson 8: Dynamics and touch control</li>
-<li>Lesson 9: Accentuated basslines</li>
-<li>Lesson 10: Velocity and attack regulation</li>
+<li>Lesson 6: Complex arpeggio variations (ရှုပ်ထွေးသော အာပီဂျီယို ပုံစံကွဲများ)</li>
+<li>Lesson 7: Rhythm division and speed scaling (စည်းချက်ခွဲဝေမှုနှင့် အမြန်နှုန်း အတိုင်းအတာသတ်မှတ်ခြင်း)</li>
+<li>Lesson 8: Dynamics and touch control (အသံအနှိမ်အမြင့်နှင့် လက်ဖျားထိတွေ့မှု ထိန်းချုပ်ခြင်း)</li>
+<li>Lesson 9: Accentuated basslines (ဘေ့စ်ကြိုးသံများကို ပိုမိုပေါ်လွင်စေခြင်း)</li>
+<li>Lesson 10: Velocity and attack regulation (တီးခတ်သည့် အရှိန်နှင့် ထိချက်ကို ထိန်းညှိခြင်း)</li>
 </ul>
-<strong>Module 3: Full Song Arrangement</strong>
+<strong>Module 3: Full Song Arrangement (သီချင်းတစ်ပုဒ်လုံး အသေးစိတ် တီးခတ်စီစဉ်ခြင်း)</strong>
 <ul style="padding-left: 15px; margin: 0;">
-<li>Lesson 11: Popular song intro styling</li>
-<li>Lesson 12: Advanced chorus picking patterns</li>
-<li>Lesson 13: Outro execution techniques</li>
-<li>Lesson 14: Infusing emotion into performance</li>
-<li>Lesson 15: Flawless full-track fingerstyle performance</li>
+<li>Lesson 11: Popular song intro styling (နာမည်ကြီး သီချင်းနိဒါန်းများကို စတိုင်လ်ဖော်ခြင်း)</li>
+<li>Lesson 12: Advanced chorus picking patterns (သီချင်းဆိုပ်ပိုင်းအတွက် အဆင့်မြင့် ပစ်ကင်တီးခတ်ပုံများ)</li>
+<li>Lesson 13: Outro execution techniques (သီချင်းအဆုံးသတ် တီးခတ်သည့် နည်းပညာများ)</li>
+<li>Lesson 14: Infusing emotion into performance (တီးခတ်မှုတွင် ခံစားချက်အပြည့် ထည့်သွင်းခြင်း)</li>
+<li>Lesson 15: Flawless full-track fingerstyle performance (အပြစ်အနာအဆာကင်းသော ဖင်ဂာစတိုင် သီချင်းတစ်ပုဒ်လုံး ဖျော်ဖြေတင်ဆက်မှု)</li>
 </ul>
 </div>
 </div>
@@ -609,7 +603,6 @@ footer {
 <a href="register.html" class="btn-locked" style="text-decoration:none; background: var(--gold); color: var(--bg-deep); font-weight:bold; text-align:center;">Enroll / Register</a>
 </div>
 </div>
-
 <!-- Course 3: Rhythm Basic -->
 <div class="course-card">
 <div>
@@ -626,29 +619,29 @@ footer {
 <span>Syllabus (15 Lessons)</span> <span>v</span>
 </button>
 <div class="syllabus-content">
-<strong>Module 1: Strumming Mechanics</strong>
+<strong>Module 1: Strumming Mechanics (ကြိုးတီးခတ်မှုဆိုင်ရာ ယန္တရားများ)</strong>
 <ul style="padding-left: 15px; margin: 5px 0 10px 0;">
-<li>Lesson 1: Proper pick grip and handling</li>
-<li>Lesson 2: Wrist motion foundations</li>
-<li>Lesson 3: Basic down-strum execution</li>
-<li>Lesson 4: Down and up strum integration</li>
-<li>Lesson 5: Relaxing arm tension</li>
+<li>Lesson 1: Proper pick grip and handling (ပစ်ခ် (Pick) ကို မှန်ကန်စွာ ကိုင်တွယ်ပုံ)</li>
+<li>Lesson 2: Wrist motion foundations (လက်ကောက်ဝတ် လှုပ်ရှားမှု အခြေခံများ)</li>
+<li>Lesson 3: Basic down-strum execution (အောက်သို့ တီးခတ်သည့် အခြေခံပုံစံ)</li>
+<li>Lesson 4: Down and up strum integration (အောက်နှင့် အပေါ် တီးခတ်မှုများကို ပေါင်းစပ်ခြင်း)</li>
+<li>Lesson 5: Relaxing arm tension (လက်မောင်းကြွက်သား တင်းအားကို လျှော့ချခြင်း)</li>
 </ul>
-<strong>Module 2: Core Strumming Patterns</strong>
+<strong>Module 2: Core Strumming Patterns (အဓိက စည်းချက်တီးခတ်ပုံ ပုံစံများ)</strong>
 <ul style="padding-left: 15px; margin: 5px 0 10px 0;">
-<li>Lesson 6: Standard 4/4 rhythm strumming</li>
-<li>Lesson 7: Slow ballad rhythm patterns</li>
-<li>Lesson 8: Fast tempo hand control</li>
-<li>Lesson 9: Metronome synchronization drills</li>
-<li>Lesson 10: Internalizing varied time feels</li>
+<li>Lesson 6: Standard 4/4 rhythm strumming (စံနှုန်း 4/4 စည်းချက်ဖြင့် တီးခတ်ခြင်း)</li>
+<li>Lesson 7: Slow ballad rhythm patterns (သီချင်းနှေး (Ballad) စည်းချက် ပုံစံများ)</li>
+<li>Lesson 8: Fast tempo hand control (အမြန်နှုန်းမြင့်သော တေးသွားများအတွက် လက်ကို ထိန်းချုပ်ခြင်း)</li>
+<li>Lesson 9: Metronome synchronization drills (မက်ထရိုနုမ် (Metronome) စည်းချက်နှင့်အညီ လေ့ကျင့်ခြင်း)</li>
+<li>Lesson 10: Internalizing varied time feels (ကွဲပြားခြားနားသော စည်းချက်ခံစားမှုကို ကိုယ်တွင်း၌ စွဲမြဲစေခြင်း)</li>
 </ul>
-<strong>Module 3: Song Integration</strong>
+<strong>Module 3: Song Integration (သီချင်းနှင့် ပေါင်းစပ်တီးခတ်ခြင်း)</strong>
 <ul style="padding-left: 15px; margin: 0;">
-<li>Lesson 11: Playing with simple chord changes</li>
-<li>Lesson 12: Verse and Chorus structure strumming</li>
-<li>Lesson 13: Maintaining steady rhythm across transitions</li>
-<li>Lesson 14: Dynamic section shifts</li>
-<li>Lesson 15: Full track execution with rhythm</li>
+<li>Lesson 11: Playing with simple chord changes (ရိုးရှင်းသော ကော့ဒ်ပြောင်းလဲမှုများနှင့်အတူ တီးခတ်ခြင်း)</li>
+<li>Lesson 12: Verse and Chorus structure strumming (ပိုဒ်နှင့် ရိဖ်/ကိုရပ်စ် အပိုင်းများအလိုက် စည်းချက်တီးခတ်ခြင်း)</li>
+<li>Lesson 13: Maintaining steady rhythm across transitions (ကော့ဒ်ပြောင်းချိန်များတွင် စည်းချက် မယိုင်ဘဲ တသမတ်တည်း ထိန်းသိမ်းခြင်း)</li>
+<li>Lesson 14: Dynamic section shifts (သီချင်း အပိုင်းအခြားအလိုက် အသံအရှိန်အဟုန် ပြောင်းလဲခြင်း)</li>
+<li>Lesson 15: Full track execution with rhythm (စည်းချက်အပြည့်အစုံဖြင့် သီချင်းတစ်ပုဒ်လုံး တီးခတ်ခြင်း)</li>
 </ul>
 </div>
 </div>
@@ -659,7 +652,6 @@ footer {
 <a href="register.html" class="btn-locked" style="text-decoration:none; background: var(--gold); color: var(--bg-deep); font-weight:bold; text-align:center;">Enroll / Register</a>
 </div>
 </div>
-
 <!-- Course 4: Rhythm Intermediate -->
 <div class="course-card">
 <div>
@@ -676,29 +668,29 @@ footer {
 <span>Syllabus (15 Lessons)</span> <span>v</span>
 </button>
 <div class="syllabus-content">
-<strong>Module 1: Syncopation & Grooves</strong>
+<strong>Module 1: Syncopation & Grooves (စည်းချက်လွဲ (Syncopation) နှင့် ဂร့ูဗ် (Groove) များ)</strong>
 <ul style="padding-left: 15px; margin: 5px 0 10px 0;">
-<li>Lesson 1: Off-beat strumming mastery</li>
-<li>Lesson 2: Specialized rock and pop patterns</li>
-<li>Lesson 3: Deconstructing complex time feels</li>
-<li>Lesson 4: Hybrid finger and pick strumming</li>
-<li>Lesson 5: Applying syncopation in context</li>
+<li>Lesson 1: Off-beat strumming mastery (စည်းချက်လွဲ တီးခတ်မှုကို ကျွမ်းကျင်ပိုင်နိုင်ခြင်း)</li>
+<li>Lesson 2: Specialized rock and pop patterns (ရော့ခ်နှင့် ပော့ပ် သီချင်းပုံစံ အထူးပြုများ)</li>
+<li>Lesson 3: Deconstructing complex time feels (ရှုပ်ထွေးသော စည်းချက်ခံစားမှုများကို ခွဲခြမ်းစိတ်ဖြာခြင်း)</li>
+<li>Lesson 4: Hybrid finger and pick strumming (လက်ချောင်းနှင့် ပစ်ခ်ကို တွဲဖက်တီးခတ်ခြင်း)</li>
+<li>Lesson 5: Applying syncopation in context (စည်းချက်လွဲစနစ်ကို သီချင်းအခြေအနေအလိုက် အသုံးပြုခြင်း)</li>
 </ul>
-<strong>Module 2: Muting & Percussive Strumming</strong>
+<strong>Module 2: Muting & Percussive Strumming (အသံတိတ်ဆိတ်ခြင်းနှင့် တီးခတ်မှု တူရိယာသံဖန်တီးခြင်း)</strong>
 <ul style="padding-left: 15px; margin: 5px 0 10px 0;">
-<li>Lesson 6: Palm muting texture creation</li>
-<li>Lesson 7: Dead notes and percussive chops</li>
-<li>Lesson 8: Left-hand muting precision</li>
-<li>Lesson 9: Cleaning up string noise</li>
-<li>Lesson 10: Breathing life with percussive strumming</li>
+<li>Lesson 6: Palm muting texture creation (လက်ဖဝါးဖြင့် အသံတိတ်ဆိတ်ကာ ကြမ်းပြင်သံဖန်တီးခြင်း)</li>
+<li>Lesson 7: Dead notes and percussive chops (အသံမထွက်သော နုတ်များနှင့် တူရိယာကဲ့သို့ ထိချက်များ)</li>
+<li>Lesson 8: Left-hand muting precision (ဘယ်လက်ဖြင့် အသံတိတ်ဆိတ်စေသည့် တိကျမှု)</li>
+<li>Lesson 9: Cleaning up string noise (ကြိုးပွတ်တိုက်သံ မလိုအပ်သည်များကို ဖယ်ရှားရှင်းလင်းခြင်း)</li>
+<li>Lesson 10: Breathing life with percussive strumming (တူရိယာသံစပ် တီးခတ်မှုဖြင့် သီချင်းကို အသက်ဝင်စေခြင်း)</li>
 </ul>
-<strong>Module 3: Live Application</strong>
+<strong>Module 3: Live Application (တိုက်ရိုက်ဖျော်ဖြေပွဲသုံး အသုံးချမှု)</strong>
 <ul style="padding-left: 15px; margin: 0;">
-<li>Lesson 11: Combining multiple rhythm styles</li>
-<li>Lesson 12: Crafting modern rhythm arrangements</li>
-<li>Lesson 13: Multi-tempo practice drills</li>
-<li>Lesson 14: Stage rhythm preparation</li>
-<li>Lesson 15: Comprehensive intermediate rhythm performance</li>
+<li>Lesson 11: Combining multiple rhythm styles (စည်းချက်စတိုင်အမျိုးမျိုးကို ပေါင်းစပ်ခြင်း)</li>
+<li>Lesson 12: Crafting modern rhythm arrangements (ခေတ်မီ စည်းချက်တီးခတ်ပုံများကို စီစဉ်ဖန်တီးခြင်း)</li>
+<li>Lesson 13: Multi-tempo practice drills (အမြန်နှုန်း အမျိုးမျိုးဖြင့် လေ့ကျင့်ခန်းလုပ်ခြင်း)</li>
+<li>Lesson 14: Stage rhythm preparation (စင်တင်ဖျော်ဖြေရန် စည်းချက်ပိုင်းဆိုင်ရာ ပြင်ဆင်မှု)</li>
+<li>Lesson 15: Comprehensive intermediate rhythm performance (အလယ်အလတ်အဆင့် စည်းချက် ဖျော်ဖြေတင်ဆက်မှု အပြည့်အစုံ)</li>
 </ul>
 </div>
 </div>
@@ -709,7 +701,6 @@ footer {
 <a href="register.html" class="btn-locked" style="text-decoration:none; background: var(--gold); color: var(--bg-deep); font-weight:bold; text-align:center;">Enroll / Register</a>
 </div>
 </div>
-
 <!-- Course 5: Advanced Rhythm -->
 <div class="course-card">
 <div>
@@ -726,29 +717,29 @@ footer {
 <span>Syllabus (15 Lessons)</span> <span>v</span>
 </button>
 <div class="syllabus-content">
-<strong>Module 1: Complex Time Signatures</strong>
+<strong>Module 1: Complex Time Signatures (ရှုပ်ထွေးသော စည်းချက်အတိုင်းအတာများ)</strong>
 <ul style="padding-left: 15px; margin: 5px 0 10px 0;">
-<li>Lesson 1: Navigating 5/4 and 7/8 meters</li>
-<li>Lesson 2: Unconventional groove placement</li>
-<li>Lesson 3: Polyrhythms core concepts</li>
-<li>Lesson 4: Simplified odd-meter drills</li>
-<li>Lesson 5: Seamless meter transitions</li>
+<li>Lesson 1: Navigating 5/4 and 7/8 meters (5/4 နှင့် 7/8 စည်းချက်မီတာများကို ကျွမ်းကျင်စွာ တီးခတ်ခြင်း)</li>
+<li>Lesson 2: Unconventional groove placement (ထုံးစံမဟုတ်သော ဂร့ูဗ်နေရာချထားမှုများ)</li>
+<li>Lesson 3: Polyrhythms core concepts (စည်းချက်စုံ (Polyrhythms) အခြေခံသဘောတရားများ)</li>
+<li>Lesson 4: Simplified odd-meter drills (မညီညာသော စည်းချက်မီတာ လေ့ကျင့်ခန်းများကို ရိုးရှင်းစေခြင်း)</li>
+<li>Lesson 5: Seamless meter transitions (မီတာပြောင်းလဲမှုများကို ချောမွေ့စွာ ဆက်စပ်ခြင်း)</li>
 </ul>
-<strong>Module 2: Groove & Dynamics</strong>
+<strong>Module 2: Groove & Dynamics (ဂร့ูဗ်နှင့် အသံအရှိန်အဟုန် ထိန်းချုပ်မှု)</strong>
 <ul style="padding-left: 15px; margin: 5px 0 10px 0;">
-<li>Lesson 6: Developing your signature pocket</li>
-<li>Lesson 7: Avoiding overplaying and managing density</li>
-<li>Lesson 8: Volume and velocity control</li>
-<li>Lesson 9: Professional performance standards</li>
-<li>Lesson 10: Sustaining rock-solid tempo stability</li>
+<li>Lesson 6: Developing your signature pocket (သင့်ကိုယ်ပိုင် စတိုင်လ်ကျသော ပေါက်ကက် (Pocket) ကို တည်ဆောက်ခြင်း)</li>
+<li>Lesson 7: Avoiding overplaying and managing density (တီးခတ်မှု မလွန်ကဲစေရန်နှင့် အသံထုထည်ကို ထိန်းသိမ်းခြင်း)</li>
+<li>Lesson 8: Volume and velocity control (အသံပမာဏနှင့် အရှိန်အဟုန်ကို ထိန်းချုပ်ခြင်း)</li>
+<li>Lesson 9: Professional performance standards (ပညာရှင်အဆင့် ဖျော်ဖြေမှု စံနှုန်းများ)</li>
+<li>Lesson 10: Sustaining rock-solid tempo stability (ခိုင်မာသော တမ်ပို အမြန်နှုန်း တည်ငြိမ်မှုကို ထိန်းသိမ်းခြင်း)</li>
 </ul>
-<strong>Module 3: Live Performance Mastery</strong>
+<strong>Module 3: Live Performance Mastery (တိုက်ရိုက်ဖျော်ဖြေပွဲကို အပြည့်အဝ ပိုင်နိုင်ခြင်း)</strong>
 <ul style="padding-left: 15px; margin: 0;">
-<li>Lesson 11: Error-free live execution exercises</li>
-<li>Lesson 12: Locking rhythm with a full band</li>
-<li>Lesson 13: Preparing complex charts for the stage</li>
-<li>Lesson 14: Maintaining time during open improvisation</li>
-<li>Lesson 15: Advanced rhythm grand finale performance</li>
+<li>Lesson 11: Error-free live execution exercises (ဖျော်ဖြေပွဲများတွင် အမှားအယွင်းကင်းစွာ တီးခတ်ရန် လေ့ကျင့်ခြင်း)</li>
+<li>Lesson 12: Locking rhythm with a full band (တူရိယာအဖွဲ့လိုက် စည်းချက်ကို တိကျစွာ ကိုက်ညီစေခြင်း)</li>
+<li>Lesson 13: Preparing complex charts for the stage (စင်တင်ဖျော်ဖြေရန် ရှုပ်ထွေးသော တေးဂီတဇယားများကို ပြင်ဆင်ခြင်း)</li>
+<li>Lesson 14: Maintaining time during open improvisation (လွတ်လပ်စွာ တီထွင်တီးခတ်စဉ် (Improvisation) အချိန်ကို တိကျစွာ ထိန်းသိမ်းခြင်း)</li>
+<li>Lesson 15: Advanced rhythm grand finale performance (အဆင့်မြင့် စည်းချက် ဖျော်ဖြေတင်ဆက်မှု အထူးပွဲ)</li>
 </ul>
 </div>
 </div>
@@ -759,7 +750,6 @@ footer {
 <a href="register.html" class="btn-locked" style="text-decoration:none; background: var(--gold); color: var(--bg-deep); font-weight:bold; text-align:center;">Enroll / Register</a>
 </div>
 </div>
-
 <!-- Course 6: Fingerstyle Basic -->
 <div class="course-card">
 <div>
@@ -776,29 +766,29 @@ footer {
 <span>Syllabus (15 Lessons)</span> <span>v</span>
 </button>
 <div class="syllabus-content">
-<strong>Module 1: Fundamentals & Concepts</strong>
+<strong>Module 1: Fundamentals & Concepts (အခြေခံများနှင့် သဘောတရားများ)</strong>
 <ul style="padding-left: 15px; margin: 5px 0 10px 0;">
-<li>Lesson 1: Fingerstyle roles and independence</li>
-<li>Lesson 2: Right-hand nail care and attack angle</li>
-<li>Lesson 3: Finger-specific isolation drills</li>
-<li>Lesson 4: Left and right-hand synchronization</li>
-<li>Lesson 5: Proper right-hand resting positions</li>
+<li>Lesson 1: Fingerstyle roles and independence (ဖင်ဂာစတိုင် လက်ချောင်းများ၏ တာဝန်များနှင့် လွတ်လပ်စွာ လှုပ်ရှားနိုင်မှု)</li>
+<li>Lesson 2: Right-hand nail care and attack angle (ညာလက်သည်း ထိန်းသိမ်းမှုနှင့် ကြိုးထိတွေ့သည့် ထောင့်မှန်)</li>
+<li>Lesson 3: Finger-specific isolation drills (လက်ချောင်းတစ်ချောင်းချင်းစီ သီးသန့်လေ့ကျင့်ခန်းများ)</li>
+<li>Lesson 4: Left and right-hand synchronization (ဘယ်လက်နှင့် ညာလက် ညီညာစွာ အလုပ်လုပ်ခြင်း)</li>
+<li>Lesson 5: Proper right-hand resting positions (ညာလက်ကို မှန်ကန်စွာ အနားပေးသည့် နေရာချထားမှု)</li>
 </ul>
-<strong>Module 2: Bassline & Melody Independence</strong>
+<strong>Module 2: Bassline & Melody Independence (ဘေ့စ်ကြိုးနှင့် တေးသွား လွတ်လပ်စွာ တွဲဖက်ခြင်း)</strong>
 <ul style="padding-left: 15px; margin: 5px 0 10px 0;">
-<li>Lesson 6: Independent thumb bass control</li>
-<li>Lesson 7: Integrating melody with supporting fingers</li>
-<li>Lesson 8: Overcoming simultaneous bass & melody hurdles</li>
-<li>Lesson 9: Locking timing across voices</li>
-<li>Lesson 10: Bassline precision training</li>
+<li>Lesson 6: Independent thumb bass control (လက်မဖြင့် ဘေ့စ်ကြိုးကို လွတ်လပ်စွာ ထိန်းချုပ်ခြင်း)</li>
+<li>Lesson 7: Integrating melody with supporting fingers (အထောက်အကူပြု လက်ချောင်းများဖြင့် တေးသွားကို ပေါင်းစပ်ခြင်း)</li>
+<li>Lesson 8: Overcoming simultaneous bass & melody hurdles (ဘေ့စ်နှင့် တေးသွား တစ်ပြိုင်နက်တီးခတ်ရာတွင် ကြုံရသည့် အခက်အခဲများကို ကျော်လွှားခြင်း)</li>
+<li>Lesson 9: Locking timing across voices (အသံပိုင်းဆိုင်ရာ အချိန်ကိုက်မှုကို တိကျစွာ ကိုက်ညီစေခြင်း)</li>
+<li>Lesson 10: Bassline precision training (ဘေ့စ်သံ တိကျမှန်ကန်စေရန် လေ့ကျင့်ခြင်း)</li>
 </ul>
-<strong>Module 3: Simple Fingerstyle Pieces</strong>
+<strong>Module 3: Simple Fingerstyle Pieces (ရိုးရှင်းသော ဖင်ဂာစတိုင် တေးသွားငယ်များ)</strong>
 <ul style="padding-left: 15px; margin: 0;">
-<li>Lesson 11: Playing classic beginner fingerstyle pieces</li>
-<li>Lesson 12: Section-by-section song breakdown</li>
-<li>Lesson 13: Outro styling in fingerstyle</li>
-<li>Lesson 14: Adding emotional expression</li>
-<li>Lesson 15: Performing a complete fingerstyle track</li>
+<li>Lesson 11: Playing classic beginner fingerstyle pieces (အစပြုသူများအတွက် ရှေးဟောင်း ဂန္ထဝင် ဖင်ဂာစတိုင် တေးသွားများကို တီးခတ်ခြင်း)</li>
+<li>Lesson 12: Section-by-section song breakdown (သီချင်းတစ်ပုဒ်ကို အပိုင်းလိုက် ခွဲခြမ်းစိတ်ဖြာ လေ့လာခြင်း)</li>
+<li>Lesson 13: Outro styling in fingerstyle (ဖင်ဂာစတိုင်ဖြင့် သီချင်းအဆုံးသတ် စတိုင်ဖော်ခြင်း)</li>
+<li>Lesson 14: Adding emotional expression (ခံစားချက် အနုအညာများကို ထည့်သွင်းခြင်း)</li>
+<li>Lesson 15: Performing a complete fingerstyle track (ဖင်ဂာစတိုင် သီချင်းတစ်ပုဒ်လုံးကို အစအဆုံး တီးခတ်ဖျော်ဖြေခြင်း)</li>
 </ul>
 </div>
 </div>
@@ -809,7 +799,6 @@ footer {
 <a href="register.html" class="btn-locked" style="text-decoration:none; background: var(--gold); color: var(--bg-deep); font-weight:bold; text-align:center;">Enroll / Register</a>
 </div>
 </div>
-
 <!-- Course 7: Basic Music Theory -->
 <div class="course-card">
 <div>
@@ -826,29 +815,29 @@ footer {
 <span>Syllabus (15 Lessons)</span> <span>v</span>
 </button>
 <div class="syllabus-content">
-<strong>Module 1: Notes & Fretboard</strong>
+<strong>Module 1: Notes & Fretboard (နုတ်များနှင့် ဖရက်ဘုတ်မှတ်စုများ)</strong>
 <ul style="padding-left: 15px; margin: 5px 0 10px 0;">
-<li>Lesson 1: Locating natural notes on the fretboard</li>
-<li>Lesson 2: Understanding sharps (#) and flats (b)</li>
-<li>Lesson 3: Memorization shortcuts for the neck</li>
-<li>Lesson 4: Interval distance fundamentals</li>
-<li>Lesson 5: Fretboard octave mapping</li>
+<li>Lesson 1: Locating natural notes on the fretboard (ဖရက်ဘုတ်ပေါ်တွင် သဘာဝ နုတ်များကို ရှာဖွေခြင်း)</li>
+<li>Lesson 2: Understanding sharps (#) and flats (b) (ရှပ် (#) နှင့် ဖလက် (b) များကို နားလည်ခြင်း)</li>
+<li>Lesson 3: Memorization shortcuts for the neck (ဂီတာလည်ပင်းပေါ်ရှိ နုတ်များကို အလွယ်တကူ မှတ်မိစေမည့် နည်းလမ်းများ)</li>
+<li>Lesson 4: Interval distance fundamentals (အင်တာဗယ် (Interval) အကွာအဝေး အခြေခံများ)</li>
+<li>Lesson 5: Fretboard octave mapping (ဖရက်ဘုတ်ပေါ်တွင် အောက်တေ့ဗ် (Octave) နေရာချထားပုံ ဖော်ပ်များ)</li>
 </ul>
-<strong>Module 2: Scales Foundation</strong>
+<strong>Module 2: Scales Foundation (စကေး (Scales) အခြေခံများ)</strong>
 <ul style="padding-left: 15px; margin: 5px 0 10px 0;">
-<li>Lesson 6: Major scale formula and structure</li>
-<li>Lesson 7: Minor scale differences</li>
-<li>Lesson 8: Practicing scale shapes across the neck</li>
-<li>Lesson 9: Pentatonic scale introduction</li>
-<li>Lesson 10: Scale degree numbering systems</li>
+<li>Lesson 6: Major scale formula and structure (မေဂျာစကေး ဖော်မြူလာနှင့် တည်ဆောက်ပုံ)</li>
+<li>Lesson 7: Minor scale differences (မိုင်းနာစကေး၏ ကွဲပြားချက်များ)</li>
+<li>Lesson 8: Practicing scale shapes across the neck (ဖရက်ဘုတ်တစ်လျှောက် စကေးပုံစံများကို လေ့ကျင့်ခြင်း)</li>
+<li>Lesson 9: Pentatonic scale introduction (ပင်တာတိုနစ်စကေး မိတ်ဆက်)</li>
+<li>Lesson 10: Scale degree numbering systems (စကေးဒီဂရီ ဂဏန်းသတ်မှတ်ခြင်း စနစ်များ)</li>
 </ul>
-<strong>Module 3: Chord Construction</strong>
+<strong>Module 3: Chord Construction (ကော့ဒ် တည်ဆောက်ခြင်း)</strong>
 <ul style="padding-left: 15px; margin: 0;">
-<li>Lesson 11: Triads and major/minor chords</li>
-<li>Lesson 12: Deconstructing chord formulas</li>
-<li>Lesson 13: Crafting original chord voicings</li>
-<li>Lesson 14: Mathematical chord calculation</li>
-<li>Lesson 15: Applying theory to real-world playing</li>
+<li>Lesson 11: Triads and major/minor chords (ထရိုင်ယာ့ဒ်များ နှင့် မေဂျာ/မိုင်းနာ ကော့ဒ်များ)</li>
+<li>Lesson 12: Deconstructing chord formulas (ကော့ဒ်ဖော်မြူလာများကို ခွဲခြမ်းလေ့လာခြင်း)</li>
+<li>Lesson 13: Crafting original chord voicings (ကိုယ်ပိုင် ကော့ဒ်အသံထွက်အသစ်များ တည်ဆောက်ခြင်း)</li>
+<li>Lesson 14: Mathematical chord calculation (သင်္ချာနည်းကျ ကော့ဒ်တွက်ချက်ခြင်း)</li>
+<li>Lesson 15: Applying theory to real-world playing (သီအိုရီများကို လက်တွေ့တီးခတ်မှုတွင် အသုံးချခြင်း)</li>
 </ul>
 </div>
 </div>
@@ -859,7 +848,6 @@ footer {
 <a href="register.html" class="btn-locked" style="text-decoration:none; background: var(--gold); color: var(--bg-deep); font-weight:bold; text-align:center;">Enroll / Register</a>
 </div>
 </div>
-
 <!-- Course 8: Intermediate Music Theory -->
 <div class="course-card">
 <div>
@@ -876,29 +864,29 @@ footer {
 <span>Syllabus (15 Lessons)</span> <span>v</span>
 </button>
 <div class="syllabus-content">
-<strong>Module 1: Progressions & Key Signatures</strong>
+<strong>Module 1: Progressions & Key Signatures (ကော့ဒ်တန်းဆက်များ (Progressions) နှင့် ကီးအမျိုးအစားများ)</strong>
 <ul style="padding-left: 15px; margin: 5px 0 10px 0;">
-<li>Lesson 1: Identifying song keys instantly</li>
-<li>Lesson 2: Analyzing popular chord progressions</li>
-<li>Lesson 3: Transposition techniques</li>
-<li>Lesson 4: Circle of Fifths mastery</li>
-<li>Lesson 5: Diatonic chord generation</li>
+<li>Lesson 1: Identifying song keys instantly (သီချင်းတစ်ပုဒ်၏ ကီးကို ချက်ချင်းခွဲခြားသိရှိခြင်း)</li>
+<li>Lesson 2: Analyzing popular chord progressions (နာမည်ကြီး ကော့ဒ်တန်းဆက်များကို ခွဲခြမ်းစိတ်ဖြာခြင်း)</li>
+<li>Lesson 3: Transposition techniques (ကီးပြောင်းတီးခတ်သည့် နည်းပညာများ)</li>
+<li>Lesson 4: Circle of Fifths mastery (ဆာကယ်အော့ဖ်ဖิဖ်သ် (Circle of Fifths) ကို ကျွမ်းကျင်ပိုင်နိုင်ခြင်း)</li>
+<li>Lesson 5: Diatonic chord generation (ဒိုင်ယာတိုးနစ် ကော့ဒ်များ ထုတ်လုပ်ဖန်တီးခြင်း)</li>
 </ul>
-<strong>Module 2: Intervals & Modes</strong>
+<strong>Module 2: Intervals & Modes (အင်တာဗယ်များနှင့် မုဒ်များ (Modes))</strong>
 <ul style="padding-left: 15px; margin: 5px 0 10px 0;">
-<li>Lesson 6: Advanced interval ear training</li>
-<li>Lesson 7: Practical application of scale modes</li>
-<li>Lesson 8: Melodic modes deep dive</li>
-<li>Lesson 9: Using modes for improvisation</li>
-<li>Lesson 10: Interval-based melodic phrasing</li>
+<li>Lesson 6: Advanced interval ear training (အဆင့်မြင့် အင်တာဗယ် နားဖြင့် နားထောင်လေ့ကျင့်ခြင်း)</li>
+<li>Lesson 7: Practical application of scale modes (စကေးမုဒ်များကို လက်တွေ့အသုံးပြုခြင်း)</li>
+<li>Lesson 8: Melodic modes deep dive (တေးသွားဆိုင်ရာ မုဒ်များကို အသေးစိတ်လေ့လာခြင်း)</li>
+<li>Lesson 9: Using modes for improvisation (တေးသွားသစ် တီထွင်တီးခတ်ရန် မုဒ်များကို အသုံးပြုခြင်း)</li>
+<li>Lesson 10: Interval-based melodic phrasing (အင်တာဗယ်အပေါ် အခြေခံသော တေးသွားဖရေ့စင်းများ)</li>
 </ul>
-<strong>Module 3: Applied Theory</strong>
+<strong>Module 3: Applied Theory (အသုံးချ သီအိုရီ)</strong>
 <ul style="padding-left: 15px; margin: 0;">
-<li>Lesson 11: Applying theory in original songwriting</li>
-<li>Lesson 12: Structural song analysis</li>
-<li>Lesson 13: Building advanced chord extensions</li>
-<li>Lesson 14: Selecting progressions by genre</li>
-<li>Lesson 15: Complete theory integration into performance</li>
+<li>Lesson 11: Applying theory in original songwriting (ကိုယ်ပိုင်သီချင်းရေးစပ်ရာတွင် သီအိုရီများကို အသုံးချခြင်း)</li>
+<li>Lesson 12: Structural song analysis (သီချင်းဖွဲ့စည်းပုံကို ခွဲခြမ်းလေ့လာခြင်း)</li>
+<li>Lesson 13: Building advanced chord extensions (အဆင့်မြင့် ကော့ဒ်အပိုဆက်စပ်မှုများ တည်ဆောက်ခြင်း)</li>
+<li>Lesson 14: Selecting progressions by genre (ဂီတအမျိုးအစားအလိုက် ကော့ဒ်တန်းဆက်များ ရွေးချယ်ခြင်း)</li>
+<li>Lesson 15: Complete theory integration into performance (သီအိုရီများကို ဖျော်ဖြေတင်ဆက်မှုတွင် အပြည့်အစုံ ပေါင်းစပ်အသုံးပြုခြင်း)</li>
 </ul>
 </div>
 </div>
@@ -909,10 +897,8 @@ footer {
 <a href="register.html" class="btn-locked" style="text-decoration:none; background: var(--gold); color: var(--bg-deep); font-weight:bold; text-align:center;">Enroll / Register</a>
 </div>
 </div>
-
 </div>
 </div>
-
 <div class="movement-banner">
 <div class="container" style="padding: 0; width: 100%;">
 <div class="movement-content">
@@ -940,7 +926,6 @@ footer {
 </div>
 </div>
 </div>
-
 <div class="container">
 <div class="cta-box">
 <div>
@@ -950,7 +935,6 @@ footer {
 <a href="register.html" class="btn-primary">Enroll Now</a>
 </div>
 </div>
-
 <footer>
 <p>&copy; 2026 YGLC. All Rights Reserved.</p>
 <div class="footer-socials">
@@ -960,7 +944,6 @@ footer {
 <a href="#">Telegram</a>
 </div>
 </footer>
-
 <script>
 function toggleSyllabus(button) {
     const content = button.nextElementSibling;
@@ -972,10 +955,17 @@ function toggleSyllabus(button) {
         arrow.textContent = 'v';
     }
 }
-
 function toggleMenu() {
     const navMenu = document.getElementById('navMenu');
     navMenu.classList.toggle('active');
+    
+    // Toggle mobile login button next to the hamburger menu based on menu state
+    const mobileLoginBtn = document.getElementById('mobileLoginBtn');
+    if (navMenu.classList.contains('active')) {
+        mobileLoginBtn.style.display = 'none';
+    } else {
+        mobileLoginBtn.style.display = 'inline-block';
+    }
 }
 </script>
 </body>
