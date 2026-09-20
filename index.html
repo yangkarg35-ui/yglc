@@ -82,6 +82,7 @@ nav a:hover {
     text-decoration: none;
     transition: all 0.3s;
     cursor: pointer;
+    display: inline-block;
 }
 
 .btn-login-nav:hover {
@@ -305,6 +306,18 @@ nav a:hover {
     border-radius: 4px;
 }
 
+.badge-inter {
+    background: rgba(180, 83, 9, 0.2);
+    border-color: #b45309;
+    color: #f59e0b;
+}
+
+.badge-adv {
+    background: rgba(185, 28, 28, 0.2);
+    border-color: #b91c1c;
+    color: #ef4444;
+}
+
 .course-info {
     padding: 20px;
 }
@@ -492,71 +505,6 @@ footer {
     color: var(--gold);
 }
 
-/* ==========================================
-   MODAL DIALOG (LOGIN POPUP OVERLAY)
-   Domain မပြောင်းဘဲ WEB ထဲမှာတင် Login ပွင့်ရန်
-   ========================================== */
-.login-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(5px);
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-}
-
-.login-modal.active {
-    display: flex;
-}
-
-.modal-content {
-    position: relative;
-    width: 90%;
-    max-width: 900px;
-    height: 85vh;
-    background: var(--bg-card);
-    border: 1px solid var(--gold);
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-}
-
-.modal-close-btn {
-    position: absolute;
-    top: 12px;
-    right: 18px;
-    background: var(--gold);
-    color: var(--bg-deep);
-    border: none;
-    font-size: 20px;
-    font-weight: bold;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 1010;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-}
-
-.modal-close-btn:hover {
-    background: var(--gold-light);
-    transform: scale(1.1);
-}
-
-.login-iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-}
-
 @media (max-width: 968px) {
     .courses-grid { grid-template-columns: 1fr; }
     .features-bar { grid-template-columns: 1fr 1fr; }
@@ -586,7 +534,7 @@ footer {
 <header>
     <div class="logo">YGLC</div>
     <div style="display: flex; align-items: center; gap: 10px;">
-        <a href="javascript:void(0)" class="btn-login-nav" id="mobileLoginBtn" onclick="openLoginModal()" style="display: none; padding: 6px 14px; font-size: 13px;">Login</a>
+        <a href="https://yglc-lms.vercel.app/login" target="_blank" class="btn-login-nav" id="mobileLoginBtn" style="display: none; padding: 6px 14px; font-size: 13px;">Login</a>
         <button class="menu-toggle" onclick="toggleMenu()">=</button>
     </div>
     
@@ -594,14 +542,12 @@ footer {
         <a href="#courses">Home</a>
         <a href="#courses">Courses</a>
         <a href="promotion.html">Promo</a>
-        <!-- Login Link ကို Modal Open သို့ ညွှန်ထားသည် -->
-        <a href="javascript:void(0)" onclick="openLoginModal()" style="color: var(--gold);">Login</a>
+        <a href="https://yglc-lms.vercel.app/login" target="_blank" style="color: var(--gold);">Login</a>
         <a href="register.html" style="color: var(--gold);">Register / Enroll</a>
     </nav>
-    
+
     <div class="nav-actions">
-        <!-- Main Navigation Login Button -->
-        <a href="javascript:void(0)" onclick="openLoginModal()" class="btn-login-nav">Login</a>
+        <a href="https://yglc-lms.vercel.app/login" target="_blank" class="btn-login-nav">Login</a>
         <a href="register.html" class="btn-register-nav">Register</a>
     </div>
 </header>
@@ -647,6 +593,7 @@ footer {
     </div>
 
     <div class="courses-grid">
+        
         <!-- Course 1: Plucking Basic -->
         <div class="course-card">
             <div>
@@ -702,16 +649,41 @@ footer {
                 <div class="coming-soon-badge">Coming Soon</div>
                 <div class="course-img-wrap">
                     <img src="02.jpg" alt="Plucking Level 2">
-                    <span class="course-badge" style="background: rgba(180, 83, 9, 0.2); border-color: #b45309; color: #f59e0b;">Intermediate</span>
+                    <span class="course-badge badge-inter">Intermediate</span>
                 </div>
                 <div class="course-info">
                     <h3>Plucking Level 2</h3>
                     <p>Advance your plucking technique and master more complex fretboard patterns and intricate arrangements.</p>
+                    <div class="syllabus-container">
+                        <button class="syllabus-btn" onclick="toggleSyllabus(this)">
+                            <span>Syllabus (12 Lessons)</span> <span>v</span>
+                        </button>
+                        <div class="syllabus-content">
+                            <strong>Module 1: Complex Arpeggios</strong>
+                            <ul style="padding-left: 15px; margin: 5px 0 10px 0;">
+                                <li>Lesson 1: 6/8 and 12/8 Time Signature Patterns</li>
+                                <li>Lesson 2: Alternating Basslines with Thumb</li>
+                                <li>Lesson 3: Dynamic Accentuation in Plucking</li>
+                                <li>Lesson 4: Syncopated Picking Techniques</li>
+                            </ul>
+                            <strong>Module 2: Extended Chords & Extensions</strong>
+                            <ul style="padding-left: 15px; margin: 0;">
+                                <li>Lesson 5: Add9 & Sus4 Fingerstyle Arrangements</li>
+                                <li>Lesson 6: Major 7th & Minor 7th Shapes</li>
+                                <li>Lesson 7: Moving Basslines under Static Chords</li>
+                                <li>Lesson 8: Incorporating Percussive Slaps</li>
+                                <li>Lesson 9: Polyphonic Fingerstyle Playing</li>
+                                <li>Lesson 10: Travis Picking Fundamentals</li>
+                                <li>Lesson 11: Full Song Arrangement Part 1</li>
+                                <li>Lesson 12: Full Song Arrangement Part 2</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="course-footer">
                 <div class="price">70,000 MMK</div>
-                <a href="register.html" class="btn-locked" style="text-decoration:none; background: var(--gold); color: var(--bg-deep); font-weight:bold; text-align:center;">Enroll / Register</a>
+                <a href="register.html" class="btn-primary" style="width: 100%;">Enroll / Register</a>
             </div>
         </div>
 
@@ -726,13 +698,251 @@ footer {
                 <div class="course-info">
                     <h3>Rhythm Basic</h3>
                     <p>Master rhythmic fundamentals so you can lock in with the beat and enjoy playing songs effortlessly.</p>
+                    <div class="syllabus-container">
+                        <button class="syllabus-btn" onclick="toggleSyllabus(this)">
+                            <span>Syllabus (10 Lessons)</span> <span>v</span>
+                        </button>
+                        <div class="syllabus-content">
+                            <strong>Module 1: Strumming & Timing</strong>
+                            <ul style="padding-left: 15px; margin: 5px 0 10px 0;">
+                                <li>Lesson 1: Understanding Metronome & BPM</li>
+                                <li>Lesson 2: Downstrokes & Upstrokes Balance</li>
+                                <li>Lesson 3: Basic 4/4 Pop Strumming Patterns</li>
+                                <li>Lesson 4: Open Chords Transition (G, C, D, Em)</li>
+                                <li>Lesson 5: Palm Muting Fundamentals</li>
+                            </ul>
+                            <strong>Module 2: Groove Development</strong>
+                            <ul style="padding-left: 15px; margin: 0;">
+                                <li>Lesson 6: 3/4 Waltz & Ballad Strumming</li>
+                                <li>Lesson 7: Accents and Ghost Notes</li>
+                                <li>Lesson 8: Barre Chord Basics for Rhythm</li>
+                                <li>Lesson 9: Playing Along with Backing Tracks</li>
+                                <li>Lesson 10: Rhythm Execution in Full Songs</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="course-footer">
                 <div class="price">50,000 MMK</div>
-                <a href="register.html" class="btn-locked" style="text-decoration:none; background: var(--gold); color: var(--bg-deep); font-weight:bold; text-align:center;">Enroll / Register</a>
+                <a href="register.html" class="btn-primary" style="width: 100%;">Enroll / Register</a>
             </div>
         </div>
+
+        <!-- Course 4: Rhythm Level 2 -->
+        <div class="course-card">
+            <div>
+                <div class="coming-soon-badge">Coming Soon</div>
+                <div class="course-img-wrap">
+                    <img src="04.jpg" alt="Rhythm Level 2">
+                    <span class="course-badge badge-inter">Intermediate</span>
+                </div>
+                <div class="course-info">
+                    <h3>Rhythm Level 2</h3>
+                    <p>Unlock advanced grooves, funk strumming, muted scratching, and complex syncopated time signatures.</p>
+                    <div class="syllabus-container">
+                        <button class="syllabus-btn" onclick="toggleSyllabus(this)">
+                            <span>Syllabus (10 Lessons)</span> <span>v</span>
+                        </button>
+                        <div class="syllabus-content">
+                            <strong>Module 1: Advanced Strumming</strong>
+                            <ul style="padding-left: 15px; margin: 5px 0 10px 0;">
+                                <li>Lesson 1: 16th Note Strumming Mechanics</li>
+                                <li>Lesson 2: Funk Muting & Scratch Techniques</li>
+                                <li>Lesson 3: Reggae & Off-beat Rhythm Strumming</li>
+                                <li>Lesson 4: Shuffle & Blues Grooves</li>
+                                <li>Lesson 5: Triplet Feels & Odd Time Basics</li>
+                            </ul>
+                            <strong>Module 2: Band & Live Context</strong>
+                            <ul style="padding-left: 15px; margin: 0;">
+                                <li>Lesson 6: Dynamic Control in Acoustic Jamming</li>
+                                <li>Lesson 7: Percussive Hit & Slap Techniques</li>
+                                <li>Lesson 8: Rhythmic Fills between Chord Changes</li>
+                                <li>Lesson 9: Complex Chord Transitions</li>
+                                <li>Lesson 10: Complete Performance Project</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="course-footer">
+                <div class="price">70,000 MMK</div>
+                <a href="register.html" class="btn-primary" style="width: 100%;">Enroll / Register</a>
+            </div>
+        </div>
+
+        <!-- Course 5: Soloing Foundations -->
+        <div class="course-card">
+            <div>
+                <div class="coming-soon-badge">Coming Soon</div>
+                <div class="course-img-wrap">
+                    <img src="01.jpg" alt="Soloing Foundations">
+                    <span class="course-badge badge-inter">Intermediate</span>
+                </div>
+                <div class="course-info">
+                    <h3>Soloing Foundations</h3>
+                    <p>Learn scales, bendings, slides, and vibrato to express yourself freely across the entire fretboard.</p>
+                    <div class="syllabus-container">
+                        <button class="syllabus-btn" onclick="toggleSyllabus(this)">
+                            <span>Syllabus (12 Lessons)</span> <span>v</span>
+                        </button>
+                        <div class="syllabus-content">
+                            <strong>Module 1: Scales & Fretboard</strong>
+                            <ul style="padding-left: 15px; margin: 5px 0 10px 0;">
+                                <li>Lesson 1: Minor Pentatonic Scale Position 1</li>
+                                <li>Lesson 2: Major Pentatonic Scale & Connections</li>
+                                <li>Lesson 3: Hammer-ons, Pull-offs & Slides</li>
+                                <li>Lesson 4: String Bending Precision & Control</li>
+                                <li>Lesson 5: Developing Proper Vibrato</li>
+                            </ul>
+                            <strong>Module 2: Phrasing & Expression</strong>
+                            <ul style="padding-left: 15px; margin: 0;">
+                                <li>Lesson 6: Call and Response Phrasing</li>
+                                <li>Lesson 7: Target Notes over Backing Tracks</li>
+                                <li>Lesson 8: Blues Licks & Expressions</li>
+                                <li>Lesson 9: Combining Box Positions across Neck</li>
+                                <li>Lesson 10: Speed & Clean Picking Exercises</li>
+                                <li>Lesson 11: Solo Analysis & Deconstruction</li>
+                                <li>Lesson 12: Improvise Your First Guitar Solo</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="course-footer">
+                <div class="price">80,000 MMK</div>
+                <a href="register.html" class="btn-primary" style="width: 100%;">Enroll / Register</a>
+            </div>
+        </div>
+
+        <!-- Course 6: Advanced Lead Guitar -->
+        <div class="course-card">
+            <div>
+                <div class="coming-soon-badge">Coming Soon</div>
+                <div class="course-img-wrap">
+                    <img src="02.jpg" alt="Advanced Lead Guitar">
+                    <span class="course-badge badge-adv">Advanced</span>
+                </div>
+                <div class="course-info">
+                    <h3>Advanced Lead Guitar</h3>
+                    <p>Master modes, sweep picking, arpeggios, and high-speed solo techniques for professional guitarists.</p>
+                    <div class="syllabus-container">
+                        <button class="syllabus-btn" onclick="toggleSyllabus(this)">
+                            <span>Syllabus (12 Lessons)</span> <span>v</span>
+                        </button>
+                        <div class="syllabus-content">
+                            <strong>Module 1: Modal Theory & Speed</strong>
+                            <ul style="padding-left: 15px; margin: 5px 0 10px 0;">
+                                <li>Lesson 1: Understanding Modes (Dorian, Aeolian, Mixolydian)</li>
+                                <li>Lesson 2: 3-Notes-Per-String Scales</li>
+                                <li>Lesson 3: Alternate Picking Mastery & Economy Picking</li>
+                                <li>Lesson 4: Sweep Picking Arpeggios (3 & 5 String)</li>
+                                <li>Lesson 5: Two-Hand Tapping Mechanics</li>
+                            </ul>
+                            <strong>Module 2: Professional Soloing</strong>
+                            <ul style="padding-left: 15px; margin: 0;">
+                                <li>Lesson 6: Arpeggios over Chord Changes</li>
+                                <li>Lesson 7: Exotic Scales (Harmonic Minor & Melodic Minor)</li>
+                                <li>Lesson 8: Legato Lines & Fast Runs</li>
+                                <li>Lesson 9: Composition of Virtuoso Guitar Solos</li>
+                                <li>Lesson 10: Guitar Tone Shaping & FX Pedals</li>
+                                <li>Lesson 11: Studio Recording Standards for Lead</li>
+                                <li>Lesson 12: Masterclass Final Performance</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="course-footer">
+                <div class="price">100,000 MMK</div>
+                <a href="register.html" class="btn-primary" style="width: 100%;">Enroll / Register</a>
+            </div>
+        </div>
+
+        <!-- Course 7: Music Theory for Guitarists -->
+        <div class="course-card">
+            <div>
+                <div class="coming-soon-badge">Coming Soon</div>
+                <div class="course-img-wrap">
+                    <img src="03.jpg" alt="Music Theory for Guitarists">
+                    <span class="course-badge badge-inter">Intermediate</span>
+                </div>
+                <div class="course-info">
+                    <h3>Music Theory for Guitarists</h3>
+                    <p>Understand chord construction, key signatures, harmonized scales, and musical structure without reading complex sheet music.</p>
+                    <div class="syllabus-container">
+                        <button class="syllabus-btn" onclick="toggleSyllabus(this)">
+                            <span>Syllabus (10 Lessons)</span> <span>v</span>
+                        </button>
+                        <div class="syllabus-content">
+                            <strong>Module 1: Building Blocks</strong>
+                            <ul style="padding-left: 15px; margin: 5px 0 10px 0;">
+                                <li>Lesson 1: Intervals on Fretboard Explained</li>
+                                <li>Lesson 2: How Major & Minor Chords are Formed</li>
+                                <li>Lesson 3: The Circle of Fifths & Key Signatures</li>
+                                <li>Lesson 4: Harmonizing Major Scales in Triads</li>
+                                <li>Lesson 5: Roman Numeral Analysis of Pop Songs</li>
+                            </ul>
+                            <strong>Module 2: Practical Theory Application</strong>
+                            <ul style="padding-left: 15px; margin: 0;">
+                                <li>Lesson 6: Understanding CAGED System Mechanics</li>
+                                <li>Lesson 7: Dominant 7th, Maj7 & Min7 Formations</li>
+                                <li>Lesson 8: How to Transpose Any Song to Any Key</li>
+                                <li>Lesson 9: Secondary Dominants & Modulation</li>
+                                <li>Lesson 10: Writing Original Chord Progressions</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="course-footer">
+                <div class="price">60,000 MMK</div>
+                <a href="register.html" class="btn-primary" style="width: 100%;">Enroll / Register</a>
+            </div>
+        </div>
+
+        <!-- Course 8: Fingerstyle Song Arrangements -->
+        <div class="course-card">
+            <div>
+                <div class="coming-soon-badge">Coming Soon</div>
+                <div class="course-img-wrap">
+                    <img src="04.jpg" alt="Fingerstyle Song Arrangements">
+                    <span class="course-badge badge-adv">Advanced</span>
+                </div>
+                <div class="course-info">
+                    <h3>Fingerstyle Song Arrangements</h3>
+                    <p>Learn how to arrange full songs for solo acoustic guitar, combining melody, bassline, and rhythm into one instrument.</p>
+                    <div class="syllabus-container">
+                        <button class="syllabus-btn" onclick="toggleSyllabus(this)">
+                            <span>Syllabus (10 Lessons)</span> <span>v</span>
+                        </button>
+                        <div class="syllabus-content">
+                            <strong>Module 1: Solo Guitar Arrangement</strong>
+                            <ul style="padding-left: 15px; margin: 5px 0 10px 0;">
+                                <li>Lesson 1: Extracting Vocal Melody to High Strings</li>
+                                <li>Lesson 2: Harmonizing Melody with Bass Notes</li>
+                                <li>Lesson 3: Adding Inner Voice Chords</li>
+                                <li>Lesson 4: Incorporating Percussive Hits & Body Taps</li>
+                                <li>Lesson 5: Dynamic Building & Song Structure</li>
+                            </ul>
+                            <strong>Module 2: Advanced Solo Masterpieces</strong>
+                            <ul style="padding-left: 15px; margin: 0;">
+                                <li>Lesson 6: Alternate Tunings (DADGAD, Open D)</li>
+                                <li>Lesson 7: Artificial & Natural Harmonics</li>
+                                <li>Lesson 8: Arranging a Pop Song Step-by-Step</li>
+                                <li>Lesson 9: Arranging a Ballad Step-by-Step</li>
+                                <li>Lesson 10: Polishing & Performing Solo Guitar</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="course-footer">
+                <div class="price">90,000 MMK</div>
+                <a href="register.html" class="btn-primary" style="width: 100%;">Enroll / Register</a>
+            </div>
+        </div>
+
     </div>
 </div>
 
@@ -784,14 +994,6 @@ footer {
     </div>
 </footer>
 
-<!-- LOGIN MODAL CONTAINER (WEB DOMAIN မပြောင်းဘဲ ဖွင့်ရန်) -->
-<div id="loginModal" class="login-modal">
-    <div class="modal-content">
-        <button class="modal-close-btn" onclick="closeLoginModal()">&times;</button>
-        <iframe id="loginIframe" class="login-iframe" src="" title="YGLC LMS Login"></iframe>
-    </div>
-</div>
-
 <script>
 function toggleSyllabus(button) {
     const content = button.nextElementSibling;
@@ -814,31 +1016,6 @@ function toggleMenu() {
         mobileLoginBtn.style.display = 'inline-block';
     }
 }
-
-/* Modal Open / Close Functions */
-function openLoginModal() {
-    const modal = document.getElementById('loginModal');
-    const iframe = document.getElementById('loginIframe');
-    
-    // Website Domain မပြောင်းလဲဘဲ Embedded Login ကို ဖွင့်ပေးရန်
-    if (!iframe.src || iframe.src === "about:blank") {
-        iframe.src = "https://yglc-lms.vercel.app/login";
-    }
-    
-    modal.classList.add('active');
-}
-
-function closeLoginModal() {
-    const modal = document.getElementById('loginModal');
-    modal.classList.remove('active');
-}
-
-// Esc key နှိပ်ပါက Login Modal ကို ပိတ်ရန်
-window.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape') {
-        closeLoginModal();
-    }
-});
 </script>
 
 </body>
