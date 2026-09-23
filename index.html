@@ -11,9 +11,9 @@
             --gold-light: #F3E5AB;
             --gold-dark: #8C7323;
             --text-main: #FFFFFF;
-            --text-muted: #999999;
-            --card-bg: #0A0A0A;
-            --border-color: #1F1F1F;
+            --text-muted: #888888;
+            --card-bg: #080808;
+            --border-color: #1A1A1A;
         }
 
         * {
@@ -63,21 +63,23 @@
             gap: 30px;
         }
 
+        /* Card Container - Background stays completely fixed/static during hover */
         .course-card {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             text-decoration: none;
             color: var(--text-main);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             aspect-ratio: 3 / 4;
-            padding: 30px;
+            padding: 35px;
             position: relative;
             overflow: hidden;
+            transition: border-color 0.4s ease, box-shadow 0.4s ease;
         }
 
+        /* High-end Gold top highlight border effect */
         .course-card::before {
             content: '';
             position: absolute;
@@ -92,12 +94,24 @@
 
         .course-card:hover {
             border-color: var(--gold-dark);
-            transform: translateY(-6px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 15px rgba(212, 175, 55, 0.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9), 0 0 20px rgba(212, 175, 55, 0.04);
         }
 
         .course-card:hover::before {
             opacity: 1;
+        }
+
+        /* Card Content Inner Wrapper - Only text moves downward smoothly inside the static card */
+        .card-content-wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .course-card:hover .card-content-wrapper {
+            transform: translateY(6px); /* စာသားလေးတွေ အောက်ဘက်ကို အနည်းငယ် ဆင်းသွားစေသည် */
         }
 
         .course-top {
@@ -127,7 +141,6 @@
             font-weight: 400;
             line-height: 1.5;
             letter-spacing: 1px;
-            margin: auto 0;
             color: var(--text-main);
             transition: color 0.3s ease;
         }
@@ -172,7 +185,7 @@
             text-transform: uppercase;
         }
 
-        /* Responsive Breakpoints */
+        /* Responsive */
         @media (max-width: 1024px) {
             .store-container {
                 grid-template-columns: repeat(2, 1fr);
@@ -202,105 +215,121 @@
     <main class="store-container">
         <!-- Course 1 -->
         <a href="course-1.html" class="course-card">
-            <div class="course-top">
-                <span class="course-index">01</span>
-                <span class="course-badge">Masterclass</span>
-            </div>
-            <div class="course-title">Course Title 1 Here</div>
-            <div class="course-footer">
-                <span class="course-status">Available</span>
-                <span class="course-action">Access &rarr;</span>
+            <div class="card-content-wrapper">
+                <div class="course-top">
+                    <span class="course-index">01</span>
+                    <span class="course-badge">Masterclass</span>
+                </div>
+                <div class="course-title">Course Title 1 Here</div>
+                <div class="course-footer">
+                    <span class="course-status">Available</span>
+                    <span class="course-action">Access &rarr;</span>
+                </div>
             </div>
         </a>
 
         <!-- Course 2 -->
         <a href="course-2.html" class="course-card">
-            <div class="course-top">
-                <span class="course-index">02</span>
-                <span class="course-badge">Masterclass</span>
-            </div>
-            <div class="course-title">Course Title 2 Here</div>
-            <div class="course-footer">
-                <span class="course-status">Available</span>
-                <span class="course-action">Access &rarr;</span>
+            <div class="card-content-wrapper">
+                <div class="course-top">
+                    <span class="course-index">02</span>
+                    <span class="course-badge">Masterclass</span>
+                </div>
+                <div class="course-title">Course Title 2 Here</div>
+                <div class="course-footer">
+                    <span class="course-status">Available</span>
+                    <span class="course-action">Access &rarr;</span>
+                </div>
             </div>
         </a>
 
         <!-- Course 3 -->
         <a href="course-3.html" class="course-card">
-            <div class="course-top">
-                <span class="course-index">03</span>
-                <span class="course-badge">Masterclass</span>
-            </div>
-            <div class="course-title">Course Title 3 Here</div>
-            <div class="course-footer">
-                <span class="course-status">Available</span>
-                <span class="course-action">Access &rarr;</span>
+            <div class="card-content-wrapper">
+                <div class="course-top">
+                    <span class="course-index">03</span>
+                    <span class="course-badge">Masterclass</span>
+                </div>
+                <div class="course-title">Course Title 3 Here</div>
+                <div class="course-footer">
+                    <span class="course-status">Available</span>
+                    <span class="course-action">Access &rarr;</span>
+                </div>
             </div>
         </a>
 
         <!-- Course 4 -->
         <a href="course-4.html" class="course-card">
-            <div class="course-top">
-                <span class="course-index">04</span>
-                <span class="course-badge">Masterclass</span>
-            </div>
-            <div class="course-title">Course Title 4 Here</div>
-            <div class="course-footer">
-                <span class="course-status">Available</span>
-                <span class="course-action">Access &rarr;</span>
+            <div class="card-content-wrapper">
+                <div class="course-top">
+                    <span class="course-index">04</span>
+                    <span class="course-badge">Masterclass</span>
+                </div>
+                <div class="course-title">Course Title 4 Here</div>
+                <div class="course-footer">
+                    <span class="course-status">Available</span>
+                    <span class="course-action">Access &rarr;</span>
+                </div>
             </div>
         </a>
 
         <!-- Course 5 -->
         <a href="course-5.html" class="course-card">
-            <div class="course-top">
-                <span class="course-index">05</span>
-                <span class="course-badge">Masterclass</span>
-            </div>
-            <div class="course-title">Course Title 5 Here</div>
-            <div class="course-footer">
-                <span class="course-status">Available</span>
-                <span class="course-action">Access &rarr;</span>
+            <div class="card-content-wrapper">
+                <div class="course-top">
+                    <span class="course-index">05</span>
+                    <span class="course-badge">Masterclass</span>
+                </div>
+                <div class="course-title">Course Title 5 Here</div>
+                <div class="course-footer">
+                    <span class="course-status">Available</span>
+                    <span class="course-action">Access &rarr;</span>
+                </div>
             </div>
         </a>
 
         <!-- Course 6 -->
         <a href="course-6.html" class="course-card">
-            <div class="course-top">
-                <span class="course-index">06</span>
-                <span class="course-badge">Masterclass</span>
-            </div>
-            <div class="course-title">Course Title 6 Here</div>
-            <div class="course-footer">
-                <span class="course-status">Available</span>
-                <span class="course-action">Access &rarr;</span>
+            <div class="card-content-wrapper">
+                <div class="course-top">
+                    <span class="course-index">06</span>
+                    <span class="course-badge">Masterclass</span>
+                </div>
+                <div class="course-title">Course Title 6 Here</div>
+                <div class="course-footer">
+                    <span class="course-status">Available</span>
+                    <span class="course-action">Access &rarr;</span>
+                </div>
             </div>
         </a>
 
         <!-- Course 7 -->
         <a href="course-7.html" class="course-card">
-            <div class="course-top">
-                <span class="course-index">07</span>
-                <span class="course-badge">Masterclass</span>
-            </div>
-            <div class="course-title">Course Title 7 Here</div>
-            <div class="course-footer">
-                <span class="course-status">Available</span>
-                <span class="course-action">Access &rarr;</span>
+            <div class="card-content-wrapper">
+                <div class="course-top">
+                    <span class="course-index">07</span>
+                    <span class="course-badge">Masterclass</span>
+                </div>
+                <div class="course-title">Course Title 7 Here</div>
+                <div class="course-footer">
+                    <span class="course-status">Available</span>
+                    <span class="course-action">Access &rarr;</span>
+                </div>
             </div>
         </a>
 
         <!-- Course 8 -->
         <a href="course-8.html" class="course-card">
-            <div class="course-top">
-                <span class="course-index">08</span>
-                <span class="course-badge">Masterclass</span>
-            </div>
-            <div class="course-title">Course Title 8 Here</div>
-            <div class="course-footer">
-                <span class="course-status">Available</span>
-                <span class="course-action">Access &rarr;</span>
+            <div class="card-content-wrapper">
+                <div class="course-top">
+                    <span class="course-index">08</span>
+                    <span class="course-badge">Masterclass</span>
+                </div>
+                <div class="course-title">Course Title 8 Here</div>
+                <div class="course-footer">
+                    <span class="course-status">Available</span>
+                    <span class="course-action">Access &rarr;</span>
+                </div>
             </div>
         </a>
     </main>
