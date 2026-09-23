@@ -6,13 +6,12 @@
     <title>SOLO GENIUS | Official Curriculum Store</title>
     <style>
         :root {
-            --bg-color: #030303;
             --gold-primary: #D4AF37;
             --gold-light: #F3E5AB;
             --gold-dark: #8C7323;
             --text-main: #FFFFFF;
             --text-muted: #888888;
-            --card-bg: #080808;
+            --card-bg: rgba(8, 8, 8, 0.85); /* ကတ်ပြားများကို အနည်းငယ် ဖောက်ထွင်းမြင်ရစေရန် (Glassmorphism vibe) */
             --border-color: #1A1A1A;
         }
 
@@ -23,19 +22,40 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
+        /* Website တစ်ခုလုံးရဲ့ Background Image က အမြဲတမ်း ငြိမ်နေမည် (Fixed Background) */
         body {
-            background-color: var(--bg-color);
+            background-image: url('01.jpg'); /* Website တစ်ခုလုံးအတွက် သုံးမည့် Background ပုံ (သို့မဟုတ် လိုအပ်သော ပုံနာမည်ထည့်ပါ) */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* 👈 ဤနေရာက scroll ဆွဲသည့်အခါ Background မရွေ့ဘဲ ငြိမ်နေစေရန် ချုပ်ပေးသည် */
+            background-repeat: no-repeat;
+            background-color: #030303; /* ပုံမပေါ်မီ အရန်ပြမည့် အရောင် */
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             padding: 60px 40px;
+            position: relative;
+        }
+
+        /* Background ပုံပေါ်တွင် အလင်းအမှောင် ညှိရန် Dark Overlay အလွှာထပ်ခြင်း */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(3, 3, 3, 0.85); /* အမည်းရောင် အဖုံးအလွှာ (Darkness 85%) - စာများ ပိုပေါ်လွင်စေရန် */
+            z-index: -1;
         }
 
         header {
             text-align: center;
             margin-bottom: 70px;
+            position: relative;
+            z-index: 2;
         }
 
         header h1 {
@@ -61,9 +81,11 @@
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 30px;
+            position: relative;
+            z-index: 2;
         }
 
-        /* Card Container - Background stays completely fixed/static during hover */
+        /* Course Cards */
         .course-card {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -76,7 +98,8 @@
             padding: 35px;
             position: relative;
             overflow: hidden;
-            transition: border-color 0.4s ease, box-shadow 0.4s ease;
+            backdrop-filter: blur(10px);
+            transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
         }
 
         /* High-end Gold top highlight border effect */
@@ -94,24 +117,19 @@
 
         .course-card:hover {
             border-color: var(--gold-dark);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9), 0 0 20px rgba(212, 175, 55, 0.04);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9), 0 0 20px rgba(212, 175, 55, 0.05);
         }
 
         .course-card:hover::before {
             opacity: 1;
         }
 
-        /* Card Content Inner Wrapper - Only text moves downward smoothly inside the static card */
         .card-content-wrapper {
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             height: 100%;
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .course-card:hover .card-content-wrapper {
-            transform: translateY(6px); /* စာသားလေးတွေ အောက်ဘက်ကို အနည်းငယ် ဆင်းသွားစေသည် */
         }
 
         .course-top {
@@ -133,6 +151,7 @@
             color: var(--text-muted);
             text-transform: uppercase;
             border: 1px solid var(--border-color);
+            background: rgba(0, 0, 0, 0.5);
             padding: 4px 8px;
         }
 
@@ -183,6 +202,8 @@
             font-size: 0.7rem;
             letter-spacing: 3px;
             text-transform: uppercase;
+            position: relative;
+            z-index: 2;
         }
 
         /* Responsive */
