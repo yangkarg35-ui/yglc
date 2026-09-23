@@ -39,7 +39,7 @@
             background-color: rgba(0, 0, 0, 0.75);
             backdrop-filter: blur(8px);
             color: var(--text-main);
-            padding: 14px 30px;
+            padding: 12px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -62,54 +62,54 @@
         /* Hero Header Section */
         .hero-header {
             text-align: center;
-            padding: 60px 20px 20px 20px;
+            padding: 50px 20px 15px 20px;
             max-width: 900px;
             margin: 0 auto;
         }
 
         .hero-brand-title {
-            font-size: 0.8rem;
-            letter-spacing: 6px;
+            font-size: 0.75rem;
+            letter-spacing: 5px;
             color: var(--gold-primary);
             text-transform: uppercase;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             font-weight: 500;
         }
 
         .hero-main-title {
-            font-size: 2rem;
-            letter-spacing: 4px;
+            font-size: 1.8rem;
+            letter-spacing: 3px;
             text-transform: uppercase;
             font-weight: 300;
             color: #FFFFFF;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .hero-subtitle {
-            font-size: 0.85rem;
-            letter-spacing: 3px;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
             color: var(--text-muted);
             text-transform: uppercase;
             font-weight: 300;
         }
 
-        /* Main Container - More Compact and Clean */
+        /* Main Container */
         .main-container {
-            max-width: 1250px;
+            max-width: 1300px;
             width: 100%;
             margin: 0 auto;
-            padding: 40px 30px 80px 30px;
+            padding: 30px 30px 60px 30px;
             flex: 1;
         }
 
-        /* Store Grid (3 columns, tighter layout) */
+        /* Store Grid (4 columns for smaller, compact luxury layout) */
         .store-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 35px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
         }
 
-        /* Course Card - Smaller, No Background Box, Luxury Minimal */
+        /* Course Card - Much Smaller & Luxury Vibe */
         .course-card {
             background: transparent;
             border: none;
@@ -119,22 +119,22 @@
             flex-direction: column;
             position: relative;
             transition: transform 0.3s ease;
-            max-width: 360px;
+            max-width: 280px;
             margin: 0 auto;
             width: 100%;
         }
 
         .course-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-4px);
         }
 
         /* Card Status Bar */
         .card-status-banner {
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: rgba(0, 0, 0, 0.85);
             color: #FFFFFF;
             text-align: center;
-            padding: 6px;
-            font-size: 0.6rem;
+            padding: 5px;
+            font-size: 0.55rem;
             letter-spacing: 2px;
             text-transform: uppercase;
             border: 1px solid var(--border-color);
@@ -145,69 +145,69 @@
         /* Compact Visual Stack Area */
         .card-visual-stack {
             width: 100%;
-            height: 150px;
+            height: 125px;
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
             border: 1px solid var(--border-color);
             overflow: hidden;
-            padding: 10px;
+            padding: 8px;
             background: rgba(0, 0, 0, 0.15);
         }
 
         .stacked-item {
-            width: 50%;
+            width: 48%;
             height: 75%;
             background-size: cover;
             background-position: center;
             position: absolute;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.5);
             border: 1px solid rgba(255,255,255,0.15);
             transition: transform 0.3s ease;
         }
 
         .stacked-item.back-2 {
-            transform: translateX(-18px) rotate(-5deg) scale(0.8);
+            transform: translateX(-14px) rotate(-5deg) scale(0.8);
             opacity: 0.5;
             z-index: 1;
         }
 
         .stacked-item.back-1 {
-            transform: translateX(-8px) rotate(-2deg) scale(0.9);
+            transform: translateX(-6px) rotate(-2deg) scale(0.9);
             opacity: 0.75;
             z-index: 2;
         }
 
         .stacked-item.front {
-            transform: translateX(6px) rotate(2deg) scale(1);
+            transform: translateX(4px) rotate(2deg) scale(1);
             z-index: 3;
         }
 
         .course-card:hover .stacked-item.front {
-            transform: translateX(10px) rotate(1deg) scale(1.02);
+            transform: translateX(8px) rotate(1deg) scale(1.02);
         }
 
         /* Card Details Content */
         .card-info {
-            padding: 12px 4px;
+            padding: 10px 4px;
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 4px;
             background: transparent;
         }
 
         .course-title {
-            font-size: 0.75rem;
+            font-size: 0.68rem;
             font-weight: 300;
-            line-height: 1.4;
-            letter-spacing: 1px;
+            line-height: 1.35;
+            letter-spacing: 0.5px;
             text-transform: uppercase;
             color: #FFFFFF;
         }
 
         .course-price {
-            font-size: 0.75rem;
+            font-size: 0.68rem;
             color: var(--gold-primary);
             letter-spacing: 1px;
             font-weight: 500;
@@ -217,32 +217,32 @@
         footer {
             background-color: transparent;
             border-top: 1px solid var(--border-color);
-            padding: 60px 30px 30px 30px;
+            padding: 50px 30px 25px 30px;
             position: relative;
             z-index: 10;
         }
 
         .footer-content {
-            max-width: 1250px;
+            max-width: 1300px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: 2fr 2fr 3fr;
-            gap: 50px;
+            gap: 40px;
         }
 
         .footer-brand h2 {
-            font-size: 1.1rem;
-            letter-spacing: 5px;
+            font-size: 1rem;
+            letter-spacing: 4px;
             color: var(--gold-primary);
             font-weight: 300;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .footer-links h3, .footer-newsletter h3 {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             letter-spacing: 2px;
             text-transform: uppercase;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             color: var(--text-main);
         }
 
@@ -250,13 +250,13 @@
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
         }
 
         .footer-links ul li a {
             color: var(--text-muted);
             text-decoration: none;
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             letter-spacing: 1px;
             text-transform: uppercase;
             transition: color 0.3s;
@@ -267,10 +267,10 @@
         }
 
         .footer-newsletter p {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             color: var(--text-muted);
-            line-height: 1.5;
-            margin-bottom: 12px;
+            line-height: 1.4;
+            margin-bottom: 10px;
         }
 
         .newsletter-form {
@@ -282,9 +282,9 @@
             flex: 1;
             background: rgba(0, 0, 0, 0.4);
             border: 1px solid var(--border-color);
-            padding: 8px 12px;
+            padding: 7px 10px;
             color: #FFF;
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             outline: none;
         }
 
@@ -296,8 +296,8 @@
             background-color: #FFFFFF;
             color: #000000;
             border: none;
-            padding: 0 16px;
-            font-size: 0.6rem;
+            padding: 0 14px;
+            font-size: 0.55rem;
             letter-spacing: 2px;
             text-transform: uppercase;
             font-weight: 600;
@@ -310,39 +310,36 @@
         }
 
         .footer-bottom {
-            max-width: 1250px;
-            margin: 40px auto 0 auto;
+            max-width: 1300px;
+            margin: 35px auto 0 auto;
             text-align: center;
             border-top: 1px solid rgba(255, 255, 255, 0.04);
-            padding-top: 20px;
-            font-size: 0.55rem;
+            padding-top: 18px;
+            font-size: 0.5rem;
             color: var(--text-muted);
             letter-spacing: 2px;
             text-transform: uppercase;
         }
 
         /* Responsive Breakpoints */
-        @media (max-width: 1024px) {
+        @media (max-width: 1200px) {
             .store-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
             .store-grid {
                 grid-template-columns: 1fr;
             }
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
             .top-announcement {
                 flex-direction: column;
-                gap: 6px;
+                gap: 5px;
                 text-align: center;
-            }
-            .hero-main-title {
-                font-size: 1.4rem;
             }
         }
     </style>
@@ -359,14 +356,14 @@
         </div>
     </div>
 
-    <!-- Hero Header Section Added -->
+    <!-- Hero Header Section -->
     <header class="hero-header">
         <div class="hero-brand-title">YGLC Youth Guitar Learning Center</div>
         <h1 class="hero-main-title">Ready to Begin?</h1>
         <p class="hero-subtitle">Your Next Chapter Starts Here.</p>
     </header>
 
-    <!-- Main Content Store Grid -->
+    <!-- Main Content Store Grid (8 Cards) -->
     <main class="main-container">
         <div class="store-grid">
             <!-- Course 1 -->
@@ -392,7 +389,7 @@
                     <div class="stacked-item front" style="background-image: url('02.jpg');"></div>
                 </div>
                 <div class="card-info">
-                    <div class="course-title">Patient Zero (Acoustic Version) CD with Double-Sided Cover</div>
+                    <div class="course-title">Patient Zero (Acoustic Version) CD</div>
                     <div class="course-price">$3.99</div>
                 </div>
             </a>
@@ -406,7 +403,7 @@
                     <div class="stacked-item front" style="background-image: url('03.jpg');"></div>
                 </div>
                 <div class="card-info">
-                    <div class="course-title">Patient Zero (Piano Version) CD with Double-Sided Cover</div>
+                    <div class="course-title">Patient Zero (Piano Version) CD</div>
                     <div class="course-price">$3.99</div>
                 </div>
             </a>
@@ -420,7 +417,7 @@
                     <div class="stacked-item front" style="background-image: url('04.jpg');"></div>
                 </div>
                 <div class="card-info">
-                    <div class="course-title">Course Title 04 Advanced Rhythm Structure & Harmony</div>
+                    <div class="course-title">Advanced Rhythm Structure & Harmony</div>
                     <div class="course-price">$3.99</div>
                 </div>
             </a>
@@ -434,7 +431,7 @@
                     <div class="stacked-item front" style="background-image: url('01.jpg');"></div>
                 </div>
                 <div class="card-info">
-                    <div class="course-title">Course Title 05 Fingerstyle Mechanics & Core Systems</div>
+                    <div class="course-title">Fingerstyle Mechanics & Core Systems</div>
                     <div class="course-price">$3.99</div>
                 </div>
             </a>
@@ -448,7 +445,35 @@
                     <div class="stacked-item front" style="background-image: url('02.jpg');"></div>
                 </div>
                 <div class="card-info">
-                    <div class="course-title">Course Title 06 Voice Leading & Chord Degree Mastery</div>
+                    <div class="course-title">Voice Leading & Chord Degree Mastery</div>
+                    <div class="course-price">$3.99</div>
+                </div>
+            </a>
+
+            <!-- Course 7 -->
+            <a href="course-7.html" class="course-card">
+                <div class="card-status-banner">Not Available</div>
+                <div class="card-visual-stack">
+                    <div class="stacked-item back-2" style="background-image: url('02.jpg');"></div>
+                    <div class="stacked-item back-1" style="background-image: url('04.jpg');"></div>
+                    <div class="stacked-item front" style="background-image: url('03.jpg');"></div>
+                </div>
+                <div class="card-info">
+                    <div class="course-title">High-End Frameworks & Digital Assets</div>
+                    <div class="course-price">$3.99</div>
+                </div>
+            </a>
+
+            <!-- Course 8 -->
+            <a href="course-8.html" class="course-card">
+                <div class="card-status-banner">Not Available</div>
+                <div class="card-visual-stack">
+                    <div class="stacked-item back-2" style="background-image: url('03.jpg');"></div>
+                    <div class="stacked-item back-1" style="background-image: url('01.jpg');"></div>
+                    <div class="stacked-item front" style="background-image: url('04.jpg');"></div>
+                </div>
+                <div class="card-info">
+                    <div class="course-title">Solo Genius Private Exclusive Archive</div>
                     <div class="course-price">$3.99</div>
                 </div>
             </a>
