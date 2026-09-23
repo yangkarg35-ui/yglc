@@ -6,10 +6,9 @@
     <title>YGLC — Yangon Guitar Learning Center</title>
     <style>
         :root {
-            --gold-primary: #C5A059;
-            --text-main: #111111;
-            --text-muted: #333333;
-            --bg-light: #F9F9F9;
+            --gold-primary: #D4AF37;
+            --text-main: #FFFFFF;
+            --text-muted: #DDDDDD;
         }
 
         * {
@@ -23,9 +22,9 @@
             background-image: url('02.jpg'); 
             background-size: cover;
             background-position: center;
-            background-attachment: scroll; /* Mobile မှာ background လိုက်မပါစေရန် ပြင်ဆင်ထားသည် */
+            background-attachment: scroll;
             background-repeat: no-repeat;
-            background-color: var(--bg-light);
+            background-color: #030303;
             color: var(--text-main);
             min-height: 100vh;
             line-height: 1.6;
@@ -33,7 +32,7 @@
 
         /* Top Announcement */
         .top-announcement {
-            background-color: rgba(255, 255, 255, 0.95);
+            background-color: rgba(0, 0, 0, 0.85);
             color: var(--text-main);
             padding: 10px 30px;
             display: flex;
@@ -42,11 +41,11 @@
             font-size: 0.65rem;
             letter-spacing: 2px;
             text-transform: uppercase;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
         }
 
         .countdown-timer span {
-            color: #8C6D29;
+            color: var(--gold-primary);
             font-weight: bold;
         }
 
@@ -76,7 +75,7 @@
         }
         .hero h1 {
             font-size: 2rem;
-            color: var(--text-main);
+            color: var(--gold-primary);
             margin-bottom: 15px;
         }
         .hero p {
@@ -91,9 +90,9 @@
             gap: 15px;
         }
         .btn {
-            background: #000;
-            border: 1px solid #000;
-            color: #FFFFFF;
+            background: transparent;
+            border: 1px solid var(--gold-primary);
+            color: var(--gold-primary);
             padding: 10px 25px;
             text-transform: uppercase;
             font-size: 0.7rem;
@@ -104,30 +103,30 @@
         }
         .btn:hover {
             background: var(--gold-primary);
-            border-color: var(--gold-primary);
             color: #000;
         }
 
         /* Section Titles */
         .section-title {
             font-size: 1.2rem;
-            color: var(--text-main);
+            color: var(--gold-primary);
             margin-bottom: 20px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
             padding-bottom: 8px;
         }
 
-        /* Content Blocks */
+        /* Content Blocks - No Background Boxes */
         .content-block {
-            background: rgba(255, 255, 255, 0.85);
-            padding: 25px;
-            border-radius: 4px;
+            background: transparent;
+            padding: 10px 0;
             margin-bottom: 20px;
-            border: 1px solid rgba(0, 0, 0, 0.05);
         }
         .content-block p, .content-block li {
             color: var(--text-muted);
             font-size: 0.85rem;
+        }
+        .content-block strong {
+            color: var(--text-main);
         }
         .content-block ul {
             margin-left: 20px;
@@ -142,7 +141,8 @@
         }
 
         .course-card {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(10, 10, 10, 0.9);
+            border: 1px solid rgba(212, 175, 55, 0.2);
             border-radius: 6px;
             overflow: hidden;
             text-decoration: none;
@@ -150,13 +150,14 @@
             display: flex;
             flex-direction: column;
             transition: transform 0.3s;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
         .course-card:hover {
             transform: translateY(-5px);
+            border-color: var(--gold-primary);
         }
 
-        /* Tier Badges (Silver, Gold, Platinum, Diamond) */
+        /* Tier Badges */
         .tier-badge {
             text-align: center;
             padding: 4px;
@@ -165,8 +166,8 @@
             text-transform: uppercase;
             font-weight: 700;
         }
-        .tier-silver { background: #D1D2D6; color: #000; }
-        .tier-gold { background: #E5C158; color: #000; }
+        .tier-silver { background: #A8A9AD; color: #000; }
+        .tier-gold { background: var(--gold-primary); color: #000; }
         .tier-platinum { background: #E5E4E2; color: #000; }
         .tier-diamond { background: #B9F2FF; color: #000; }
 
@@ -177,17 +178,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(0,0,0,0.05);
+            background: rgba(0,0,0,0.4);
             overflow: hidden;
         }
         .stacked-item {
             width: 45%;
             height: 75%;
-            background-image: url('02.jpg'); /* ပုံအားလုံးအတွက် 02.jpg သုံးထားသည် */
+            background-image: url('02.jpg');
             background-size: cover;
             background-position: center;
             position: absolute;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
         }
         .stacked-item.back-2 { transform: translateX(-10px) rotate(-5deg) scale(0.8); opacity: 0.4; }
         .stacked-item.back-1 { transform: translateX(-4px) rotate(-2deg) scale(0.9); opacity: 0.7; }
@@ -211,7 +212,7 @@
             justify-content: space-between;
             align-items: center;
             font-size: 0.7rem;
-            color: #8C6D29;
+            color: var(--gold-primary);
             font-weight: bold;
         }
 
@@ -219,18 +220,18 @@
         .grid-2 {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+            gap: 30px;
         }
         .grid-3 {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+            gap: 30px;
         }
 
         /* Footer */
         footer {
-            background: #FFFFFF;
-            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            background: rgba(0, 0, 0, 0.95);
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
             padding: 40px 20px;
             text-align: center;
             font-size: 0.6rem;
@@ -250,7 +251,7 @@
             text-decoration: none;
         }
         footer .footer-links a:hover {
-            color: #8C6D29;
+            color: var(--gold-primary);
         }
 
         @media (max-width: 1024px) {
@@ -276,7 +277,7 @@
         <!-- 1. HOME / HERO -->
         <section class="hero">
             <h1>YGLC — Yangon Guitar Learning Center</h1>
-            <p>Learn guitar through a clear, practical, and structured learning system designed for real progress. Whether you are starting from zero or building on what you already know, YGLC gives you a simple path to learn, practice, and improve[cite: 12].</p>
+            <p>Learn guitar through a clear, practical, and structured learning system designed for real progress. Whether you are starting from zero or building on what you already know, YGLC gives you a simple path to learn, practice, and improve.</p>
             <div class="btn-group">
                 <a href="#courses" class="btn">Explore Courses</a>
                 <a href="register.html" class="btn">Start Learning</a>
@@ -287,19 +288,19 @@
         <section>
             <h2 class="section-title">2. Why YGLC</h2>
             <div class="content-block">
-                <h3>Learning Guitar Should Be Simple[cite: 12].</h3>
-                <p>Many people want to learn guitar but do not know where to start, what to learn next, what to practice, whether they are practicing correctly, or how to build consistent progress[cite: 12]. YGLC organizes the learning process into structured lessons so you can focus on learning and practicing[cite: 12].</p>
+                <h3>Learning Guitar Should Be Simple.</h3>
+                <p>Many people want to learn guitar but do not know where to start, what to learn next, what to practice, whether they are practicing correctly, or how to build consistent progress. YGLC organizes the learning process into structured lessons so you can focus on learning and practicing.</p>
                 <br>
-                <strong>Our Approach: Learn → Practice → Apply → Improve[cite: 12]</strong>
+                <strong>Our Approach: Learn → Practice → Apply → Improve</strong>
             </div>
         </section>
 
-        <!-- 3. COURSES (8 Cards with Silver/Gold/Platinum/Diamond Tiers) -->
+        <!-- 3. COURSES -->
         <section id="courses">
             <h2 class="section-title">3. Courses (Guitar Learning Programs)</h2>
             <div class="courses-grid">
                 
-                <!-- 1. Plucking Basics (Silver) -->
+                <!-- 1. Plucking Basics -->
                 <a href="course-1.html" class="course-card">
                     <div class="tier-badge tier-silver">Silver Tier</div>
                     <div class="card-visual-stack">
@@ -316,7 +317,7 @@
                     </div>
                 </a>
 
-                <!-- 2. Plucking Intermediate (Silver) -->
+                <!-- 2. Plucking Intermediate -->
                 <a href="course-2.html" class="course-card">
                     <div class="tier-badge tier-silver">Silver Tier</div>
                     <div class="card-visual-stack">
@@ -333,7 +334,7 @@
                     </div>
                 </a>
 
-                <!-- 3. Rhythm Basics (Gold) -->
+                <!-- 3. Rhythm Basics -->
                 <a href="course-3.html" class="course-card">
                     <div class="tier-badge tier-gold">Gold Tier</div>
                     <div class="card-visual-stack">
@@ -350,7 +351,7 @@
                     </div>
                 </a>
 
-                <!-- 4. Rhythm Intermediate (Gold) -->
+                <!-- 4. Rhythm Intermediate -->
                 <a href="course-4.html" class="course-card">
                     <div class="tier-badge tier-gold">Gold Tier</div>
                     <div class="card-visual-stack">
@@ -367,7 +368,7 @@
                     </div>
                 </a>
 
-                <!-- 5. Advanced Rhythm (Platinum) -->
+                <!-- 5. Advanced Rhythm -->
                 <a href="course-5.html" class="course-card">
                     <div class="tier-badge tier-platinum">Platinum Tier</div>
                     <div class="card-visual-stack">
@@ -384,7 +385,7 @@
                     </div>
                 </a>
 
-                <!-- 6. Fingerstyle Basics (Platinum) -->
+                <!-- 6. Fingerstyle Basics -->
                 <a href="course-6.html" class="course-card">
                     <div class="tier-badge tier-platinum">Platinum Tier</div>
                     <div class="card-visual-stack">
@@ -401,7 +402,7 @@
                     </div>
                 </a>
 
-                <!-- 7. Basic Music Theory (Diamond) -->
+                <!-- 7. Basic Music Theory -->
                 <a href="course-7.html" class="course-card">
                     <div class="tier-badge tier-diamond">Diamond Tier</div>
                     <div class="card-visual-stack">
@@ -418,7 +419,7 @@
                     </div>
                 </a>
 
-                <!-- 8. Intermediate Music Theory (Diamond) -->
+                <!-- 8. Intermediate Music Theory -->
                 <a href="course-8.html" class="course-card">
                     <div class="tier-badge tier-diamond">Diamond Tier</div>
                     <div class="card-visual-stack">
@@ -443,17 +444,17 @@
             <section>
                 <h2 class="section-title">4. How YGLC Works</h2>
                 <div class="content-block">
-                    <p><strong>Step 1 — Choose Your Course:</strong> Match your level[cite: 12].</p>
-                    <p><strong>Step 2 — Get Access:</strong> Delivered through Telegram[cite: 12].</p>
-                    <p><strong>Step 3 — Learn & Practice:</strong> Follow instructions and submit work[cite: 12].</p>
-                    <p><strong>Step 4 — Receive Feedback & Continue:</strong> Guidance to help you improve[cite: 12].</p>
+                    <p><strong>Step 1 — Choose Your Course:</strong> Match your level.</p>
+                    <p><strong>Step 2 — Get Access:</strong> Delivered through Telegram.</p>
+                    <p><strong>Step 3 — Learn & Practice:</strong> Follow instructions and submit work.</p>
+                    <p><strong>Step 4 — Receive Feedback & Continue:</strong> Guidance to help you improve.</p>
                 </div>
             </section>
             <section>
                 <h2 class="section-title">5. Learning Platform</h2>
                 <div class="content-block">
-                    <h3>Your Learning Starts on Telegram[cite: 12].</h3>
-                    <p>YGLC uses Telegram as the primary course delivery and communication platform to keep access simple, direct, and reliable[cite: 12].</p>
+                    <h3>Your Learning Starts on Telegram.</h3>
+                    <p>YGLC uses Telegram as the primary course delivery and communication platform to keep access simple, direct, and reliable.</p>
                 </div>
             </section>
         </div>
@@ -463,13 +464,13 @@
             <section>
                 <h2 class="section-title">6. YGLC Studio</h2>
                 <div class="content-block">
-                    <p>YGLC Studio is the digital home for your learning information, guidance, resources, and supporting systems[cite: 12].</p>
+                    <p>YGLC Studio is the digital home for your learning information, guidance, resources, and supporting systems.</p>
                 </div>
             </section>
             <section>
                 <h2 class="section-title">7. Student Access</h2>
                 <div class="content-block">
-                    <p>After joining, you will receive your member access info including Member ID, selected course, level, and learning status[cite: 12]. Keep your access private[cite: 12].</p>
+                    <p>After joining, you will receive your member access info including Member ID, selected course, level, and learning status. Keep your access private.</p>
                 </div>
             </section>
         </div>
@@ -479,13 +480,13 @@
             <section>
                 <h2 class="section-title">8. Practice & Feedback</h2>
                 <div class="content-block">
-                    <p>Real progress comes from applying what you learn[cite: 12]. Submit your practice for review on accuracy, timing, technique, and rhythm[cite: 12].</p>
+                    <p>Real progress comes from applying what you learn. Submit your practice for review on accuracy, timing, technique, and rhythm.</p>
                 </div>
             </section>
             <section>
                 <h2 class="section-title">9. Course Outcomes</h2>
                 <div class="content-block">
-                    <p>Develop better guitar fundamentals, stronger rhythm, plucking control, fingerstyle coordination, and musical understanding[cite: 12].</p>
+                    <p>Develop better guitar fundamentals, stronger rhythm, plucking control, fingerstyle coordination, and musical understanding.</p>
                 </div>
             </section>
         </div>
@@ -495,13 +496,13 @@
             <section>
                 <h2 class="section-title">10. Who YGLC Is For</h2>
                 <div class="content-block">
-                    <p>For those who want to start learning guitar, build stronger fundamentals, and follow a structured routine[cite: 12]. Not for those looking for instant results without practice[cite: 12].</p>
+                    <p>For those who want to start learning guitar, build stronger fundamentals, and follow a structured routine. Not for those looking for instant results without practice.</p>
                 </div>
             </section>
             <section>
                 <h2 class="section-title">11. About YGLC</h2>
                 <div class="content-block">
-                    <p>YGLC is focused on making guitar education practical, structured, and accessible. Help people learn something useful today[cite: 12].</p>
+                    <p>YGLC is focused on making guitar education practical, structured, and accessible. Help people learn something useful today.</p>
                 </div>
             </section>
         </div>
@@ -511,18 +512,18 @@
             <section>
                 <h2 class="section-title">12. Learning Principles</h2>
                 <div class="content-block">
-                    <p><strong>01 — Practicality:</strong> Use what you learn[cite: 12].</p>
-                    <p><strong>02 — Structure:</strong> Follow a clear path[cite: 12].</p>
-                    <p><strong>03 — Practice:</strong> Skill comes from application[cite: 12].</p>
-                    <p><strong>04 — Feedback & Consistency:</strong> Compound over time[cite: 12].</p>
+                    <p><strong>01 — Practicality:</strong> Use what you learn.</p>
+                    <p><strong>02 — Structure:</strong> Follow a clear path.</p>
+                    <p><strong>03 — Practice:</strong> Skill comes from application.</p>
+                    <p><strong>04 — Feedback & Consistency:</strong> Compound over time.</p>
                 </div>
             </section>
             <section>
                 <h2 class="section-title">13. Pricing</h2>
                 <div class="content-block">
-                    <p><strong>Self-Paced Courses:</strong> Telegram delivery[cite: 12].</p>
-                    <p><strong>Zoom Live Class:</strong> USD 150[cite: 12].</p>
-                    <p><strong>Academic Learning Program:</strong> USD 500[cite: 12].</p>
+                    <p><strong>Self-Paced Courses:</strong> Telegram delivery.</p>
+                    <p><strong>Zoom Live Class:</strong> USD 150.</p>
+                    <p><strong>Academic Learning Program:</strong> USD 500.</p>
                 </div>
             </section>
         </div>
@@ -532,14 +533,14 @@
             <section>
                 <h2 class="section-title">14. FAQ</h2>
                 <div class="content-block">
-                    <p><strong>Do I need experience?</strong> No, beginner courses available[cite: 12].</p>
-                    <p><strong>Where are lessons hosted?</strong> Primary delivery is Telegram[cite: 12].</p>
+                    <p><strong>Do I need experience?</strong> No, beginner courses available.</p>
+                    <p><strong>Where are lessons hosted?</strong> Primary delivery is Telegram.</p>
                 </div>
             </section>
             <section>
                 <h2 class="section-title">15. Support & Register</h2>
                 <div class="content-block" id="register">
-                    <p>Need help with courses, access, or technical issues? Contact YGLC through our official channel[cite: 12]. Choose your course and start your learning journey today[cite: 12].</p>
+                    <p>Need help with courses, access, or technical issues? Contact YGLC through our official channel. Choose your course and start your learning journey today.</p>
                 </div>
             </section>
         </div>
@@ -559,8 +560,8 @@
         </div>
         <div>
             YGLC — Yangon Guitar Learning Center<br>
-            Learn something useful today[cite: 12].<br>
-            &copy; 2026 YGLC. All rights reserved[cite: 12]. Learning • Practice • Progress[cite: 12].
+            Learn something useful today.<br>
+            &copy; 2026 YGLC. All rights reserved. Learning • Practice • Progress.
         </div>
     </footer>
 
