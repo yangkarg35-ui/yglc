@@ -8,11 +8,10 @@
         :root {
             --gold-primary: #D4AF37;
             --gold-light: #F3E5AB;
-            --gold-dark: #8C7323;
             --text-main: #FFFFFF;
-            --text-muted: #888888;
-            --card-bg: rgba(8, 8, 8, 0.85); /* ကတ်ပြားများကို အနည်းငယ် ဖောက်ထွင်းမြင်ရစေရန် (Glassmorphism vibe) */
-            --border-color: #1A1A1A;
+            --text-muted: #AAAAAA;
+            --border-color: #2A2A2A;
+            --panel-bg: rgba(10, 10, 10, 0.85);
         }
 
         * {
@@ -24,22 +23,20 @@
 
         /* Website တစ်ခုလုံးရဲ့ Background Image က အမြဲတမ်း ငြိမ်နေမည် (Fixed Background) */
         body {
-            background-image: url('01.jpg'); /* Website တစ်ခုလုံးအတွက် သုံးမည့် Background ပုံ (သို့မဟုတ် လိုအပ်သော ပုံနာမည်ထည့်ပါ) */
+            background-image: url('01.jpg'); /* Background ပုံနာမည် */
             background-size: cover;
             background-position: center;
-            background-attachment: fixed; /* 👈 ဤနေရာက scroll ဆွဲသည့်အခါ Background မရွေ့ဘဲ ငြိမ်နေစေရန် ချုပ်ပေးသည် */
+            background-attachment: fixed;
             background-repeat: no-repeat;
-            background-color: #030303; /* ပုံမပေါ်မီ အရန်ပြမည့် အရောင် */
+            background-color: #030303;
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 60px 40px;
-            position: relative;
         }
 
-        /* Background ပုံပေါ်တွင် အလင်းအမှောင် ညှိရန် Dark Overlay အလွှာထပ်ခြင်း */
+        /* Dark Overlay ဖုံးအလွှာ */
         body::before {
             content: '';
             position: fixed;
@@ -47,316 +44,374 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(3, 3, 3, 0.85); /* အမည်းရောင် အဖုံးအလွှာ (Darkness 85%) - စာများ ပိုပေါ်လွင်စေရန် */
+            background-color: rgba(0, 0, 0, 0.78);
             z-index: -1;
         }
 
-        header {
-            text-align: center;
-            margin-bottom: 70px;
+        /* Top Announcement Bar (Taylor Swift Store ပုံစံ) */
+        .top-announcement {
+            background-color: #000000;
+            color: var(--text-main);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border-color);
             position: relative;
-            z-index: 2;
+            z-index: 10;
         }
 
-        header h1 {
-            font-size: 1.8rem;
-            letter-spacing: 8px;
+        .countdown-timer {
+            display: flex;
+            gap: 15px;
+            font-weight: 600;
+        }
+
+        .countdown-timer span {
             color: var(--gold-primary);
-            text-transform: uppercase;
-            font-weight: 300;
-            margin-bottom: 12px;
         }
 
-        header p {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
-
-        .store-container {
-            max-width: 1300px;
+        /* Main Container */
+        .main-container {
+            max-width: 1350px;
             width: 100%;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
-            position: relative;
-            z-index: 2;
+            padding: 50px 20px;
+            flex: 1;
         }
 
-        /* Course Cards */
+        /* Store Grid (3 columns like Taylor Swift Store) */
+        .store-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        /* Course Card */
         .course-card {
-            background-color: var(--card-bg);
+            background-color: var(--panel-bg);
             border: 1px solid var(--border-color);
             text-decoration: none;
             color: var(--text-main);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            aspect-ratio: 3 / 4;
-            padding: 35px;
             position: relative;
             overflow: hidden;
             backdrop-filter: blur(10px);
-            transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
-        }
-
-        /* High-end Gold top highlight border effect */
-        .course-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
-            opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: transform 0.3s ease, border-color 0.3s ease;
         }
 
         .course-card:hover {
-            border-color: var(--gold-dark);
+            border-color: var(--gold-primary);
             transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9), 0 0 20px rgba(212, 175, 55, 0.05);
         }
 
-        .course-card:hover::before {
-            opacity: 1;
-        }
-
-        .card-content-wrapper {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 100%;
-        }
-
-        .course-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .course-index {
+        /* Card Status Bar (NOT AVAILABLE) */
+        .card-status-banner {
+            background-color: #000000;
+            color: #FFFFFF;
+            text-align: center;
+            padding: 10px;
             font-size: 0.75rem;
-            color: var(--gold-primary);
             letter-spacing: 3px;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border-color);
             font-weight: 500;
         }
 
-        .course-badge {
-            font-size: 0.65rem;
-            letter-spacing: 2px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            border: 1px solid var(--border-color);
-            background: rgba(0, 0, 0, 0.5);
-            padding: 4px 8px;
+        /* Card Visual Area (Mock Image / Graphic Holder) */
+        .card-image-area {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* Card Details Content */
+        .card-info {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
 
         .course-title {
-            font-size: 1.15rem;
+            font-size: 0.95rem;
             font-weight: 400;
             line-height: 1.5;
             letter-spacing: 1px;
-            color: var(--text-main);
-            transition: color 0.3s ease;
-        }
-
-        .course-card:hover .course-title {
-            color: var(--gold-light);
-        }
-
-        .course-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 1px solid var(--border-color);
-            padding-top: 20px;
-        }
-
-        .course-status {
-            font-size: 0.7rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--text-muted);
         }
 
-        .course-action {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        .course-price {
+            font-size: 0.9rem;
             color: var(--gold-primary);
-            transition: transform 0.3s ease;
+            letter-spacing: 1px;
         }
 
-        .course-card:hover .course-action {
-            transform: translateX(4px);
-        }
-
+        /* Footer Section (Taylor Swift Store Layout Style) */
         footer {
-            text-align: center;
-            margin-top: 80px;
-            color: var(--text-muted);
-            font-size: 0.7rem;
+            background-color: rgba(5, 5, 5, 0.95);
+            border-top: 1px solid var(--border-color);
+            padding: 60px 40px 30px 40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .footer-content {
+            max-width: 1350px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 2fr 3fr;
+            gap: 50px;
+        }
+
+        .footer-brand h2 {
+            font-size: 1.5rem;
+            letter-spacing: 6px;
+            color: var(--gold-primary);
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+
+        .footer-links h3, .footer-newsletter h3 {
+            font-size: 0.85rem;
             letter-spacing: 3px;
             text-transform: uppercase;
-            position: relative;
-            z-index: 2;
+            margin-bottom: 20px;
+            color: var(--text-main);
         }
 
-        /* Responsive */
+        .footer-links ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-links ul li a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .footer-links ul li a:hover {
+            color: var(--gold-primary);
+        }
+
+        .footer-newsletter p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 10px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            color: #FFF;
+            font-size: 0.8rem;
+            outline: none;
+        }
+
+        .newsletter-form input:focus {
+            border-color: var(--gold-primary);
+        }
+
+        .newsletter-form button {
+            background-color: #FFFFFF;
+            color: #000000;
+            border: none;
+            padding: 0 25px;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            background-color: var(--gold-primary);
+        }
+
+        .footer-bottom {
+            max-width: 1350px;
+            margin: 40px auto 0 auto;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 25px;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Responsive Breakpoints */
         @media (max-width: 1024px) {
-            .store-container {
+            .store-grid {
                 grid-template-columns: repeat(2, 1fr);
+            }
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
             }
         }
 
         @media (max-width: 600px) {
-            body {
-                padding: 30px 15px;
-            }
-            .store-container {
+            .store-grid {
                 grid-template-columns: 1fr;
             }
-            .course-card {
-                aspect-ratio: 16 / 9;
+            .top-announcement {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
             }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Solo Genius</h1>
-        <p>Private Exclusive Frameworks &bull; Collection 01</p>
-    </header>
+    <!-- Top Announcement Bar with Timer -->
+    <div class="top-announcement">
+        <div>COLLECTOR'S EDITION COURSES AVAILABLE FOR A LIMITED TIME</div>
+        <div class="countdown-timer">
+            <div><span>07</span>H</div>
+            <div><span>01</span>M</div>
+            <div><span>56</span>S</div>
+        </div>
+    </div>
 
-    <main class="store-container">
-        <!-- Course 1 -->
-        <a href="course-1.html" class="course-card">
-            <div class="card-content-wrapper">
-                <div class="course-top">
-                    <span class="course-index">01</span>
-                    <span class="course-badge">Masterclass</span>
+    <!-- Main Content Store Grid (8 Courses) -->
+    <main class="main-container">
+        <div class="store-grid">
+            <!-- Course 1 -->
+            <a href="course-1.html" class="course-card">
+                <div class="card-status-banner">Not Available</div>
+                <div class="card-image-area" style="background-image: url('01.jpg');"></div>
+                <div class="card-info">
+                    <div class="course-title">Course Title 01 (Acoustic Version) with Double-Sided Cover</div>
+                    <div class="course-price">$3.99</div>
                 </div>
-                <div class="course-title">Course Title 1 Here</div>
-                <div class="course-footer">
-                    <span class="course-status">Available</span>
-                    <span class="course-action">Access &rarr;</span>
-                </div>
-            </div>
-        </a>
+            </a>
 
-        <!-- Course 2 -->
-        <a href="course-2.html" class="course-card">
-            <div class="card-content-wrapper">
-                <div class="course-top">
-                    <span class="course-index">02</span>
-                    <span class="course-badge">Masterclass</span>
+            <!-- Course 2 -->
+            <a href="course-2.html" class="course-card">
+                <div class="card-status-banner">Not Available</div>
+                <div class="card-image-area" style="background-image: url('02.jpg');"></div>
+                <div class="card-info">
+                    <div class="course-title">Course Title 02 (Piano Version) with Double-Sided Cover</div>
+                    <div class="course-price">$3.99</div>
                 </div>
-                <div class="course-title">Course Title 2 Here</div>
-                <div class="course-footer">
-                    <span class="course-status">Available</span>
-                    <span class="course-action">Access &rarr;</span>
-                </div>
-            </div>
-        </a>
+            </a>
 
-        <!-- Course 3 -->
-        <a href="course-3.html" class="course-card">
-            <div class="card-content-wrapper">
-                <div class="course-top">
-                    <span class="course-index">03</span>
-                    <span class="course-badge">Masterclass</span>
+            <!-- Course 3 -->
+            <a href="course-3.html" class="course-card">
+                <div class="card-status-banner">Not Available</div>
+                <div class="card-image-area" style="background-image: url('03.jpg');"></div>
+                <div class="card-info">
+                    <div class="course-title">Course Title 03 Masterclass Edition with Special Package</div>
+                    <div class="course-price">$3.99</div>
                 </div>
-                <div class="course-title">Course Title 3 Here</div>
-                <div class="course-footer">
-                    <span class="course-status">Available</span>
-                    <span class="course-action">Access &rarr;</span>
-                </div>
-            </div>
-        </a>
+            </a>
 
-        <!-- Course 4 -->
-        <a href="course-4.html" class="course-card">
-            <div class="card-content-wrapper">
-                <div class="course-top">
-                    <span class="course-index">04</span>
-                    <span class="course-badge">Masterclass</span>
+            <!-- Course 4 -->
+            <a href="course-4.html" class="course-card">
+                <div class="card-status-banner">Not Available</div>
+                <div class="card-image-area" style="background-image: url('04.jpg');"></div>
+                <div class="card-info">
+                    <div class="course-title">Course Title 04 Advanced Rhythm Structure & Harmony</div>
+                    <div class="course-price">$3.99</div>
                 </div>
-                <div class="course-title">Course Title 4 Here</div>
-                <div class="course-footer">
-                    <span class="course-status">Available</span>
-                    <span class="course-action">Access &rarr;</span>
-                </div>
-            </div>
-        </a>
+            </a>
 
-        <!-- Course 5 -->
-        <a href="course-5.html" class="course-card">
-            <div class="card-content-wrapper">
-                <div class="course-top">
-                    <span class="course-index">05</span>
-                    <span class="course-badge">Masterclass</span>
+            <!-- Course 5 -->
+            <a href="course-5.html" class="course-card">
+                <div class="card-status-banner">Not Available</div>
+                <div class="card-image-area" style="background-image: url('01.jpg');"></div>
+                <div class="card-info">
+                    <div class="course-title">Course Title 05 Fingerstyle Mechanics & Core Systems</div>
+                    <div class="course-price">$3.99</div>
                 </div>
-                <div class="course-title">Course Title 5 Here</div>
-                <div class="course-footer">
-                    <span class="course-status">Available</span>
-                    <span class="course-action">Access &rarr;</span>
-                </div>
-            </div>
-        </a>
+            </a>
 
-        <!-- Course 6 -->
-        <a href="course-6.html" class="course-card">
-            <div class="card-content-wrapper">
-                <div class="course-top">
-                    <span class="course-index">06</span>
-                    <span class="course-badge">Masterclass</span>
+            <!-- Course 6 -->
+            <a href="course-6.html" class="course-card">
+                <div class="card-status-banner">Not Available</div>
+                <div class="card-image-area" style="background-image: url('02.jpg');"></div>
+                <div class="card-info">
+                    <div class="course-title">Course Title 06 Voice Leading & Chord Degree Mastery</div>
+                    <div class="course-price">$3.99</div>
                 </div>
-                <div class="course-title">Course Title 6 Here</div>
-                <div class="course-footer">
-                    <span class="course-status">Available</span>
-                    <span class="course-action">Access &rarr;</span>
-                </div>
-            </div>
-        </a>
+            </a>
 
-        <!-- Course 7 -->
-        <a href="course-7.html" class="course-card">
-            <div class="card-content-wrapper">
-                <div class="course-top">
-                    <span class="course-index">07</span>
-                    <span class="course-badge">Masterclass</span>
+            <!-- Course 7 -->
+            <a href="course-7.html" class="course-card">
+                <div class="card-status-banner">Not Available</div>
+                <div class="card-image-area" style="background-image: url('03.jpg');"></div>
+                <div class="card-info">
+                    <div class="course-title">Course Title 07 High-End Frameworks & Digital Assets</div>
+                    <div class="course-price">$3.99</div>
                 </div>
-                <div class="course-title">Course Title 7 Here</div>
-                <div class="course-footer">
-                    <span class="course-status">Available</span>
-                    <span class="course-action">Access &rarr;</span>
-                </div>
-            </div>
-        </a>
+            </a>
 
-        <!-- Course 8 -->
-        <a href="course-8.html" class="course-card">
-            <div class="card-content-wrapper">
-                <div class="course-top">
-                    <span class="course-index">08</span>
-                    <span class="course-badge">Masterclass</span>
+            <!-- Course 8 -->
+            <a href="course-8.html" class="course-card">
+                <div class="card-status-banner">Not Available</div>
+                <div class="card-image-area" style="background-image: url('04.jpg');"></div>
+                <div class="card-info">
+                    <div class="course-title">Course Title 08 Solo Genius Private Exclusive Archive</div>
+                    <div class="course-price">$3.99</div>
                 </div>
-                <div class="course-title">Course Title 8 Here</div>
-                <div class="course-footer">
-                    <span class="course-status">Available</span>
-                    <span class="course-action">Access &rarr;</span>
-                </div>
-            </div>
-        </a>
+            </a>
+        </div>
     </main>
 
+    <!-- Footer Section -->
     <footer>
-        &copy; Solo Genius Musical School. All Rights Reserved.
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h2>Solo Genius</h2>
+            </div>
+            <div class="footer-links">
+                <h3>Customer Support</h3>
+                <ul>
+                    <li><a href="#">General Information</a></li>
+                    <li><a href="#">Shipping</a></li>
+                    <li><a href="#">Returns & Exchanges</a></li>
+                    <li><a href="#">Order Information</a></li>
+                    <li><a href="#">Payments</a></li>
+                </ul>
+            </div>
+            <div class="footer-newsletter">
+                <h3>Sign Up To Receive Updates</h3>
+                <p>By providing this information, you are opting to receive emails with news, special offers, promotions and messages tailored to your interests.</p>
+                <form class="newsletter-form" onsubmit="event.preventDefault();">
+                    <input type="email" placeholder="EMAIL ADDRESS" required>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; Solo Genius Musical School. All Rights Reserved.
+        </div>
     </footer>
 
 </body>
