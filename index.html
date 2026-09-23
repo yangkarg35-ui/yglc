@@ -11,7 +11,7 @@
             --text-main: #FFFFFF;
             --text-muted: #AAAAAA;
             --border-color: #2A2A2A;
-            --panel-bg: rgba(10, 10, 10, 0.85);
+            --panel-bg: rgba(10, 10, 10, 0.9);
         }
 
         * {
@@ -23,7 +23,7 @@
 
         /* Website တစ်ခုလုံးရဲ့ Background Image က အမြဲတမ်း ငြိမ်နေမည် (Fixed Background) */
         body {
-            background-image: url('01.jpg'); /* Background ပုံနာမည် */
+            background-image: url('01.jpg'); 
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -44,11 +44,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.78);
+            background-color: rgba(0, 0, 0, 0.82);
             z-index: -1;
         }
 
-        /* Top Announcement Bar (Taylor Swift Store ပုံစံ) */
+        /* Top Announcement Bar */
         .top-announcement {
             background-color: #000000;
             color: var(--text-main);
@@ -76,22 +76,22 @@
 
         /* Main Container */
         .main-container {
-            max-width: 1350px;
+            max-width: 1300px;
             width: 100%;
             margin: 0 auto;
-            padding: 50px 20px;
+            padding: 60px 20px;
             flex: 1;
         }
 
-        /* Store Grid (3 columns like Taylor Swift Store) */
+        /* Store Grid (3 columns) */
         .store-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
+            gap: 40px;
             margin-bottom: 80px;
         }
 
-        /* Course Card */
+        /* Course Card - Styled like Taylor Swift store stacked CD layout */
         .course-card {
             background-color: var(--panel-bg);
             border: 1px solid var(--border-color);
@@ -99,7 +99,6 @@
             color: var(--text-main);
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
             position: relative;
             overflow: hidden;
             backdrop-filter: blur(10px);
@@ -116,47 +115,84 @@
             background-color: #000000;
             color: #FFFFFF;
             text-align: center;
-            padding: 10px;
-            font-size: 0.75rem;
+            padding: 8px;
+            font-size: 0.7rem;
             letter-spacing: 3px;
             text-transform: uppercase;
             border-bottom: 1px solid var(--border-color);
             font-weight: 500;
         }
 
-        /* Card Visual Area (Mock Image / Graphic Holder) */
-        .card-image-area {
+        /* Stacked Media / Visual Area resembling CD covers */
+        .card-visual-stack {
             width: 100%;
-            aspect-ratio: 4 / 3;
+            height: 220px;
+            background-color: #080808;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid var(--border-color);
+            overflow: hidden;
+            padding: 15px;
+        }
+
+        .stacked-item {
+            width: 65%;
+            height: 85%;
             background-size: cover;
             background-position: center;
-            position: relative;
-            border-bottom: 1px solid var(--border-color);
+            position: absolute;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.8);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        /* Offset for stacked look */
+        .stacked-item.back {
+            transform: translateX(-18px) rotate(-4deg) scale(0.9);
+            opacity: 0.7;
+        }
+
+        .stacked-item.front {
+            transform: translateX(12px) rotate(3deg);
+            z-index: 2;
+        }
+
+        .course-card:hover .stacked-item.front {
+            transform: translateX(15px) rotate(1deg);
+        }
+
+        .course-card:hover .stacked-item.back {
+            transform: translateX(-22px) rotate(-6deg) scale(0.9);
         }
 
         /* Card Details Content */
         .card-info {
-            padding: 25px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
+            background: #000000;
         }
 
         .course-title {
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             font-weight: 400;
-            line-height: 1.5;
+            line-height: 1.4;
             letter-spacing: 1px;
             text-transform: uppercase;
+            color: #E0E0E0;
         }
 
         .course-price {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--gold-primary);
             letter-spacing: 1px;
+            font-weight: 500;
         }
 
-        /* Footer Section (Taylor Swift Store Layout Style) */
+        /* Footer Section */
         footer {
             background-color: rgba(5, 5, 5, 0.95);
             border-top: 1px solid var(--border-color);
@@ -166,7 +202,7 @@
         }
 
         .footer-content {
-            max-width: 1350px;
+            max-width: 1300px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: 2fr 2fr 3fr;
@@ -174,7 +210,7 @@
         }
 
         .footer-brand h2 {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             letter-spacing: 6px;
             color: var(--gold-primary);
             font-weight: 300;
@@ -182,7 +218,7 @@
         }
 
         .footer-links h3, .footer-newsletter h3 {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             letter-spacing: 3px;
             text-transform: uppercase;
             margin-bottom: 20px;
@@ -193,13 +229,13 @@
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
         }
 
         .footer-links ul li a {
             color: var(--text-muted);
             text-decoration: none;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             letter-spacing: 1px;
             text-transform: uppercase;
             transition: color 0.3s;
@@ -225,9 +261,9 @@
             flex: 1;
             background: transparent;
             border: 1px solid var(--border-color);
-            padding: 12px;
+            padding: 10px 14px;
             color: #FFF;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             outline: none;
         }
 
@@ -239,8 +275,8 @@
             background-color: #FFFFFF;
             color: #000000;
             border: none;
-            padding: 0 25px;
-            font-size: 0.75rem;
+            padding: 0 20px;
+            font-size: 0.7rem;
             letter-spacing: 2px;
             text-transform: uppercase;
             font-weight: 600;
@@ -253,12 +289,12 @@
         }
 
         .footer-bottom {
-            max-width: 1350px;
+            max-width: 1300px;
             margin: 40px auto 0 auto;
             text-align: center;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
             padding-top: 25px;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: var(--text-muted);
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -289,25 +325,28 @@
 </head>
 <body>
 
-    <!-- Top Announcement Bar with Timer -->
+    <!-- Top Announcement Bar -->
     <div class="top-announcement">
         <div>COLLECTOR'S EDITION COURSES AVAILABLE FOR A LIMITED TIME</div>
         <div class="countdown-timer">
-            <div><span>07</span>H</div>
-            <div><span>01</span>M</div>
-            <div><span>56</span>S</div>
+            <div><span>06</span>H</div>
+            <div><span>58</span>M</div>
+            <div><span>38</span>S</div>
         </div>
     </div>
 
-    <!-- Main Content Store Grid (8 Courses) -->
+    <!-- Main Content Store Grid (8 Courses with Stacked Visuals) -->
     <main class="main-container">
         <div class="store-grid">
             <!-- Course 1 -->
             <a href="course-1.html" class="course-card">
                 <div class="card-status-banner">Not Available</div>
-                <div class="card-image-area" style="background-image: url('01.jpg');"></div>
+                <div class="card-visual-stack">
+                    <div class="stacked-item back" style="background-image: url('02.jpg');"></div>
+                    <div class="stacked-item front" style="background-image: url('01.jpg');"></div>
+                </div>
                 <div class="card-info">
-                    <div class="course-title">Course Title 01 (Acoustic Version) with Double-Sided Cover</div>
+                    <div class="course-title">Patient Zero CD with Double-Sided Cover</div>
                     <div class="course-price">$3.99</div>
                 </div>
             </a>
@@ -315,9 +354,12 @@
             <!-- Course 2 -->
             <a href="course-2.html" class="course-card">
                 <div class="card-status-banner">Not Available</div>
-                <div class="card-image-area" style="background-image: url('02.jpg');"></div>
+                <div class="card-visual-stack">
+                    <div class="stacked-item back" style="background-image: url('03.jpg');"></div>
+                    <div class="stacked-item front" style="background-image: url('02.jpg');"></div>
+                </div>
                 <div class="card-info">
-                    <div class="course-title">Course Title 02 (Piano Version) with Double-Sided Cover</div>
+                    <div class="course-title">Patient Zero (Acoustic Version) CD with Double-Sided Cover</div>
                     <div class="course-price">$3.99</div>
                 </div>
             </a>
@@ -325,9 +367,12 @@
             <!-- Course 3 -->
             <a href="course-3.html" class="course-card">
                 <div class="card-status-banner">Not Available</div>
-                <div class="card-image-area" style="background-image: url('03.jpg');"></div>
+                <div class="card-visual-stack">
+                    <div class="stacked-item back" style="background-image: url('04.jpg');"></div>
+                    <div class="stacked-item front" style="background-image: url('03.jpg');"></div>
+                </div>
                 <div class="card-info">
-                    <div class="course-title">Course Title 03 Masterclass Edition with Special Package</div>
+                    <div class="course-title">Patient Zero (Piano Version) CD with Double-Sided Cover</div>
                     <div class="course-price">$3.99</div>
                 </div>
             </a>
@@ -335,7 +380,10 @@
             <!-- Course 4 -->
             <a href="course-4.html" class="course-card">
                 <div class="card-status-banner">Not Available</div>
-                <div class="card-image-area" style="background-image: url('04.jpg');"></div>
+                <div class="card-visual-stack">
+                    <div class="stacked-item back" style="background-image: url('01.jpg');"></div>
+                    <div class="stacked-item front" style="background-image: url('04.jpg');"></div>
+                </div>
                 <div class="card-info">
                     <div class="course-title">Course Title 04 Advanced Rhythm Structure & Harmony</div>
                     <div class="course-price">$3.99</div>
@@ -345,7 +393,10 @@
             <!-- Course 5 -->
             <a href="course-5.html" class="course-card">
                 <div class="card-status-banner">Not Available</div>
-                <div class="card-image-area" style="background-image: url('01.jpg');"></div>
+                <div class="card-visual-stack">
+                    <div class="stacked-item back" style="background-image: url('02.jpg');"></div>
+                    <div class="stacked-item front" style="background-image: url('01.jpg');"></div>
+                </div>
                 <div class="card-info">
                     <div class="course-title">Course Title 05 Fingerstyle Mechanics & Core Systems</div>
                     <div class="course-price">$3.99</div>
@@ -355,7 +406,10 @@
             <!-- Course 6 -->
             <a href="course-6.html" class="course-card">
                 <div class="card-status-banner">Not Available</div>
-                <div class="card-image-area" style="background-image: url('02.jpg');"></div>
+                <div class="card-visual-stack">
+                    <div class="stacked-item back" style="background-image: url('03.jpg');"></div>
+                    <div class="stacked-item front" style="background-image: url('02.jpg');"></div>
+                </div>
                 <div class="card-info">
                     <div class="course-title">Course Title 06 Voice Leading & Chord Degree Mastery</div>
                     <div class="course-price">$3.99</div>
@@ -365,7 +419,10 @@
             <!-- Course 7 -->
             <a href="course-7.html" class="course-card">
                 <div class="card-status-banner">Not Available</div>
-                <div class="card-image-area" style="background-image: url('03.jpg');"></div>
+                <div class="card-visual-stack">
+                    <div class="stacked-item back" style="background-image: url('04.jpg');"></div>
+                    <div class="stacked-item front" style="background-image: url('03.jpg');"></div>
+                </div>
                 <div class="card-info">
                     <div class="course-title">Course Title 07 High-End Frameworks & Digital Assets</div>
                     <div class="course-price">$3.99</div>
@@ -375,7 +432,10 @@
             <!-- Course 8 -->
             <a href="course-8.html" class="course-card">
                 <div class="card-status-banner">Not Available</div>
-                <div class="card-image-area" style="background-image: url('04.jpg');"></div>
+                <div class="card-visual-stack">
+                    <div class="stacked-item back" style="background-image: url('01.jpg');"></div>
+                    <div class="stacked-item front" style="background-image: url('04.jpg');"></div>
+                </div>
                 <div class="card-info">
                     <div class="course-title">Course Title 08 Solo Genius Private Exclusive Archive</div>
                     <div class="course-price">$3.99</div>
