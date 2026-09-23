@@ -1,35 +1,28 @@
 <!DOCTYPE html>
-<html lang="my">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>YGLC - သင်တန်းအပ်နှံရန်</title>
+<title>YGLC - Course Registration</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <!-- Supabase CDN ထည့်သွင်းခြင်း -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root {
-    --gold-primary: #8C6D29;
+    --bg-deep: #0A0506;
+    --bg-card: #0A120E;
+    --bg-card-hover: #101815;
     --gold: #D4AF37;
     --gold-light: #F3E5AB;
-    --text-main: #111111;
-    --text-muted: #333333;
-    --brown-text: #5A3E1B;
-    --sketch-color: #4a4a4a;
-    --paper-bg: #FFFFFF;
-    --border-color: rgba(140, 109, 41, 0.3);
+    --text-main: #E5E7EB;
+    --text-muted: #9CA3AF;
+    --border-color: rgba(212, 175, 55, 0.2);
 }
-
 body { 
-    background-image: url('01.jpg'); 
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-color: #F9F9F9;
+    background-color: var(--bg-deep); 
     color: var(--text-main); 
-    font-family: "Comic Sans MS", "Comic Sans", cursive, sans-serif; 
+    font-family: 'Plus Jakarta Sans', sans-serif; 
     display: flex; 
     justify-content: center; 
     align-items: center; 
@@ -38,18 +31,16 @@ body {
     padding: 20px 0; 
     overflow-x: hidden; 
 }
-
 .box { 
-    background: var(--paper-bg); 
-    border: 2px solid var(--sketch-color); 
+    background: var(--bg-card); 
+    border: 1px solid var(--border-color); 
     padding: 30px; 
-    border-radius: 15px; 
+    border-radius: 12px; 
     width: 480px; 
     box-sizing: border-box; 
-    box-shadow: 6px 6px 0px rgba(0,0,0,0.2); 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5); 
     position: relative; 
 }
-
 .close-btn {
     position: absolute;
     top: 15px;
@@ -57,7 +48,7 @@ body {
     background: none;
     border: none;
     font-size: 22px;
-    color: var(--sketch-color);
+    color: var(--text-muted);
     cursor: pointer;
     font-weight: bold;
     line-height: 1;
@@ -67,86 +58,77 @@ body {
     transition: color 0.2s;
 }
 .close-btn:hover {
-    color: var(--brown-text);
+    color: var(--gold);
     background: none;
 }
-
 h2 { 
-    font-family: "Comic Sans MS", "Comic Sans", cursive, sans-serif;
-    color: var(--text-main); 
+    font-family: 'Cinzel', serif;
+    color: var(--gold); 
     font-size: 20px; 
     margin-bottom: 25px; 
     text-align: center; 
     font-weight: 700;
     letter-spacing: 1px;
-    text-transform: uppercase;
-    border-bottom: 2px solid var(--sketch-color);
-    padding-bottom: 10px;
 }
-
 label { 
     font-size: 13px; 
     color: var(--text-muted); 
     display: block; 
     margin-bottom: 6px; 
-    font-weight: bold; 
+    font-weight: 600; 
 }
-
 input[type="text"], input[type="tel"], input[type="file"] { 
     width: 100%; 
     padding: 11px; 
     margin-bottom: 15px; 
-    background: #FFFFFF; 
-    border: 2px solid var(--sketch-color); 
+    background: var(--bg-deep); 
+    border: 1px solid var(--border-color); 
     color: var(--text-main); 
-    border-radius: 10px; 
-    font-family: "Comic Sans MS", "Comic Sans", cursive, sans-serif; 
+    border-radius: 8px; 
+    font-family: 'Plus Jakarta Sans', sans-serif; 
     box-sizing: border-box; 
-    font-size: 14px; 
+    font-size: 15px; 
     outline: none; 
-    transition: all 0.2s;
+    transition: border-color 0.3s;
 }
 input[type="text"]:focus, input[type="tel"]:focus, input[type="file"]:focus { 
-    border-color: var(--brown-text); 
-    box-shadow: 2px 2px 0px rgba(90, 62, 27, 0.2);
+    border-color: var(--gold); 
 }
 input[type="file"] {
     padding: 8px;
     color: var(--text-muted);
 }
-
 .total-box {
-    background: #FFFFFF;
-    border: 2px solid var(--sketch-color);
+    background: rgba(212, 175, 55, 0.05);
+    border: 1px solid var(--border-color);
     padding: 12px;
-    border-radius: 10px;
+    border-radius: 8px;
     margin-bottom: 15px;
     text-align: center;
     font-size: 15px;
-    color: var(--brown-text);
-    font-weight: bold;
-    box-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+    color: var(--gold);
+    font-weight: 700;
 }
 
 .kpay-box {
-    background: #FFFFFF;
-    border: 2px dashed var(--sketch-color);
+    background: var(--bg-deep);
+    border: 1px dashed var(--border-color);
     padding: 12px;
-    border-radius: 10px;
+    border-radius: 8px;
     margin-bottom: 15px;
     font-size: 13px;
     color: var(--text-muted);
     line-height: 1.6;
 }
 .kpay-box b {
-    color: var(--brown-text);
+    color: var(--gold);
 }
 
 .promo-section {
-    background: #FFFFFF;
-    border: 2px dashed rgba(74, 74, 74, 0.4);
+    background: var(--bg-deep);
+    border: 2px dashed rgba(212, 175, 55, 0.3);
     padding: 15px;
-    border-radius: 10px;
+    border-radius: 8px;
     margin-bottom: 15px;
     opacity: 0.5;
     pointer-events: none;
@@ -157,7 +139,7 @@ input[type="file"] {
     margin-bottom: 10px;
     font-size: 13px;
     color: var(--text-muted);
-    font-weight: bold;
+    font-weight: 600;
     cursor: pointer;
 }
 .promo-option:last-child {
@@ -169,26 +151,26 @@ input[type="file"] {
 }
 
 .promo-notice {
-    background: rgba(140, 109, 41, 0.1);
-    border-left: 4px solid var(--gold-primary);
+    background: rgba(212, 175, 55, 0.1);
+    border-left: 4px solid var(--gold);
     padding: 12px;
     font-size: 13px;
-    color: var(--brown-text);
+    color: var(--gold-light);
     border-radius: 4px;
     margin-bottom: 15px;
     display: none;
     line-height: 1.6;
-    font-weight: bold;
+    font-weight: 600;
 }
 
 .courses-container {
     max-height: 200px;
     overflow-y: auto;
-    border: 2px solid var(--sketch-color);
+    border: 1px solid var(--border-color);
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 8px;
     margin-bottom: 15px;
-    background: #FFFFFF;
+    background: var(--bg-deep);
 }
 .course-item {
     display: flex;
@@ -197,10 +179,9 @@ input[type="file"] {
     font-size: 13px;
     color: var(--text-main);
     cursor: pointer;
-    font-weight: bold;
 }
 .course-item.locked {
-    color: #999999;
+    color: #4b5563;
     cursor: not-allowed;
 }
 .course-item input {
@@ -212,159 +193,101 @@ input[type="file"] {
 }
 .soon-tag {
     font-size: 10px;
-    color: var(--brown-text);
-    background: rgba(140, 109, 41, 0.1);
+    color: var(--gold);
+    background: rgba(212, 175, 55, 0.1);
     padding: 2px 6px;
     border-radius: 4px;
     margin-left: 6px;
-    border: 1px solid var(--sketch-color);
+    border: 1px solid var(--border-color);
     font-weight: bold;
 }
 
 button[type="submit"] {
     width: 100%;
     padding: 12px;
-    background: var(--paper-bg);
-    color: var(--text-main);
-    border: 2px solid var(--sketch-color);
-    font-weight: bold;
-    border-radius: 15px;
+    background: var(--gold);
+    color: var(--bg-deep);
+    border: none;
+    font-weight: 700;
+    border-radius: 8px;
     cursor: pointer;
-    font-family: "Comic Sans MS", "Comic Sans", cursive, sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     text-align: center;
     display: block;
     box-sizing: border-box;
     margin-bottom: 12px;
-    transition: all 0.2s;
-    text-transform: uppercase;
-    box-shadow: 3px 3px 0px rgba(0,0,0,0.15);
+    transition: all 0.3s;
 }
-button[type="submit"]:hover { 
-    background: var(--brown-text); 
-    border-color: var(--brown-text);
-    color: #FFFFFF;
-    transform: translate(-1px, -1px);
-}
-button[type="submit"]:disabled { 
-    background: #E5E5E5; 
-    color: #999999; 
-    border-color: #CCCCCC;
-    cursor: not-allowed; 
-    transform: none;
-    box-shadow: none;
-}
+button[type="submit"]:hover { background: var(--gold-light); }
+button[type="submit"]:disabled { background: #374151; color: var(--text-muted); cursor: not-allowed; }
 
-.login-guide { 
-    text-align: center; 
-    margin-top: 15px; 
-    margin-bottom: 8px; 
-    font-size: 13px; 
-    color: var(--text-muted); 
-    font-weight: bold; 
-    line-height: 1.5; 
-}
-
-.back-btn { 
-    width: 100%; 
-    padding: 12px; 
-    background: var(--paper-bg); 
-    border: 2px solid var(--sketch-color); 
-    color: var(--text-main); 
-    font-weight: bold; 
-    border-radius: 15px; 
-    cursor: pointer; 
-    font-family: "Comic Sans MS", "Comic Sans", cursive, sans-serif; 
-    text-align: center; 
-    display: block; 
-    box-sizing: border-box; 
-    text-decoration: none; 
-    transition: all 0.2s; 
-    text-transform: uppercase;
-    box-shadow: 3px 3px 0px rgba(0,0,0,0.15);
-}
-.back-btn:hover { 
-    background: var(--brown-text); 
-    border-color: var(--brown-text);
-    color: #FFFFFF;
-    transform: translate(-1px, -1px);
-}
-
-.success-msg { 
-    color: #155724; 
-    font-size: 14px; 
-    font-weight: bold; 
-    text-align: center; 
-    margin-top: 15px; 
-    display: none; 
-    line-height: 1.6; 
-    background: rgba(40, 167, 69, 0.1); 
-    padding: 12px; 
-    border-radius: 10px; 
-    border: 2px solid #28a745; 
-}
+.login-guide { text-align: center; margin-top: 15px; margin-bottom: 8px; font-size: 13px; color: var(--text-muted); font-weight: 600; line-height: 1.5; }
+.back-btn { width: 100%; padding: 12px; background: transparent; border: 1px solid var(--border-color); color: var(--gold); font-weight: 700; border-radius: 8px; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif; text-align: center; display: block; box-sizing: border-box; text-decoration: none; transition: all 0.3s; }
+.back-btn:hover { border-color: var(--gold); background: rgba(212, 175, 55, 0.05); }
+.success-msg { color: #34d399; font-size: 14px; font-weight: 600; text-align: center; margin-top: 15px; display: none; line-height: 1.6; background: rgba(52, 211, 153, 0.1); padding: 12px; border-radius: 8px; border: 1px solid rgba(52, 211, 153, 0.3); }
 </style>
 </head>
 <body>
 
 <div class="box">
-<button class="close-btn" onclick="goBack()" title="ပိတ်ရန် / ပြန်ထွက်ရန်">&times;</button>
-<h2>YGLC - သင်တန်းအပ်ရန်</h2>
+<button class="close-btn" onclick="goBack()" title="Close / Go Back">&times;</button>
+<h2>YGLC - Course Registration</h2>
 <form id="regForm" onsubmit="submitRegistration(event)">
-<label>နာမည်</label>
-<input type="text" id="studentName" required placeholder="ကျောင်းသားနာမည်">
-<label>ဖုန်းနံပါတ် (Login ဝင်ရန်)</label>
+<label>Full Name</label>
+<input type="text" id="studentName" required placeholder="Student Name">
+<label>Phone Number (For Login)</label>
 <input type="tel" id="studentPhone" required placeholder="09xxxxxxxxx">
 <div class="total-box">
-ပေးချေရမည့် ပမာဏ: <span id="totalPrice">50,000</span> ကျပ်
+Total Amount: <span id="totalPrice">50,000</span> MMK
 </div>
 
 <div class="kpay-box">
-<b>KBZPay ဖြင့် ငွေလွှဲရန်:</b><br>
-📞 ဖုန်းနံပါတ် - <b>09-971097886</b><br>
-👤 အမည် - <b>Yan..kha</b><br>
-* ငွေလွှဲပြီးပါက အောက်ပါနေရာတွင် ငွေလွှဲ K Pay Screenshot ပုံကို ရွေးချယ်တင်ပြပါ။
+<b>KBZPay Transfer Details:</b><br>
+📞 Phone Number - <b>09-971097886</b><br>
+👤 Name - <b>Yan..kha</b><br>
+* After transferring funds, please upload your KBZPay payment screenshot below.
 </div>
 
-<label>K Pay ငွေလွှဲ Screenshot ပုံ တင်ရန်</label>
+<label>Upload KBZPay Payment Screenshot</label>
 <input type="file" id="paymentScreenshot" accept="image/*" required>
 
-<label>🎯 အထူး Promotion အစီအစဉ်များ (ခေတ္တပိတ်ထားသည်)</label>
+<label>🎯 Special Promotion Packages (Temporarily Disabled)</label>
 <div class="promo-section">
 <label class="promo-option">
 <input type="radio" name="promoSelection" value="promo_4_courses" disabled>
-✨ မိမိနှစ်သက်ရာ Course 4 ခုယူ (၂၈၅,၀၀၀ ကျပ် သီးသန့်)
+✨ Pick Any 4 Courses (285,000 MMK Special)
 </label>
 <label class="promo-option">
 <input type="radio" name="promoSelection" value="all_in_one_package" disabled>
-🌟 All-in-One Special Package (၄၅၀,၀၀၀ ကျပ်)
+🌟 All-in-One Special Package (450,000 MMK)
 </label>
 </div>
 
 <div id="promoNoticeBox" class="promo-notice"></div>
 
-<label>ဝယ်ယူလိုသော သင်တန်းများ</label>
+<label>Select Courses</label>
 <div class="courses-container" id="coursesContainer">
 <label class="course-item">
-<input type="checkbox" name="course" value="သင်တန်း ၁ - ပလက်ကင်တီးခတ်နည်း အခြေခံ" data-price="50000" checked onclick="return false;" onchange="calculateTotal()">
-<b>သင်တန်း ၁ - ပလက်ကင်တီးခတ်နည်း အခြေခံ (50,000 ကျပ်)</b>
+<input type="checkbox" name="course" value="Plucking Basics" data-price="50000" checked onclick="return false;" onchange="calculateTotal()">
+<b>Plucking Basics (50,000 MMK)</b>
 </label>
-<label class="course-item locked"><input type="checkbox" disabled> သင်တန်း ၂ - ပလက်ကင်တီးခတ်နည်း အလယ်အဆင့် <span class="soon-tag">မကြာမီထွက်ရှိမည်</span></label>
-<label class="course-item locked"><input type="checkbox" disabled> သင်တန်း ၃ - Rhythm တီးခတ်နည်း အခြေခံ <span class="soon-tag">မကြာမီထွက်ရှိမည်</span></label>
-<label class="course-item locked"><input type="checkbox" disabled> သင်တန်း ၄ - Rhythm တီးခတ်နည်း အလယ်အဆင့် <span class="soon-tag">မကြာမီထွက်ရှိမည်</span></label>
-<label class="course-item locked"><input type="checkbox" disabled> သင်တန်း ၅ - Advanced Rhythm တီးခတ်နည်း <span class="soon-tag">မကြာမီထွက်ရှိမည်</span></label>
-<label class="course-item locked"><input type="checkbox" disabled> သင်တန်း ၆ - Fingerstyle တီးခတ်နည်း အခြေခံ <span class="soon-tag">မကြာမီထွက်ရှိမည်</span></label>
-<label class="course-item locked"><input type="checkbox" disabled> သင်တန်း ၇ - Basic Music Theory အခြေခံသီအိုရီ <span class="soon-tag">မကြာမီထွက်ရှိမည်</span></label>
-<label class="course-item locked"><input type="checkbox" disabled> သင်တန်း ၈ - Intermediate Music Theory အလယ်အလတ်အဆင့် <span class="soon-tag">မကြာမီထွက်ရှိမည်</span></label>
+<label class="course-item locked"><input type="checkbox" disabled> Plucking Intermediate <span class="soon-tag">Coming Soon</span></label>
+<label class="course-item locked"><input type="checkbox" disabled> Rhythm Basics <span class="soon-tag">Coming Soon</span></label>
+<label class="course-item locked"><input type="checkbox" disabled> Rhythm Intermediate <span class="soon-tag">Coming Soon</span></label>
+<label class="course-item locked"><input type="checkbox" disabled> Advanced Rhythm <span class="soon-tag">Coming Soon</span></label>
+<label class="course-item locked"><input type="checkbox" disabled> Fingerstyle Basics <span class="soon-tag">Coming Soon</span></label>
+<label class="course-item locked"><input type="checkbox" disabled> Basic Music Theory <span class="soon-tag">Coming Soon</span></label>
+<label class="course-item locked"><input type="checkbox" disabled> Intermediate Music Theory <span class="soon-tag">Coming Soon</span></label>
 </div>
-<button type="submit" id="submitBtn">ငွေလွှဲအတည်ပြုချက် တင်မည်</button>
+<button type="submit" id="submitBtn">Submit Payment Verification</button>
 <div id="successMsg" class="success-msg"></div>
 </form>
 
 <div class="login-guide">
-အောက်ပါ Member Login နေရာတွင် ဝင်ရောက်၍<br>သင်ခန်းစာများကို ဆက်လက်လေ့လာနိုင်ပါသည် 👇
+Already registered? Access your lessons in the Member Login section below 👇
 </div>
 
-<a href="login.html" class="back-btn">လော့ဂ်အင်သို့ ပြန်သွားရန်</a>
+<a href="login.html" class="back-btn">Return to Login</a>
 </div>
 
 <script>
@@ -410,16 +333,16 @@ async function submitRegistration(e) {
     const phone = normalizePhone(rawPhone);
 
     if (!fileInput || fileInput.files.length === 0) {
-        alert('ကျေးဇူးပြု၍ ငွေလွှဲ Screenshot ပုံကို ရွေးချယ်တင်ပြပါ။');
+        alert('Please select and upload your payment screenshot.');
         return;
     }
 
-    let selectedCourses = ["သင်တန်း ၁ - ပလက်ကင်တီးခတ်နည်း အခြေခံ"];
+    let selectedCourses = ["Plucking Basics"];
     let totalAmount = 50000;
 
     if(submitBtn) {
         submitBtn.disabled = true;
-        submitBtn.innerText = "ပေးပို့နေပါသည်...";
+        submitBtn.innerText = "Submitting...";
     }
 
     const file = fileInput.files[0];
@@ -471,7 +394,7 @@ async function submitRegistration(e) {
         console.error('Storage/Database Error:', storageErr);
     }
 
-    const caption = `🎯 အသစ်ဝင်ရောက်လာသော သင်တန်းအပ်နှံမှု\n\n👤 နာမည်: ${name}\n📞 ဖုန်း: ${phone}\n📚 ရွေးချယ်မှု: ${selectedCourses.join(', ')}\n💰 စုစုပေါင်း: ${totalAmount.toLocaleString()} ကျပ်`;
+    const caption = `🎯 New Course Registration\n\n👤 Name: ${name}\n📞 Phone: ${phone}\n📚 Selected Course: ${selectedCourses.join(', ')}\n💰 Total: ${totalAmount.toLocaleString()} MMK`;
     const formData = new FormData();
     formData.append('chat_id', TELEGRAM_CHAT_ID);
     formData.append('photo', file);
@@ -494,7 +417,7 @@ async function submitRegistration(e) {
 function finalizeSuccess() {
     const successMsg = document.getElementById('successMsg');
     if(successMsg) {
-        successMsg.innerHTML = '✔ သင်တန်းအပ်နှံမှု အောင်မြင်ပါသည်။<br>သင်တန်းအပ်ပြီး 24 နာရီ ကျော်ရင် သင်တန်းစတက်လို့ရသွားပါပြီနော်။';
+        successMsg.innerHTML = '✔ Registration Successful!<br>Your account will be activated within 24 hours.';
         successMsg.style.display = 'block';
     }
     const regForm = document.getElementById('regForm');
@@ -510,7 +433,7 @@ function resetSubmitButton() {
     const submitBtn = document.getElementById('submitBtn');
     if(submitBtn) {
         submitBtn.disabled = false;
-        submitBtn.innerText = "ငွေလွှဲအတည်ပြုချက် တင်မည်";
+        submitBtn.innerText = "Submit Payment Verification";
     }
 }
 
