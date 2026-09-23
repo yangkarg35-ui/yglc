@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YGLC — Youth Guitar Learning Center (Shopping Bag Design)</title>
+    <title>YGLC — Youth Guitar Learning Center (CD Disc Stack Design)</title>
     <style>
         :root {
             --gold-primary: #8C6D29;
@@ -126,11 +126,11 @@
             font-weight: bold;
         }
 
-        /* [UPDATED SHOPPING BAG WITH GUITAR DESIGN] */
+        /* [UPDATED CD STACK DESIGN] */
         .courses-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
+            gap: 40px; /* Increased gap for stacking space */
             margin-top: 30px;
         }
 
@@ -140,95 +140,126 @@
             display: flex;
             flex-direction: column;
             transition: transform 0.3s;
-            border: 2px solid var(--sketch-color);
-            border-radius: 15px;
-            background: var(--paper-bg);
-            padding: 20px;
-            box-shadow: 4px 4px 0px rgba(0,0,0,0.15);
-            align-items: center;
-            text-align: center;
-        }
-        .course-card:hover {
-            transform: translateY(-8px);
-            background: #FFFDF9;
-            border-color: var(--brown-text);
-        }
-
-        /* Shopping Bag Wrapper */
-        .bag-container {
-            width: 100%;
-            height: 120px;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        /* Shopping Bag Illustration */
-        .shopping-bag {
-            width: 80px;
-            height: 90px;
-            background: #FFFFFF;
-            border: 2px solid var(--sketch-color);
-            border-radius: 4px 4px 8px 8px;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 2px 2px 0px rgba(0,0,0,0.1);
-        }
-
-        /* Bag Handles */
-        .shopping-bag::before {
-            content: '';
-            position: absolute;
-            top: -18px;
-            left: 22px;
-            width: 32px;
-            height: 20px;
-            border: 2px solid var(--sketch-color);
-            border-bottom: none;
-            border-radius: 15px 15px 0 0;
+            /* Remove old card borders/shadows */
+            border: none;
             background: transparent;
         }
+        .course-card:hover {
+            transform: translateY(-15px); /* Higher lift for whole stack */
+        }
 
-        /* Acoustic Guitar Doodled Inside Bag */
-        .bag-guitar {
-            width: 45px;
-            height: 70px;
+        /* The Disc Stack Wrapper */
+        .disc-stack {
+            width: 100%;
+            height: 200px; /* Space for 3 discs */
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        /* Common Disc Styling */
+        .disc {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            position: absolute;
+            background: #FFF;
+            border: 2px solid var(--sketch-color);
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.15); /* Sketchy drop shadow */
+            overflow: hidden;
+        }
+
+        /* Disc Layers */
+        .disc.back-2 { transform: translateY(20px) translateX(-15px) rotate(-10deg); opacity: 0.5; z-index: 1; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" stroke="%234a4a4a" stroke-width="2" fill="none" stroke-dasharray="5 5"/><circle cx="50" cy="50" r="15" stroke="%234a4a4a" stroke-width="2" fill="none"/><line x1="50" y1="35" x2="50" y2="65" stroke="%234a4a4a" stroke-width="2"/></svg>'); }
+        .disc.back-1 { transform: translateY(10px) translateX(5px) rotate(5deg); opacity: 0.75; z-index: 2; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" stroke="%234a4a4a" stroke-width="2" fill="none" stroke-dasharray="8 8"/><circle cx="50" cy="50" r="15" stroke="%234a4a4a" stroke-width="2" fill="none"/><path d="M30 50 Q 50 30, 70 50" stroke="%234a4a4a" stroke-width="2" fill="none"/></svg>'); }
+        .disc.front { transform: translateY(0px) translateX(-5px) rotate(-2deg); z-index: 3; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" stroke="%234a4a4a" stroke-width="2" fill="none"/><circle cx="50" cy="50" r="15" stroke="%234a4a4a" stroke-width="2" fill="none"/><line x1="50" y1="10" x2="50" y2="90" stroke="%234a4a4a" stroke-width="2" opacity="0.2"/><line x1="10" y1="50" x2="90" y2="50" stroke="%234a4a4a" stroke-width="2" opacity="0.2"/></svg>'); }
+        
+        /* The center hole of the CD */
+        .disc::after {
+            content: '';
+            width: 30px;
+            height: 30px;
+            background: #F9F9F9; /* Matches body bg */
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid var(--sketch-color);
+        }
+
+        /* Disc Cover (Square) which is underneath the discs */
+        .disc-cover {
+            width: 140px;
+            height: 140px;
+            background: #FFFFFF;
+            border: 2px solid var(--sketch-color);
+            position: absolute;
+            z-index: 0; /* Behind discs */
+            transform: translateY(15px) rotate(5deg);
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.15);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+        }
+        
+        /* Doodled art on the cover */
+        .cover-doodle {
+            width: 80%;
+            height: 80%;
             background-size: contain;
             background-position: center;
             background-repeat: no-repeat;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 160"><path d="M42 5 L58 5 L58 45 L42 45 Z" fill="%235A3E1B"/><circle cx="50" cy="70" r="18" stroke="%235A3E1B" stroke-width="3" fill="none"/><path d="M30 110 Q50 85 70 110 Q85 135 65 150 Q50 158 35 150 Q15 135 30 110 Z" stroke="%235A3E1B" stroke-width="3" fill="%23F3E5AB"/><circle cx="50" cy="125" r="8" stroke="%235A3E1B" stroke-width="2" fill="none"/><line x1="47" y1="45" x2="47" y2="145" stroke="%234a4a4a" stroke-width="1.5"/><line x1="50" y1="45" x2="50" y2="145" stroke="%234a4a4a" stroke-width="1.5"/><line x1="53" y1="45" x2="53" y2="145" stroke="%234a4a4a" stroke-width="1.5"/></svg>');
-            opacity: 0.85;
+            opacity: 0.6;
         }
+        /* Specific doodles per course type */
+        /* Plucking */
+        .course-id-1 .cover-doodle { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M10 70 L 90 70" stroke="%235A3E1B" stroke-width="3"/><circle cx="25" cy="40" r="15" stroke="%235A3E1B" stroke-width="2" fill="none"/><circle cx="50" cy="40" r="15" stroke="%235A3E1B" stroke-width="2" fill="none"/><circle cx="75" cy="40" r="15" stroke="%235A3E1B" stroke-width="2" fill="none"/><path d="M 25 55 L 25 80 M 50 55 L 50 80 M 75 55 L 75 80" stroke="%235A3E1B" stroke-width="2"/></svg>'); }
+        /* Rhythm */
+        .course-id-3 .cover-doodle { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect x="10" y="20" width="80" height="60" stroke="%235A3E1B" stroke-width="2" fill="none"/><path d="M 20 40 L 80 40 M 20 55 L 80 55 M 20 70 L 80 70" stroke="%235A3E1B" stroke-width="1"/><path d="M 30 30 L 40 80 L 50 30 L 60 80" stroke="%235A3E1B" stroke-width="3" fill="none"/></svg>'); }
+        /* Theory */
+        .course-id-7 .cover-doodle { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50" y="50" font-size="40" text-anchor="middle" fill="%235A3E1B">♭♯</text><circle cx="30" cy="30" r="10" stroke="%235A3E1B" stroke-width="2" fill="none"/><circle cx="70" cy="70" r="10" stroke="%235A3E1B" stroke-width="2" fill="none"/><line x1="35" y1="35" x2="65" y2="65" stroke="%235A3E1B" stroke-width="2"/></svg>'); }
 
+        /* Disc Label (The Text on Top Disc) */
+        .disc-label {
+            position: absolute;
+            width: 130px;
+            height: 130px;
+            z-index: 4; /* Above everything */
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 15px;
+            /* Sketchy border for label */
+            border: 4px dashed var(--brown-text); 
+            transform: rotate(-5deg);
+            background: rgba(255,255,255, 0.9);
+        }
+        
         .tier-badge {
-            font-size: 0.65rem;
-            letter-spacing: 1.5px;
+            font-size: 0.6rem;
+            letter-spacing: 2px;
             text-transform: uppercase;
             font-weight: bold;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
             border-bottom: 2px solid var(--sketch-color);
-            padding-bottom: 2px;
             color: var(--sketch-color);
-            width: 100%;
         }
 
         .course-title {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             color: var(--brown-text);
             font-weight: bold;
-            margin-bottom: 8px;
-            min-height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            margin-bottom: 3px;
         }
-        
         .course-price-row {
             display: flex;
             justify-content: center;
@@ -267,10 +298,10 @@
         }
 
         @media (max-width: 1024px) {
-            .courses-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
+            .courses-grid { grid-template-columns: repeat(2, 1fr); gap: 50px; }
         }
         @media (max-width: 650px) {
-            .courses-grid { grid-template-columns: 1fr; gap: 20px; }
+            .courses-grid { grid-template-columns: 1fr; gap: 60px; }
             .hero h1 { font-size: 2rem; }
         }
     </style>
@@ -309,123 +340,163 @@
             <h2 class="section-title">3. Courses (Guitar Learning Programs)</h2>
             <div class="courses-grid">
                 
-                <!-- 1. Plucking Basics -->
-                <a href="register.html" class="course-card">
-                    <div class="bag-container">
-                        <div class="shopping-bag">
-                            <div class="bag-guitar"></div>
+                <!-- 1. Plucking Basics (Silver) -->
+                <a href="register.html" class="course-card course-id-1">
+                    <div class="disc-stack">
+                        <div class="disc-cover">
+                            <div class="cover-doodle"></div>
                         </div>
-                    </div>
-                    <div class="tier-badge">Silver</div>
-                    <div class="course-title">Plucking Basics</div>
-                    <div class="course-price-row">
-                        <span>$3.99</span>
-                        <span>Foundation</span>
+                        <div class="disc back-2"></div>
+                        <div class="disc back-1"></div>
+                        <div class="disc front"></div>
+                        <div class="disc-label">
+                            <div class="tier-badge">Silver</div>
+                            <div class="course-title">Plucking Basics</div>
+                            <div class="course-price-row">
+                                <span>$3.99</span>
+                                <span>Foundation</span>
+                            </div>
+                        </div>
                     </div>
                 </a>
 
-                <!-- 2. Plucking Intermediate -->
-                <a href="register.html" class="course-card">
-                    <div class="bag-container">
-                        <div class="shopping-bag">
-                            <div class="bag-guitar"></div>
+                <!-- 2. Plucking Intermediate (Silver) -->
+                <a href="register.html" class="course-card course-id-1">
+                    <div class="disc-stack">
+                        <div class="disc-cover">
+                            <div class="cover-doodle"></div>
                         </div>
-                    </div>
-                    <div class="tier-badge">Silver</div>
-                    <div class="course-title">Plucking Intermediate</div>
-                    <div class="course-price-row">
-                        <span>$3.99</span>
-                        <span>Control</span>
+                        <div class="disc back-2"></div>
+                        <div class="disc back-1"></div>
+                        <div class="disc front"></div>
+                        <div class="disc-label">
+                            <div class="tier-badge">Silver</div>
+                            <div class="course-title">Plucking Intermediate</div>
+                            <div class="course-price-row">
+                                <span>$3.99</span>
+                                <span>Control</span>
+                            </div>
+                        </div>
                     </div>
                 </a>
 
-                <!-- 3. Rhythm Basics -->
-                <a href="register.html" class="course-card">
-                    <div class="bag-container">
-                        <div class="shopping-bag">
-                            <div class="bag-guitar"></div>
+                <!-- 3. Rhythm Basics (Gold) -->
+                <a href="register.html" class="course-card course-id-3">
+                    <div class="disc-stack">
+                        <div class="disc-cover">
+                            <div class="cover-doodle"></div>
                         </div>
-                    </div>
-                    <div class="tier-badge">Gold</div>
-                    <div class="course-title">Rhythm Basics</div>
-                    <div class="course-price-row">
-                        <span>$3.99</span>
-                        <span>Strumming</span>
+                        <div class="disc back-2"></div>
+                        <div class="disc back-1"></div>
+                        <div class="disc front"></div>
+                        <div class="disc-label">
+                            <div class="tier-badge">Gold</div>
+                            <div class="course-title">Rhythm Basics</div>
+                            <div class="course-price-row">
+                                <span>$3.99</span>
+                                <span>Strumming</span>
+                            </div>
+                        </div>
                     </div>
                 </a>
 
-                <!-- 4. Rhythm Intermediate -->
-                <a href="register.html" class="course-card">
-                    <div class="bag-container">
-                        <div class="shopping-bag">
-                            <div class="bag-guitar"></div>
+                <!-- 4. Rhythm Intermediate (Gold) -->
+                <a href="register.html" class="course-card course-id-3">
+                    <div class="disc-stack">
+                        <div class="disc-cover">
+                            <div class="cover-doodle"></div>
                         </div>
-                    </div>
-                    <div class="tier-badge">Gold</div>
-                    <div class="course-title">Rhythm Intermediate</div>
-                    <div class="course-price-row">
-                        <span>$3.99</span>
-                        <span>Groove</span>
+                        <div class="disc back-2"></div>
+                        <div class="disc back-1"></div>
+                        <div class="disc front"></div>
+                        <div class="disc-label">
+                            <div class="tier-badge">Gold</div>
+                            <div class="course-title">Rhythm Intermediate</div>
+                            <div class="course-price-row">
+                                <span>$3.99</span>
+                                <span>Groove</span>
+                            </div>
+                        </div>
                     </div>
                 </a>
 
-                <!-- 5. Advanced Rhythm -->
-                <a href="register.html" class="course-card">
-                    <div class="bag-container">
-                        <div class="shopping-bag">
-                            <div class="bag-guitar"></div>
+                <!-- 5. Advanced Rhythm (Platinum) -->
+                <a href="register.html" class="course-card course-id-3">
+                    <div class="disc-stack">
+                        <div class="disc-cover">
+                            <div class="cover-doodle"></div>
                         </div>
-                    </div>
-                    <div class="tier-badge">Platinum</div>
-                    <div class="course-title">Advanced Rhythm</div>
-                    <div class="course-price-row">
-                        <span>$3.99</span>
-                        <span>Expression</span>
+                        <div class="disc back-2"></div>
+                        <div class="disc back-1"></div>
+                        <div class="disc front"></div>
+                        <div class="disc-label">
+                            <div class="tier-badge">Platinum</div>
+                            <div class="course-title">Advanced Rhythm</div>
+                            <div class="course-price-row">
+                                <span>$3.99</span>
+                                <span>Expression</span>
+                            </div>
+                        </div>
                     </div>
                 </a>
 
-                <!-- 6. Fingerstyle Basics -->
-                <a href="register.html" class="course-card">
-                    <div class="bag-container">
-                        <div class="shopping-bag">
-                            <div class="bag-guitar"></div>
+                <!-- 6. Fingerstyle Basics (Platinum) -->
+                <a href="register.html" class="course-card course-id-1"> <!-- Uses same doodle style as plucking -->
+                    <div class="disc-stack">
+                        <div class="disc-cover">
+                            <div class="cover-doodle"></div>
                         </div>
-                    </div>
-                    <div class="tier-badge">Platinum</div>
-                    <div class="course-title">Fingerstyle Basics</div>
-                    <div class="course-price-row">
-                        <span>$3.99</span>
-                        <span>Melody</span>
+                        <div class="disc back-2"></div>
+                        <div class="disc back-1"></div>
+                        <div class="disc front"></div>
+                        <div class="disc-label">
+                            <div class="tier-badge">Platinum</div>
+                            <div class="course-title">Fingerstyle Basics</div>
+                            <div class="course-price-row">
+                                <span>$3.99</span>
+                                <span>Melody</span>
+                            </div>
+                        </div>
                     </div>
                 </a>
 
-                <!-- 7. Basic Music Theory -->
-                <a href="register.html" class="course-card">
-                    <div class="bag-container">
-                        <div class="shopping-bag">
-                            <div class="bag-guitar"></div>
+                <!-- 7. Basic Music Theory (Diamond) -->
+                <a href="register.html" class="course-card course-id-7">
+                    <div class="disc-stack">
+                        <div class="disc-cover">
+                            <div class="cover-doodle"></div>
                         </div>
-                    </div>
-                    <div class="tier-badge">Diamond</div>
-                    <div class="course-title">Basic Music Theory</div>
-                    <div class="course-price-row">
-                        <span>$3.99</span>
-                        <span>Scales & Chords</span>
+                        <div class="disc back-2"></div>
+                        <div class="disc back-1"></div>
+                        <div class="disc front"></div>
+                        <div class="disc-label">
+                            <div class="tier-badge">Diamond</div>
+                            <div class="course-title">Basic Music Theory</div>
+                            <div class="course-price-row">
+                                <span>$3.99</span>
+                                <span>Scales & Chords</span>
+                            </div>
+                        </div>
                     </div>
                 </a>
 
-                <!-- 8. Intermediate Music Theory -->
-                <a href="register.html" class="course-card">
-                    <div class="bag-container">
-                        <div class="shopping-bag">
-                            <div class="bag-guitar"></div>
+                <!-- 8. Intermediate Music Theory (Diamond) -->
+                <a href="register.html" class="course-card course-id-7">
+                    <div class="disc-stack">
+                        <div class="disc-cover">
+                            <div class="cover-doodle"></div>
                         </div>
-                    </div>
-                    <div class="tier-badge">Diamond</div>
-                    <div class="course-title">Intermediate Music Theory</div>
-                    <div class="course-price-row">
-                        <span>$3.99</span>
-                        <span>Chord Structures</span>
+                        <div class="disc back-2"></div>
+                        <div class="disc back-1"></div>
+                        <div class="disc front"></div>
+                        <div class="disc-label">
+                            <div class="tier-badge">Diamond</div>
+                            <div class="course-title">Intermediate Music Theory</div>
+                            <div class="course-price-row">
+                                <span>$3.99</span>
+                                <span>Chord Structures</span>
+                            </div>
+                        </div>
                     </div>
                 </a>
 
