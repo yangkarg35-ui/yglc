@@ -8,8 +8,8 @@
         :root {
             --gold-primary: #D4AF37;
             --text-main: #FFFFFF;
-            --text-muted: #BBBBBB;
-            --border-color: rgba(255, 255, 255, 0.15);
+            --text-muted: #AAAAAA;
+            --border-color: rgba(255, 255, 255, 0.12);
         }
 
         * {
@@ -19,7 +19,7 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
-        /* Website တစ်ခုလုံးရဲ့ Background Image - ငြိမ်နေမည် (Fixed Background) */
+        /* Fixed Luxury Background */
         body {
             background-image: url('01.jpg'); 
             background-size: cover;
@@ -36,14 +36,14 @@
 
         /* Top Announcement Bar */
         .top-announcement {
-            background-color: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(5px);
+            background-color: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
             color: var(--text-main);
-            padding: 15px 30px;
+            padding: 14px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             letter-spacing: 2px;
             text-transform: uppercase;
             border-bottom: 1px solid var(--border-color);
@@ -51,7 +51,7 @@
 
         .countdown-timer {
             display: flex;
-            gap: 15px;
+            gap: 12px;
             font-weight: 600;
         }
 
@@ -59,24 +59,57 @@
             color: var(--gold-primary);
         }
 
-        /* Main Container - နေရာလွတ်များများ ပေးထားသည် */
+        /* Hero Header Section */
+        .hero-header {
+            text-align: center;
+            padding: 60px 20px 20px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-brand-title {
+            font-size: 0.8rem;
+            letter-spacing: 6px;
+            color: var(--gold-primary);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .hero-main-title {
+            font-size: 2rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-weight: 300;
+            color: #FFFFFF;
+            margin-bottom: 8px;
+        }
+
+        .hero-subtitle {
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 300;
+        }
+
+        /* Main Container - More Compact and Clean */
         .main-container {
-            max-width: 1400px;
+            max-width: 1250px;
             width: 100%;
             margin: 0 auto;
-            padding: 100px 40px;
+            padding: 40px 30px 80px 30px;
             flex: 1;
         }
 
-        /* Store Grid (3 columns) */
+        /* Store Grid (3 columns, tighter layout) */
         .store-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 50px;
-            margin-bottom: 120px;
+            gap: 35px;
         }
 
-        /* Course Card - နောက်ခံအမဲရောင်ဘောက်စ် လုံးဝမပါရှိတော့ပါ */
+        /* Course Card - Smaller, No Background Box, Luxury Minimal */
         .course-card {
             background: transparent;
             border: none;
@@ -86,85 +119,87 @@
             flex-direction: column;
             position: relative;
             transition: transform 0.3s ease;
+            max-width: 360px;
+            margin: 0 auto;
+            width: 100%;
         }
 
         .course-card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-5px);
         }
 
         /* Card Status Bar */
         .card-status-banner {
-            background-color: rgba(0, 0, 0, 0.85);
+            background-color: rgba(0, 0, 0, 0.8);
             color: #FFFFFF;
             text-align: center;
-            padding: 8px;
-            font-size: 0.65rem;
-            letter-spacing: 3px;
+            padding: 6px;
+            font-size: 0.6rem;
+            letter-spacing: 2px;
             text-transform: uppercase;
             border: 1px solid var(--border-color);
             border-bottom: none;
             font-weight: 500;
         }
 
-        /* ၃ ခုထပ် (Stacked Media / Visual Area) */
+        /* Compact Visual Stack Area */
         .card-visual-stack {
             width: 100%;
-            height: 180px;
+            height: 150px;
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
             border: 1px solid var(--border-color);
             overflow: hidden;
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.15);
         }
 
         .stacked-item {
-            width: 55%;
-            height: 80%;
+            width: 50%;
+            height: 75%;
             background-size: cover;
             background-position: center;
             position: absolute;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.6);
-            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.15);
             transition: transform 0.3s ease;
         }
 
-        /* Stack ၃ ခု အလွှာပုံစံ */
         .stacked-item.back-2 {
-            transform: translateX(-24px) rotate(-6deg) scale(0.8);
+            transform: translateX(-18px) rotate(-5deg) scale(0.8);
             opacity: 0.5;
             z-index: 1;
         }
 
         .stacked-item.back-1 {
-            transform: translateX(-12px) rotate(-2deg) scale(0.9);
+            transform: translateX(-8px) rotate(-2deg) scale(0.9);
             opacity: 0.75;
             z-index: 2;
         }
 
         .stacked-item.front {
-            transform: translateX(8px) rotate(2deg) scale(1);
+            transform: translateX(6px) rotate(2deg) scale(1);
             z-index: 3;
         }
 
         .course-card:hover .stacked-item.front {
-            transform: translateX(12px) rotate(1deg) scale(1.02);
+            transform: translateX(10px) rotate(1deg) scale(1.02);
         }
 
         /* Card Details Content */
         .card-info {
-            padding: 15px 5px;
+            padding: 12px 4px;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 6px;
             background: transparent;
         }
 
         .course-title {
-            font-size: 0.8rem;
-            font-weight: 400;
+            font-size: 0.75rem;
+            font-weight: 300;
             line-height: 1.4;
             letter-spacing: 1px;
             text-transform: uppercase;
@@ -172,7 +207,7 @@
         }
 
         .course-price {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--gold-primary);
             letter-spacing: 1px;
             font-weight: 500;
@@ -182,32 +217,32 @@
         footer {
             background-color: transparent;
             border-top: 1px solid var(--border-color);
-            padding: 80px 40px 40px 40px;
+            padding: 60px 30px 30px 30px;
             position: relative;
             z-index: 10;
         }
 
         .footer-content {
-            max-width: 1400px;
+            max-width: 1250px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: 2fr 2fr 3fr;
-            gap: 60px;
+            gap: 50px;
         }
 
         .footer-brand h2 {
-            font-size: 1.3rem;
-            letter-spacing: 6px;
+            font-size: 1.1rem;
+            letter-spacing: 5px;
             color: var(--gold-primary);
             font-weight: 300;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .footer-links h3, .footer-newsletter h3 {
-            font-size: 0.75rem;
-            letter-spacing: 3px;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
             text-transform: uppercase;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             color: var(--text-main);
         }
 
@@ -215,13 +250,13 @@
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
         }
 
         .footer-links ul li a {
             color: var(--text-muted);
             text-decoration: none;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             letter-spacing: 1px;
             text-transform: uppercase;
             transition: color 0.3s;
@@ -232,24 +267,24 @@
         }
 
         .footer-newsletter p {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: var(--text-muted);
-            line-height: 1.6;
-            margin-bottom: 15px;
+            line-height: 1.5;
+            margin-bottom: 12px;
         }
 
         .newsletter-form {
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
 
         .newsletter-form input {
             flex: 1;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.4);
             border: 1px solid var(--border-color);
-            padding: 10px 14px;
+            padding: 8px 12px;
             color: #FFF;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             outline: none;
         }
 
@@ -261,8 +296,8 @@
             background-color: #FFFFFF;
             color: #000000;
             border: none;
-            padding: 0 20px;
-            font-size: 0.65rem;
+            padding: 0 16px;
+            font-size: 0.6rem;
             letter-spacing: 2px;
             text-transform: uppercase;
             font-weight: 600;
@@ -275,12 +310,12 @@
         }
 
         .footer-bottom {
-            max-width: 1400px;
-            margin: 50px auto 0 auto;
+            max-width: 1250px;
+            margin: 40px auto 0 auto;
             text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            padding-top: 25px;
-            font-size: 0.6rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            padding-top: 20px;
+            font-size: 0.55rem;
             color: var(--text-muted);
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -293,7 +328,7 @@
             }
             .footer-content {
                 grid-template-columns: 1fr;
-                gap: 40px;
+                gap: 30px;
             }
         }
 
@@ -303,8 +338,11 @@
             }
             .top-announcement {
                 flex-direction: column;
-                gap: 8px;
+                gap: 6px;
                 text-align: center;
+            }
+            .hero-main-title {
+                font-size: 1.4rem;
             }
         }
     </style>
@@ -320,6 +358,13 @@
             <div><span>38</span>S</div>
         </div>
     </div>
+
+    <!-- Hero Header Section Added -->
+    <header class="hero-header">
+        <div class="hero-brand-title">YGLC Youth Guitar Learning Center</div>
+        <h1 class="hero-main-title">Ready to Begin?</h1>
+        <p class="hero-subtitle">Your Next Chapter Starts Here.</p>
+    </header>
 
     <!-- Main Content Store Grid -->
     <main class="main-container">
@@ -404,34 +449,6 @@
                 </div>
                 <div class="card-info">
                     <div class="course-title">Course Title 06 Voice Leading & Chord Degree Mastery</div>
-                    <div class="course-price">$3.99</div>
-                </div>
-            </a>
-
-            <!-- Course 7 -->
-            <a href="course-7.html" class="course-card">
-                <div class="card-status-banner">Not Available</div>
-                <div class="card-visual-stack">
-                    <div class="stacked-item back-2" style="background-image: url('02.jpg');"></div>
-                    <div class="stacked-item back-1" style="background-image: url('04.jpg');"></div>
-                    <div class="stacked-item front" style="background-image: url('03.jpg');"></div>
-                </div>
-                <div class="card-info">
-                    <div class="course-title">Course Title 07 High-End Frameworks & Digital Assets</div>
-                    <div class="course-price">$3.99</div>
-                </div>
-            </a>
-
-            <!-- Course 8 -->
-            <a href="course-8.html" class="course-card">
-                <div class="card-status-banner">Not Available</div>
-                <div class="card-visual-stack">
-                    <div class="stacked-item back-2" style="background-image: url('03.jpg');"></div>
-                    <div class="stacked-item back-1" style="background-image: url('01.jpg');"></div>
-                    <div class="stacked-item front" style="background-image: url('04.jpg');"></div>
-                </div>
-                <div class="card-info">
-                    <div class="course-title">Course Title 08 Solo Genius Private Exclusive Archive</div>
                     <div class="course-price">$3.99</div>
                 </div>
             </a>
