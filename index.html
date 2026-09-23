@@ -1,461 +1,378 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YGLC — Youth Guitar Learning Center (Shopping Bag Design)</title>
-    <style>
-        :root {
-            --gold-primary: #8C6D29;
-            --text-main: #111111;
-            --text-muted: #333333;
-            --brown-text: #5A3E1B;
-            --sketch-color: #4a4a4a;
-            --paper-bg: #FFFFFF;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YGLC - Solo Genius Musical School</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- Supabase CDN -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root {
+    --bg-deep: #0A0506;
+    --bg-card: #0A120E;
+    --bg-card-hover: #101815;
+    --gold: #D4AF37;
+    --gold-light: #F3E5AB;
+    --text-main: #E5E7EB;
+    --text-muted: #9CA3AF;
+    --border-color: rgba(212, 175, 55, 0.2);
+}
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body { 
+    background-color: var(--bg-deep); 
+    color: var(--text-main); 
+    font-family: 'Plus Jakarta Sans', sans-serif; 
+    min-height: 100vh; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 20px;
+}
+header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+h1 {
+    font-family: 'Cinzel', serif;
+    color: var(--gold);
+    font-size: 28px;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+p.subtitle {
+    color: var(--text-muted);
+    font-size: 14px;
+    font-weight: 500;
+}
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    max-width: 1200px;
+    width: 100%;
+    margin-bottom: 40px;
+}
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 25px 20px;
+    text-align: center;
+    text-decoration: none;
+    color: var(--text-main);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    position: relative;
+}
+.card:hover {
+    border-color: var(--gold);
+    transform: translateY(-5px);
+    background: var(--bg-card-hover);
+    box-shadow: 0 12px 30px rgba(212, 175, 55, 0.15);
+}
+.bag-icon-wrapper {
+    position: relative;
+    width: 70px;
+    height: 85px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.bag-svg {
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: var(--gold);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+.fretboard-pattern {
+    position: absolute;
+    top: 26px;
+    width: 32px;
+    height: 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.string-line {
+    width: 100%;
+    height: 1px;
+    background: rgba(212, 175, 55, 0.4);
+    position: relative;
+}
+.fret-dot {
+    width: 5px;
+    height: 5px;
+    background: var(--gold);
+    border-radius: 50%;
+    position: absolute;
+    top: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.tier-title {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    color: var(--gold);
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+.course-divider {
+    width: 100%;
+    height: 1px;
+    background: var(--border-color);
+    margin-bottom: 12px;
+}
+.course-name {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text-main);
+    letter-spacing: 0.5px;
+}
+.course-price {
+    font-size: 13px;
+    color: var(--gold-light);
+    font-weight: 600;
+}
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Comic Sans MS", "Comic Sans", cursive, sans-serif; 
-        }
+.section-title {
+    font-family: 'Cinzel', serif;
+    color: var(--gold);
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    letter-spacing: 1px;
+}
 
-        body {
-            background-image: url('01.jpg'); 
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
-            background-color: #F9F9F9;
-            color: var(--text-main);
-            min-height: 100vh;
-            line-height: 1.4;
-        }
-
-        .top-announcement {
-            background-color: rgba(255, 255, 255, 0.95);
-            color: var(--text-main);
-            padding: 8px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            border-bottom: 2px solid var(--sketch-color);
-            font-weight: bold;
-        }
-
-        .wrapper {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        section {
-            margin-bottom: 60px;
-        }
-
-        h1, h2, h3 {
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            font-weight: bold;
-            color: var(--text-main);
-        }
-
-        .hero {
-            text-align: center;
-            padding: 50px 20px;
-        }
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-        }
-        .hero p {
-            max-width: 700px;
-            margin: 0 auto 25px auto;
-            color: var(--text-muted);
-            font-size: 1rem;
-        }
-        .btn-group {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-        .btn {
-            background: var(--paper-bg);
-            border: 2px solid var(--sketch-color);
-            color: var(--text-main);
-            padding: 10px 30px;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.2s;
-            font-weight: bold;
-            border-radius: 15px;
-        }
-        .btn:hover {
-            background: var(--brown-text);
-            border-color: var(--brown-text);
-            color: #FFFFFF;
-            transform: translate(-2px, -2px);
-        }
-
-        .section-title {
-            font-size: 1.5rem;
-            color: var(--text-main);
-            margin-bottom: 25px;
-            border-bottom: 2px solid var(--sketch-color);
-            padding-bottom: 10px;
-        }
-
-        .content-block {
-            background: transparent;
-            padding: 10px 0;
-            margin-bottom: 20px;
-        }
-        .content-block p, .content-block li {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-        .content-block strong {
-            color: var(--text-main);
-            font-weight: bold;
-        }
-
-        /* [UPDATED SHOPPING BAG WITH GUITAR DESIGN] */
-        .courses-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
-            margin-top: 30px;
-        }
-
-        .course-card {
-            text-decoration: none;
-            color: var(--text-main);
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.3s;
-            border: 2px solid var(--sketch-color);
-            border-radius: 15px;
-            background: var(--paper-bg);
-            padding: 20px;
-            box-shadow: 4px 4px 0px rgba(0,0,0,0.15);
-            align-items: center;
-            text-align: center;
-        }
-        .course-card:hover {
-            transform: translateY(-8px);
-            background: #FFFDF9;
-            border-color: var(--brown-text);
-        }
-
-        /* Shopping Bag Wrapper */
-        .bag-container {
-            width: 100%;
-            height: 120px;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        /* Shopping Bag Illustration */
-        .shopping-bag {
-            width: 80px;
-            height: 90px;
-            background: #FFFFFF;
-            border: 2px solid var(--sketch-color);
-            border-radius: 4px 4px 8px 8px;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 2px 2px 0px rgba(0,0,0,0.1);
-        }
-
-        /* Bag Handles */
-        .shopping-bag::before {
-            content: '';
-            position: absolute;
-            top: -18px;
-            left: 22px;
-            width: 32px;
-            height: 20px;
-            border: 2px solid var(--sketch-color);
-            border-bottom: none;
-            border-radius: 15px 15px 0 0;
-            background: transparent;
-        }
-
-        /* Acoustic Guitar Doodled Inside Bag */
-        .bag-guitar {
-            width: 45px;
-            height: 70px;
-            background-size: contain;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 160"><path d="M42 5 L58 5 L58 45 L42 45 Z" fill="%235A3E1B"/><circle cx="50" cy="70" r="18" stroke="%235A3E1B" stroke-width="3" fill="none"/><path d="M30 110 Q50 85 70 110 Q85 135 65 150 Q50 158 35 150 Q15 135 30 110 Z" stroke="%235A3E1B" stroke-width="3" fill="%23F3E5AB"/><circle cx="50" cy="125" r="8" stroke="%235A3E1B" stroke-width="2" fill="none"/><line x1="47" y1="45" x2="47" y2="145" stroke="%234a4a4a" stroke-width="1.5"/><line x1="50" y1="45" x2="50" y2="145" stroke="%234a4a4a" stroke-width="1.5"/><line x1="53" y1="45" x2="53" y2="145" stroke="%234a4a4a" stroke-width="1.5"/></svg>');
-            opacity: 0.85;
-        }
-
-        .tier-badge {
-            font-size: 0.65rem;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            font-weight: bold;
-            margin-bottom: 6px;
-            border-bottom: 2px solid var(--sketch-color);
-            padding-bottom: 2px;
-            color: var(--sketch-color);
-            width: 100%;
-        }
-
-        .course-title {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--brown-text);
-            font-weight: bold;
-            margin-bottom: 8px;
-            min-height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .course-price-row {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            font-size: 0.9rem;
-            color: var(--gold-primary);
-            font-weight: bold;
-        }
-
-        footer {
-            background: #FFFFFF;
-            border-top: 3px solid var(--sketch-color);
-            padding: 50px 20px;
-            text-align: center;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            margin-top: 50px;
-        }
-        footer .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-        footer .footer-links a {
-            color: var(--sketch-color);
-            text-decoration: none;
-            font-weight: bold;
-        }
-        footer .footer-links a:hover {
-            color: var(--brown-text);
-            text-decoration: underline;
-        }
-
-        @media (max-width: 1024px) {
-            .courses-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
-        }
-        @media (max-width: 650px) {
-            .courses-grid { grid-template-columns: 1fr; gap: 20px; }
-            .hero h1 { font-size: 2rem; }
-        }
-    </style>
+/* Responsive adjustments for phones */
+@media (max-width: 1024px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+}
+@media (max-width: 600px) {
+    body {
+        padding: 20px 10px;
+    }
+    .grid-container {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    h1 {
+        font-size: 22px;
+    }
+    .card {
+        padding: 20px 15px;
+    }
+    .course-name {
+        font-size: 13px;
+    }
+}
+</style>
 </head>
 <body>
 
-    <div class="top-announcement">
-        <div>YGLC CURRICULUM ARCHIVE</div>
-        <div class="countdown-timer">
-            <span>Learn something useful.</span>
+<header>
+    <h1>SOLO GENIUS MUSICAL SCHOOL</h1>
+    <p class="subtitle">Exclusive Guitar Pedagogy & Master Frameworks</p>
+</header>
+
+<div style="max-width: 1200px; width: 100%;">
+    <div class="section-title">OFFER TYPES & REGISTRATION</div>
+</div>
+
+<div class="grid-container">
+    <!-- Course 1 -->
+    <a href="register.html" class="card">
+        <div class="bag-icon-wrapper">
+            <svg class="bag-svg" viewBox="0 0 24 24">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <path d="M16 10a4 4 0 0 1-8 0"></path>
+            </svg>
+            <div class="fretboard-pattern">
+                <div class="string-line"><div class="fret-dot"></div></div>
+                <div class="string-line"></div>
+                <div class="string-line"><div class="fret-dot"></div></div>
+                <div class="string-line"></div>
+                <div class="string-line"></div>
+            </div>
         </div>
-    </div>
+        <div class="tier-title">SILVER</div>
+        <div class="course-divider"></div>
+        <div class="course-name">PLUCKING BASICS</div>
+        <div class="course-price">$3.99 Foundation</div>
+    </a>
 
-    <div class="wrapper">
-
-        <section class="hero">
-            <h1>YGLC — Youth Guitar Learning Center</h1>
-            <p>Learn guitar through a clear, practical, and structured learning system designed for real progress. Whether you are starting from zero or building on what you already know, YGLC gives you a simple path to learn, practice, and improve.</p>
-            <div class="btn-group">
-                <a href="#courses" class="btn">Explore Courses</a>
-                <a href="register.html" class="btn">Start Learning</a>
+    <!-- Course 2 -->
+    <a href="register.html" class="card">
+        <div class="bag-icon-wrapper">
+            <svg class="bag-svg" viewBox="0 0 24 24">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <path d="M16 10a4 4 0 0 1-8 0"></path>
+            </svg>
+            <div class="fretboard-pattern">
+                <div class="string-line"></div>
+                <div class="string-line"><div class="fret-dot"></div></div>
+                <div class="string-line"></div>
+                <div class="string-line"><div class="fret-dot"></div></div>
+                <div class="string-line"></div>
             </div>
-        </section>
-
-        <section>
-            <h2 class="section-title">2. Why YGLC</h2>
-            <div class="content-block">
-                <h3>Learning Guitar Should Be Simple.</h3>
-                <p>Many people want to learn guitar but do not know where to start, what to learn next, what to practice, whether they are practicing correctly, or how to build consistent progress. YGLC organizes the learning process into structured lessons so you can focus on learning and practicing.</p>
-                <br>
-                <strong>Our Approach: Learn → Practice → Apply → Improve</strong>
-            </div>
-        </section>
-
-        <section id="courses">
-            <h2 class="section-title">3. Courses (Guitar Learning Programs)</h2>
-            <div class="courses-grid">
-                
-                <!-- 1. Plucking Basics -->
-                <a href="register.html" class="course-card">
-                    <div class="bag-container">
-                        <div class="shopping-bag">
-                            <div class="bag-guitar"></div>
-                        </div>
-                    </div>
-                    <div class="tier-badge">Silver</div>
-                    <div class="course-title">Plucking Basics</div>
-                    <div class="course-price-row">
-                        <span>$3.99</span>
-                        <span>Foundation</span>
-                    </div>
-                </a>
-
-                <!-- 2. Plucking Intermediate -->
-                <a href="register.html" class="course-card">
-                    <div class="bag-container">
-                        <div class="shopping-bag">
-                            <div class="bag-guitar"></div>
-                        </div>
-                    </div>
-                    <div class="tier-badge">Silver</div>
-                    <div class="course-title">Plucking Intermediate</div>
-                    <div class="course-price-row">
-                        <span>$3.99</span>
-                        <span>Control</span>
-                    </div>
-                </a>
-
-                <!-- 3. Rhythm Basics -->
-                <a href="register.html" class="course-card">
-                    <div class="bag-container">
-                        <div class="shopping-bag">
-                            <div class="bag-guitar"></div>
-                        </div>
-                    </div>
-                    <div class="tier-badge">Gold</div>
-                    <div class="course-title">Rhythm Basics</div>
-                    <div class="course-price-row">
-                        <span>$3.99</span>
-                        <span>Strumming</span>
-                    </div>
-                </a>
-
-                <!-- 4. Rhythm Intermediate -->
-                <a href="register.html" class="course-card">
-                    <div class="bag-container">
-                        <div class="shopping-bag">
-                            <div class="bag-guitar"></div>
-                        </div>
-                    </div>
-                    <div class="tier-badge">Gold</div>
-                    <div class="course-title">Rhythm Intermediate</div>
-                    <div class="course-price-row">
-                        <span>$3.99</span>
-                        <span>Groove</span>
-                    </div>
-                </a>
-
-                <!-- 5. Advanced Rhythm -->
-                <a href="register.html" class="course-card">
-                    <div class="bag-container">
-                        <div class="shopping-bag">
-                            <div class="bag-guitar"></div>
-                        </div>
-                    </div>
-                    <div class="tier-badge">Platinum</div>
-                    <div class="course-title">Advanced Rhythm</div>
-                    <div class="course-price-row">
-                        <span>$3.99</span>
-                        <span>Expression</span>
-                    </div>
-                </a>
-
-                <!-- 6. Fingerstyle Basics -->
-                <a href="register.html" class="course-card">
-                    <div class="bag-container">
-                        <div class="shopping-bag">
-                            <div class="bag-guitar"></div>
-                        </div>
-                    </div>
-                    <div class="tier-badge">Platinum</div>
-                    <div class="course-title">Fingerstyle Basics</div>
-                    <div class="course-price-row">
-                        <span>$3.99</span>
-                        <span>Melody</span>
-                    </div>
-                </a>
-
-                <!-- 7. Basic Music Theory -->
-                <a href="register.html" class="course-card">
-                    <div class="bag-container">
-                        <div class="shopping-bag">
-                            <div class="bag-guitar"></div>
-                        </div>
-                    </div>
-                    <div class="tier-badge">Diamond</div>
-                    <div class="course-title">Basic Music Theory</div>
-                    <div class="course-price-row">
-                        <span>$3.99</span>
-                        <span>Scales & Chords</span>
-                    </div>
-                </a>
-
-                <!-- 8. Intermediate Music Theory -->
-                <a href="register.html" class="course-card">
-                    <div class="bag-container">
-                        <div class="shopping-bag">
-                            <div class="bag-guitar"></div>
-                        </div>
-                    </div>
-                    <div class="tier-badge">Diamond</div>
-                    <div class="course-title">Intermediate Music Theory</div>
-                    <div class="course-price-row">
-                        <span>$3.99</span>
-                        <span>Chord Structures</span>
-                    </div>
-                </a>
-
-            </div>
-        </section>
-
-        <section id="register">
-            <h2 class="section-title">Offer Types & Registration</h2>
-            <div class="content-block brown-text-block">
-                <p>Self-Paced Courses: Telegram delivery.</p>
-                <p>Zoom Live Class: USD 150.</p>
-                <p>Academic Learning Program: USD 500.</p>
-                <br>
-                <a href="register.html" class="btn" style="display: inline-block; margin-top:10px;">Register Now</a>
-            </div>
-        </section>
-
-    </div>
-
-    <footer>
-        <div class="footer-links">
-            <a href="#courses">Courses</a>
-            <a href="register.html">Register</a>
         </div>
-        <div>
-            YGLC — Youth Guitar Learning Center<br>
-            Learn something useful today.<br>
-            &copy; 2026 YGLC. All rights reserved.
+        <div class="tier-title">SILVER</div>
+        <div class="course-divider"></div>
+        <div class="course-name">PLUCKING INTERMEDIATE</div>
+        <div class="course-price">$3.99 Control</div>
+    </a>
+
+    <!-- Course 3 -->
+    <a href="register.html" class="card">
+        <div class="bag-icon-wrapper">
+            <svg class="bag-svg" viewBox="0 0 24 24">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <path d="M16 10a4 4 0 0 1-8 0"></path>
+            </svg>
+            <div class="fretboard-pattern">
+                <div class="string-line"><div class="fret-dot"></div></div>
+                <div class="string-line"></div>
+                <div class="string-line"></div>
+                <div class="string-line"><div class="fret-dot"></div></div>
+                <div class="string-line"></div>
+            </div>
         </div>
-    </footer>
+        <div class="tier-title">GOLD</div>
+        <div class="course-divider"></div>
+        <div class="course-name">RHYTHM BASICS</div>
+        <div class="course-price">$3.99 Strumming</div>
+    </a>
+
+    <!-- Course 4 -->
+    <a href="register.html" class="card">
+        <div class="bag-icon-wrapper">
+            <svg class="bag-svg" viewBox="0 0 24 24">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <path d="M16 10a4 4 0 0 1-8 0"></path>
+            </svg>
+            <div class="fretboard-pattern">
+                <div class="string-line"></div>
+                <div class="string-line"><div class="fret-dot"></div></div>
+                <div class="string-line"><div class="fret-dot"></div></div>
+                <div class="string-line"></div>
+                <div class="string-line"></div>
+            </div>
+        </div>
+        <div class="tier-title">GOLD</div>
+        <div class="course-divider"></div>
+        <div class="course-name">RHYTHM INTERMEDIATE</div>
+        <div class="course-price">$3.99 Groove</div>
+    </a>
+
+    <!-- Course 5 -->
+    <a href="register.html" class="card">
+        <div class="bag-icon-wrapper">
+            <svg class="bag-svg" viewBox="0 0 24 24">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <path d="M16 10a4 4 0 0 1-8 0"></path>
+            </svg>
+            <div class="fretboard-pattern">
+                <div class="string-line"><div class="fret-dot"></div></div>
+                <div class="string-line"><div class="fret-dot"></div></div>
+                <div class="string-line"></div>
+                <div class="string-line"></div>
+                <div class="string-line"><div class="fret-dot"></div></div>
+            </div>
+        </div>
+        <div class="tier-title">PLATINUM</div>
+        <div class="course-divider"></div>
+        <div class="course-name">ADVANCED RHYTHM</div>
+        <div class="course-price">$3.99 Expression</div>
+    </a>
+
+    <!-- Course 6 -->
+    <a href="register.html" class="card">
+        <div class="bag-icon-wrapper">
+            <svg class="bag-svg" viewBox="0 0 24 24">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <path d="M16 10a4 4 0 0 1-8 0"></path>
+            </svg>
+            <div class="fretboard-pattern">
+                <div class="string-line"></div>
+                <div class="string-line"></div>
+                <div class="string-line"><div class="fret-dot"></div></div>
+                <div class="string-line"><div class="fret-dot"></div></div>
+                <div class="string-line"></div>
+            </div>
+        </div>
+        <div class="tier-title">PLATINUM</div>
+        <div class="course-divider"></div>
+        <div class="course-name">FINGERSTYLE BASICS</div>
+        <div class="course-price">$3.99 Melody</div>
+    </a>
+
+    <!-- Course 7 -->
+    <a href="register.html" class="card">
+        <div class="bag-icon-wrapper">
+            <svg class="bag-svg" viewBox="0 0 24 24">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <path d="M16 10a4 4 0 0 1-8 0"></path>
+            </svg>
+            <div class="fretboard-pattern">
+                <div class="string-line"><div class="fret-dot"></div></div>
+                <div class="string-line"></div>
+                <div class="string-line"><div class="fret-dot"></div></div>
+                <div class="string-line"></div>
+                <div class="string-line"><div class="fret-dot"></div></div>
+            </div>
+        </div>
+        <div class="tier-title">DIAMOND</div>
+        <div class="course-divider"></div>
+        <div class="course-name">BASIC MUSIC THEORY</div>
+        <div class="course-price">$3.99 Scales & Chords</div>
+    </a>
+
+    <!-- Course 8 -->
+    <a href="register.html" class="card">
+        <div class="bag-icon-wrapper">
+            <svg class="bag-svg" viewBox="0 0 24 24">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <path d="M16 10a4 4 0 0 1-8 0"></path>
+            </svg>
+            <div class="fretboard-pattern">
+                <div class="string-line"></div>
+                <div class="string-line"><div class="fret-dot"></div></div>
+                <div class="string-line"><div class="fret-dot"></div></div>
+                <div class="string-line"><div class="fret-dot"></div></div>
+                <div class="string-line"></div>
+            </div>
+        </div>
+        <div class="tier-title">DIAMOND</div>
+        <div class="course-divider"></div>
+        <div class="course-name">INTERMEDIATE MUSIC THEORY</div>
+        <div class="course-price">$3.99 Chord Structures</div>
+    </a>
+</div>
 
 </body>
 </html>
