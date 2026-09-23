@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YGLC — Yangon Guitar Learning Center</title>
+    <title>YGLC — Youth Guitar Learning Center</title>
     <style>
         :root {
-            --gold-primary: #D4AF37;
-            --text-main: #FFFFFF;
-            --text-muted: #DDDDDD;
+            --gold-primary: #8C6D29;
+            --text-main: #111111;
+            --text-muted: #333333;
         }
 
         * {
@@ -19,12 +19,12 @@
         }
 
         body {
-            background-image: url('02.jpg'); 
+            background-image: url('01.jpg'); 
             background-size: cover;
             background-position: center;
-            background-attachment: scroll;
+            background-attachment: fixed; /* MacBook နဲ့ Mobile နှစ်ခုစလုံးမှာ Background ငြိမ်နေစေရန် */
             background-repeat: no-repeat;
-            background-color: #030303;
+            background-color: #F9F9F9;
             color: var(--text-main);
             min-height: 100vh;
             line-height: 1.6;
@@ -32,7 +32,7 @@
 
         /* Top Announcement */
         .top-announcement {
-            background-color: rgba(0, 0, 0, 0.85);
+            background-color: rgba(255, 255, 255, 0.95);
             color: var(--text-main);
             padding: 10px 30px;
             display: flex;
@@ -41,7 +41,7 @@
             font-size: 0.65rem;
             letter-spacing: 2px;
             text-transform: uppercase;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         }
 
         .countdown-timer span {
@@ -75,7 +75,7 @@
         }
         .hero h1 {
             font-size: 2rem;
-            color: var(--gold-primary);
+            color: var(--text-main);
             margin-bottom: 15px;
         }
         .hero p {
@@ -90,9 +90,9 @@
             gap: 15px;
         }
         .btn {
-            background: transparent;
-            border: 1px solid var(--gold-primary);
-            color: var(--gold-primary);
+            background: #000;
+            border: 1px solid #000;
+            color: #FFFFFF;
             padding: 10px 25px;
             text-transform: uppercase;
             font-size: 0.7rem;
@@ -103,19 +103,20 @@
         }
         .btn:hover {
             background: var(--gold-primary);
+            border-color: var(--gold-primary);
             color: #000;
         }
 
         /* Section Titles */
         .section-title {
             font-size: 1.2rem;
-            color: var(--gold-primary);
+            color: var(--text-main);
             margin-bottom: 20px;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
             padding-bottom: 8px;
         }
 
-        /* Content Blocks - No Background Boxes */
+        /* Content Blocks - No Background Boxes, Black Text */
         .content-block {
             background: transparent;
             padding: 10px 0;
@@ -141,8 +142,8 @@
         }
 
         .course-card {
-            background: rgba(10, 10, 10, 0.9);
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(0, 0, 0, 0.1);
             border-radius: 6px;
             overflow: hidden;
             text-decoration: none;
@@ -150,7 +151,7 @@
             display: flex;
             flex-direction: column;
             transition: transform 0.3s;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
         .course-card:hover {
             transform: translateY(-5px);
@@ -166,8 +167,8 @@
             text-transform: uppercase;
             font-weight: 700;
         }
-        .tier-silver { background: #A8A9AD; color: #000; }
-        .tier-gold { background: var(--gold-primary); color: #000; }
+        .tier-silver { background: #D1D2D6; color: #000; }
+        .tier-gold { background: #E5C158; color: #000; }
         .tier-platinum { background: #E5E4E2; color: #000; }
         .tier-diamond { background: #B9F2FF; color: #000; }
 
@@ -178,17 +179,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(0,0,0,0.4);
+            background: rgba(0,0,0,0.05);
             overflow: hidden;
         }
         .stacked-item {
             width: 45%;
             height: 75%;
-            background-image: url('02.jpg');
+            background-image: url('01.jpg'); /* 01.jpg ကိုသာ သုံးထားသည် */
             background-size: cover;
             background-position: center;
             position: absolute;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
         .stacked-item.back-2 { transform: translateX(-10px) rotate(-5deg) scale(0.8); opacity: 0.4; }
         .stacked-item.back-1 { transform: translateX(-4px) rotate(-2deg) scale(0.9); opacity: 0.7; }
@@ -230,8 +231,8 @@
 
         /* Footer */
         footer {
-            background: rgba(0, 0, 0, 0.95);
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            background: #FFFFFF;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
             padding: 40px 20px;
             text-align: center;
             font-size: 0.6rem;
@@ -276,7 +277,7 @@
 
         <!-- 1. HOME / HERO -->
         <section class="hero">
-            <h1>YGLC — Yangon Guitar Learning Center</h1>
+            <h1>YGLC — Youth Guitar Learning Center</h1>
             <p>Learn guitar through a clear, practical, and structured learning system designed for real progress. Whether you are starting from zero or building on what you already know, YGLC gives you a simple path to learn, practice, and improve.</p>
             <div class="btn-group">
                 <a href="#courses" class="btn">Explore Courses</a>
@@ -559,7 +560,7 @@
             <a href="register.html">Register</a>
         </div>
         <div>
-            YGLC — Yangon Guitar Learning Center<br>
+            YGLC — Youth Guitar Learning Center<br>
             Learn something useful today.<br>
             &copy; 2026 YGLC. All rights reserved. Learning • Practice • Progress.
         </div>
