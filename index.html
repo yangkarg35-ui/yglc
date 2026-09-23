@@ -7,11 +7,9 @@
     <style>
         :root {
             --gold-primary: #D4AF37;
-            --gold-light: #F3E5AB;
             --text-main: #FFFFFF;
-            --text-muted: #AAAAAA;
-            --border-color: #2A2A2A;
-            --panel-bg: rgba(10, 10, 10, 0.9);
+            --text-muted: #BBBBBB;
+            --border-color: rgba(255, 255, 255, 0.15);
         }
 
         * {
@@ -21,7 +19,7 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
-        /* Website တစ်ခုလုံးရဲ့ Background Image က အမြဲတမ်း ငြိမ်နေမည် (Fixed Background) */
+        /* Website တစ်ခုလုံးရဲ့ Background Image - ငြိမ်နေမည် (Fixed Background) */
         body {
             background-image: url('01.jpg'); 
             background-size: cover;
@@ -36,23 +34,14 @@
             justify-content: space-between;
         }
 
-        /* Dark Overlay ဖုံးအလွှာ */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.82);
-            z-index: -1;
-        }
+        /* မှောင်နေတဲ့ အမဲရောင် အလွှာ (Dark Overlay) ကို လုံးဝ ဖယ်ရှားလိုက်ပါပြီ */
 
         /* Top Announcement Bar */
         .top-announcement {
-            background-color: #000000;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
             color: var(--text-main);
-            padding: 12px 20px;
+            padding: 15px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -60,8 +49,6 @@
             letter-spacing: 2px;
             text-transform: uppercase;
             border-bottom: 1px solid var(--border-color);
-            position: relative;
-            z-index: 10;
         }
 
         .countdown-timer {
@@ -74,12 +61,12 @@
             color: var(--gold-primary);
         }
 
-        /* Main Container */
+        /* Main Container - နေရာလွတ်များများ ပေးထားသည် */
         .main-container {
-            max-width: 1300px;
+            max-width: 1400px;
             width: 100%;
             margin: 0 auto;
-            padding: 60px 20px;
+            padding: 100px 40px;
             flex: 1;
         }
 
@@ -87,13 +74,14 @@
         .store-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-            margin-bottom: 80px;
+            gap: 50px;
+            margin-bottom: 120px;
         }
 
-        /* Course Card - Styled like Taylor Swift store stacked CD layout */
+        /* Course Card - ပို၍ သေးငယ်ပြီး သေသပ်သော ပုံစံ */
         .course-card {
-            background-color: var(--panel-bg);
+            background-color: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(8px);
             border: 1px solid var(--border-color);
             text-decoration: none;
             color: var(--text-main);
@@ -101,7 +89,6 @@
             flex-direction: column;
             position: relative;
             overflow: hidden;
-            backdrop-filter: blur(10px);
             transition: transform 0.3s ease, border-color 0.3s ease;
         }
 
@@ -110,24 +97,23 @@
             transform: translateY(-4px);
         }
 
-        /* Card Status Bar (NOT AVAILABLE) */
+        /* Card Status Bar */
         .card-status-banner {
-            background-color: #000000;
+            background-color: rgba(0, 0, 0, 0.9);
             color: #FFFFFF;
             text-align: center;
             padding: 8px;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             letter-spacing: 3px;
             text-transform: uppercase;
             border-bottom: 1px solid var(--border-color);
             font-weight: 500;
         }
 
-        /* Stacked Media / Visual Area resembling CD covers */
+        /* ၃ ခုထပ် (Stacked Media / Visual Area) */
         .card-visual-stack {
             width: 100%;
-            height: 220px;
-            background-color: #080808;
+            height: 180px;
             position: relative;
             display: flex;
             align-items: center;
@@ -135,36 +121,40 @@
             border-bottom: 1px solid var(--border-color);
             overflow: hidden;
             padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
         }
 
         .stacked-item {
-            width: 65%;
-            height: 85%;
+            width: 55%;
+            height: 80%;
             background-size: cover;
             background-position: center;
             position: absolute;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.8);
-            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.6);
+            border: 1px solid rgba(255,255,255,0.2);
             transition: transform 0.3s ease;
         }
 
-        /* Offset for stacked look */
-        .stacked-item.back {
-            transform: translateX(-18px) rotate(-4deg) scale(0.9);
-            opacity: 0.7;
+        /* Stack ၃ ခု အလွှာပုံစံ */
+        .stacked-item.back-2 {
+            transform: translateX(-24px) rotate(-6deg) scale(0.8);
+            opacity: 0.5;
+            z-index: 1;
         }
 
-        .stacked-item.front {
-            transform: translateX(12px) rotate(3deg);
+        .stacked-item.back-1 {
+            transform: translateX(-12px) rotate(-2deg) scale(0.9);
+            opacity: 0.75;
             z-index: 2;
         }
 
-        .course-card:hover .stacked-item.front {
-            transform: translateX(15px) rotate(1deg);
+        .stacked-item.front {
+            transform: translateX(8px) rotate(2deg) scale(1);
+            z-index: 3;
         }
 
-        .course-card:hover .stacked-item.back {
-            transform: translateX(-22px) rotate(-6deg) scale(0.9);
+        .course-card:hover .stacked-item.front {
+            transform: translateX(12px) rotate(1deg) scale(1.02);
         }
 
         /* Card Details Content */
@@ -172,12 +162,12 @@
             padding: 20px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            background: #000000;
+            gap: 10px;
+            background: transparent;
         }
 
         .course-title {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 400;
             line-height: 1.4;
             letter-spacing: 1px;
@@ -186,31 +176,31 @@
         }
 
         .course-price {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--gold-primary);
             letter-spacing: 1px;
             font-weight: 500;
         }
 
-        /* Footer Section */
+        /* Footer Section - အမဲရောင်ဘောက်စ်မပါဘဲ စာသားသပ်သပ်ပုံစံ */
         footer {
-            background-color: rgba(5, 5, 5, 0.95);
+            background-color: transparent;
             border-top: 1px solid var(--border-color);
-            padding: 60px 40px 30px 40px;
+            padding: 80px 40px 40px 40px;
             position: relative;
             z-index: 10;
         }
 
         .footer-content {
-            max-width: 1300px;
+            max-width: 1400px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: 2fr 2fr 3fr;
-            gap: 50px;
+            gap: 60px;
         }
 
         .footer-brand h2 {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             letter-spacing: 6px;
             color: var(--gold-primary);
             font-weight: 300;
@@ -218,7 +208,7 @@
         }
 
         .footer-links h3, .footer-newsletter h3 {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             letter-spacing: 3px;
             text-transform: uppercase;
             margin-bottom: 20px;
@@ -229,13 +219,13 @@
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
         }
 
         .footer-links ul li a {
             color: var(--text-muted);
             text-decoration: none;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             letter-spacing: 1px;
             text-transform: uppercase;
             transition: color 0.3s;
@@ -246,7 +236,7 @@
         }
 
         .footer-newsletter p {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--text-muted);
             line-height: 1.6;
             margin-bottom: 15px;
@@ -259,11 +249,11 @@
 
         .newsletter-form input {
             flex: 1;
-            background: transparent;
+            background: rgba(0, 0, 0, 0.5);
             border: 1px solid var(--border-color);
             padding: 10px 14px;
             color: #FFF;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             outline: none;
         }
 
@@ -276,7 +266,7 @@
             color: #000000;
             border: none;
             padding: 0 20px;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             letter-spacing: 2px;
             text-transform: uppercase;
             font-weight: 600;
@@ -289,12 +279,12 @@
         }
 
         .footer-bottom {
-            max-width: 1300px;
-            margin: 40px auto 0 auto;
+            max-width: 1400px;
+            margin: 50px auto 0 auto;
             text-align: center;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
             padding-top: 25px;
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             color: var(--text-muted);
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -327,7 +317,7 @@
 
     <!-- Top Announcement Bar -->
     <div class="top-announcement">
-        <div>COLLECTOR'S EDITION COURSES AVAILABLE FOR A LIMITED TIME</div>
+        <div>SOLO GENIUS EXCLUSIVE CURRICULUM ARCHIVE</div>
         <div class="countdown-timer">
             <div><span>06</span>H</div>
             <div><span>58</span>M</div>
@@ -335,14 +325,15 @@
         </div>
     </div>
 
-    <!-- Main Content Store Grid (8 Courses with Stacked Visuals) -->
+    <!-- Main Content Store Grid (8 Courses with 3-Stacked Cards) -->
     <main class="main-container">
         <div class="store-grid">
             <!-- Course 1 -->
             <a href="course-1.html" class="course-card">
                 <div class="card-status-banner">Not Available</div>
                 <div class="card-visual-stack">
-                    <div class="stacked-item back" style="background-image: url('02.jpg');"></div>
+                    <div class="stacked-item back-2" style="background-image: url('03.jpg');"></div>
+                    <div class="stacked-item back-1" style="background-image: url('02.jpg');"></div>
                     <div class="stacked-item front" style="background-image: url('01.jpg');"></div>
                 </div>
                 <div class="card-info">
@@ -355,7 +346,8 @@
             <a href="course-2.html" class="course-card">
                 <div class="card-status-banner">Not Available</div>
                 <div class="card-visual-stack">
-                    <div class="stacked-item back" style="background-image: url('03.jpg');"></div>
+                    <div class="stacked-item back-2" style="background-image: url('01.jpg');"></div>
+                    <div class="stacked-item back-1" style="background-image: url('03.jpg');"></div>
                     <div class="stacked-item front" style="background-image: url('02.jpg');"></div>
                 </div>
                 <div class="card-info">
@@ -368,7 +360,8 @@
             <a href="course-3.html" class="course-card">
                 <div class="card-status-banner">Not Available</div>
                 <div class="card-visual-stack">
-                    <div class="stacked-item back" style="background-image: url('04.jpg');"></div>
+                    <div class="stacked-item back-2" style="background-image: url('02.jpg');"></div>
+                    <div class="stacked-item back-1" style="background-image: url('04.jpg');"></div>
                     <div class="stacked-item front" style="background-image: url('03.jpg');"></div>
                 </div>
                 <div class="card-info">
@@ -381,7 +374,8 @@
             <a href="course-4.html" class="course-card">
                 <div class="card-status-banner">Not Available</div>
                 <div class="card-visual-stack">
-                    <div class="stacked-item back" style="background-image: url('01.jpg');"></div>
+                    <div class="stacked-item back-2" style="background-image: url('03.jpg');"></div>
+                    <div class="stacked-item back-1" style="background-image: url('01.jpg');"></div>
                     <div class="stacked-item front" style="background-image: url('04.jpg');"></div>
                 </div>
                 <div class="card-info">
@@ -394,7 +388,8 @@
             <a href="course-5.html" class="course-card">
                 <div class="card-status-banner">Not Available</div>
                 <div class="card-visual-stack">
-                    <div class="stacked-item back" style="background-image: url('02.jpg');"></div>
+                    <div class="stacked-item back-2" style="background-image: url('04.jpg');"></div>
+                    <div class="stacked-item back-1" style="background-image: url('02.jpg');"></div>
                     <div class="stacked-item front" style="background-image: url('01.jpg');"></div>
                 </div>
                 <div class="card-info">
@@ -407,7 +402,8 @@
             <a href="course-6.html" class="course-card">
                 <div class="card-status-banner">Not Available</div>
                 <div class="card-visual-stack">
-                    <div class="stacked-item back" style="background-image: url('03.jpg');"></div>
+                    <div class="stacked-item back-2" style="background-image: url('01.jpg');"></div>
+                    <div class="stacked-item back-1" style="background-image: url('03.jpg');"></div>
                     <div class="stacked-item front" style="background-image: url('02.jpg');"></div>
                 </div>
                 <div class="card-info">
@@ -420,7 +416,8 @@
             <a href="course-7.html" class="course-card">
                 <div class="card-status-banner">Not Available</div>
                 <div class="card-visual-stack">
-                    <div class="stacked-item back" style="background-image: url('04.jpg');"></div>
+                    <div class="stacked-item back-2" style="background-image: url('02.jpg');"></div>
+                    <div class="stacked-item back-1" style="background-image: url('04.jpg');"></div>
                     <div class="stacked-item front" style="background-image: url('03.jpg');"></div>
                 </div>
                 <div class="card-info">
@@ -433,7 +430,8 @@
             <a href="course-8.html" class="course-card">
                 <div class="card-status-banner">Not Available</div>
                 <div class="card-visual-stack">
-                    <div class="stacked-item back" style="background-image: url('01.jpg');"></div>
+                    <div class="stacked-item back-2" style="background-image: url('03.jpg');"></div>
+                    <div class="stacked-item back-1" style="background-image: url('01.jpg');"></div>
                     <div class="stacked-item front" style="background-image: url('04.jpg');"></div>
                 </div>
                 <div class="card-info">
