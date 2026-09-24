@@ -10,12 +10,10 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root {
-    --bg-deep: #0A0506;
-    --gold: #D4AF37;
-    --gold-light: #F3E5AB;
-    --text-main: #E5E7EB;
-    --text-muted: #9CA3AF;
-    --border-color: rgba(212, 175, 55, 0.3);
+    --text-main: #111111;
+    --text-muted: #333333;
+    --border-color: rgba(0, 0, 0, 0.25);
+    --gold: #8B7500;
 }
 
 body { 
@@ -34,37 +32,29 @@ body {
     overflow-x: hidden; 
 }
 
-/* Dark overlay to match main site readability */
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(10, 5, 6, 0.82);
-    z-index: -1;
-}
+/* No overlay, showing background photo clearly */
 
 .main-container {
     width: 100%;
-    max-width: 520px;
+    max-width: 900px;
     position: relative;
     box-sizing: border-box;
+    padding: 20px 40px;
 }
 
 .top-nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 40px;
-    font-size: 11px;
+    margin-bottom: 50px;
+    font-size: 12px;
     letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--text-muted);
     font-family: 'Cinzel', serif;
-    border-bottom: 1px solid rgba(212, 175, 55, 0.15);
-    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 15px;
+    font-weight: 700;
 }
 
 .top-nav a {
@@ -74,26 +64,37 @@ body::before {
 }
 
 .top-nav a:hover {
-    color: var(--gold);
+    color: var(--text-main);
 }
 
 h2 { 
     font-family: 'Cinzel', serif;
     color: var(--text-main); 
-    font-size: 26px; 
-    margin-bottom: 30px; 
+    font-size: 32px; 
+    margin-bottom: 40px; 
     text-align: left; 
     font-weight: 700;
     letter-spacing: 2px;
     text-transform: uppercase;
 }
 
+/* Grid layout to spread items across the screen cleanly */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px 40px;
+}
+
+.full-width {
+    grid-column: span 2;
+}
+
 label { 
-    font-size: 12px; 
+    font-size: 13px; 
     color: var(--text-muted); 
     display: block; 
     margin-bottom: 8px; 
-    font-weight: 600; 
+    font-weight: 700; 
     letter-spacing: 1px;
     text-transform: uppercase;
 }
@@ -101,68 +102,74 @@ label {
 input[type="text"], input[type="tel"], input[type="file"] { 
     width: 100%; 
     padding: 14px 0; 
-    margin-bottom: 25px; 
+    margin-bottom: 0; 
     background: transparent; 
     border: none;
     border-bottom: 1px solid var(--border-color); 
     color: var(--text-main); 
     font-family: 'Plus Jakarta Sans', sans-serif; 
     box-sizing: border-box; 
-    font-size: 15px; 
+    font-size: 16px; 
     outline: none; 
     transition: border-color 0.3s;
     border-radius: 0;
+    font-weight: 600;
+}
+
+input[type="text"]::placeholder, input[type="tel"]::placeholder {
+    color: rgba(0, 0, 0, 0.4);
 }
 
 input[type="text"]:focus, input[type="tel"]:focus, input[type="file"]:focus { 
-    border-color: var(--gold); 
+    border-color: var(--text-main); 
 }
 
 input[type="file"] {
     padding: 10px 0;
     color: var(--text-muted);
-    font-size: 13px;
+    font-size: 14px;
 }
 
 .total-box {
     border-bottom: 1px solid var(--border-color);
     padding-bottom: 15px;
-    margin-bottom: 25px;
-    font-size: 15px;
-    color: var(--gold);
+    margin-bottom: 0;
+    font-size: 18px;
+    color: var(--text-main);
     font-weight: 700;
     letter-spacing: 1px;
 }
 
 .kpay-box {
-    background: rgba(10, 5, 6, 0.5);
+    background: transparent;
     border: 1px dashed var(--border-color);
-    padding: 16px;
+    padding: 20px;
     border-radius: 4px;
-    margin-bottom: 25px;
-    font-size: 13px;
+    margin-bottom: 0;
+    font-size: 14px;
     color: var(--text-muted);
     line-height: 1.6;
+    font-weight: 600;
 }
 .kpay-box b {
-    color: var(--gold);
+    color: var(--text-main);
 }
 
 .promo-section {
-    border: 1px dashed rgba(212, 175, 55, 0.2);
-    padding: 15px;
+    border: 1px dashed var(--border-color);
+    padding: 20px;
     border-radius: 4px;
-    margin-bottom: 25px;
-    opacity: 0.4;
+    margin-bottom: 0;
+    opacity: 0.5;
     pointer-events: none;
 }
 .promo-option {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
-    font-size: 13px;
+    font-size: 14px;
     color: var(--text-muted);
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
 }
 .promo-option:last-child {
@@ -174,65 +181,66 @@ input[type="file"] {
 }
 
 .promo-notice {
-    background: rgba(212, 175, 55, 0.08);
-    border-left: 3px solid var(--gold);
-    padding: 12px;
-    font-size: 13px;
-    color: var(--gold-light);
+    background: rgba(0, 0, 0, 0.05);
+    border-left: 3px solid var(--text-main);
+    padding: 15px;
+    font-size: 14px;
+    color: var(--text-main);
     border-radius: 2px;
-    margin-bottom: 25px;
+    margin-bottom: 0;
     display: none;
     line-height: 1.6;
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .courses-container {
-    max-height: 180px;
+    max-height: 220px;
     overflow-y: auto;
     border: 1px solid var(--border-color);
-    padding: 12px;
+    padding: 15px;
     border-radius: 4px;
-    margin-bottom: 25px;
-    background: rgba(10, 5, 6, 0.4);
+    margin-bottom: 0;
+    background: transparent;
 }
 .course-item {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
-    font-size: 13px;
+    margin-bottom: 12px;
+    font-size: 14px;
     color: var(--text-main);
     cursor: pointer;
+    font-weight: 600;
 }
 .course-item:last-child {
     margin-bottom: 0;
 }
 .course-item.locked {
-    color: #4b5563;
+    color: rgba(0, 0, 0, 0.4);
     cursor: not-allowed;
 }
 .course-item input {
-    margin-right: 10px;
+    margin-right: 12px;
     cursor: pointer;
 }
 .course-item.locked input {
     cursor: not-allowed;
 }
 .soon-tag {
-    font-size: 10px;
-    color: var(--gold);
-    background: rgba(212, 175, 55, 0.1);
-    padding: 2px 6px;
+    font-size: 11px;
+    color: var(--text-muted);
+    background: rgba(0, 0, 0, 0.08);
+    padding: 2px 8px;
     border-radius: 2px;
     margin-left: 8px;
     border: 1px solid var(--border-color);
-    font-weight: bold;
+    font-weight: 700;
 }
 
 button[type="submit"] {
     width: 100%;
-    padding: 15px;
+    padding: 16px;
     background: var(--text-main);
-    color: var(--bg-deep);
+    color: #FFFFFF;
     border: none;
     font-weight: 700;
     border-radius: 2px;
@@ -242,22 +250,38 @@ button[type="submit"] {
     text-align: center;
     display: block;
     box-sizing: border-box;
-    margin-bottom: 20px;
     transition: all 0.3s;
-    font-size: 14px;
+    font-size: 15px;
+    margin-top: 10px;
 }
-button[type="submit"]:hover { background: var(--gold); }
-button[type="submit"]:disabled { background: #374151; color: var(--text-muted); cursor: not-allowed; }
+button[type="submit"]:hover { background: #333333; }
+button[type="submit"]:disabled { background: #888888; color: #FFFFFF; cursor: not-allowed; }
 
-.login-guide { text-align: center; margin-top: 30px; margin-bottom: 12px; font-size: 12px; color: var(--text-muted); font-weight: 500; letter-spacing: 1px; }
+.login-section {
+    grid-column: span 2;
+    margin-top: 20px;
+    text-align: center;
+    border-top: 1px solid var(--border-color);
+    padding-top: 30px;
+}
+
+.login-guide { 
+    margin-bottom: 15px; 
+    font-size: 12px; 
+    color: var(--text-muted); 
+    font-weight: 700; 
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
 
 .back-btn { 
-    width: 100%; 
+    max-width: 400px;
+    margin: 0 auto;
     padding: 14px; 
     background: transparent; 
-    border: 1px solid var(--border-color); 
+    border: 1px solid var(--text-main); 
     color: var(--text-main); 
-    font-weight: 600; 
+    font-weight: 700; 
     border-radius: 2px; 
     cursor: pointer; 
     font-family: 'Cinzel', serif;
@@ -267,11 +291,23 @@ button[type="submit"]:disabled { background: #374151; color: var(--text-muted); 
     box-sizing: border-box; 
     text-decoration: none; 
     transition: all 0.3s; 
-    font-size: 12px;
+    font-size: 13px;
 }
-.back-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(212, 175, 55, 0.03); }
+.back-btn:hover { background: var(--text-main); color: #FFFFFF; }
 
-.success-msg { color: #34d399; font-size: 13px; font-weight: 600; text-align: center; margin-top: 20px; display: none; line-line-height: 1.6; background: rgba(52, 211, 153, 0.08); padding: 15px; border-radius: 4px; border: 1px solid rgba(52, 211, 153, 0.2); }
+.success-msg { color: #047857; font-size: 14px; font-weight: 700; text-align: center; margin-top: 20px; display: none; line-height: 1.6; background: rgba(4, 120, 87, 0.1); padding: 15px; border-radius: 4px; border: 1px solid rgba(4, 120, 87, 0.3); grid-column: span 2; }
+
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    .full-width, .login-section, .success-msg {
+        grid-column: span 1;
+    }
+    .main-container {
+        padding: 10px 15px;
+    }
+}
 </style>
 </head>
 <body>
@@ -285,64 +321,84 @@ button[type="submit"]:disabled { background: #374151; color: var(--text-muted); 
     <h2>Course Registration</h2>
 
     <form id="regForm" onsubmit="submitRegistration(event)">
-        <label>Full Name</label>
-        <input type="text" id="studentName" required placeholder="Enter your full name">
+        <div class="form-grid">
+            <div>
+                <label>Full Name</label>
+                <input type="text" id="studentName" required placeholder="Enter your full name">
+            </div>
 
-        <label>Phone Number (For Member Login)</label>
-        <input type="tel" id="studentPhone" required placeholder="09xxxxxxxxx">
+            <div>
+                <label>Phone Number (For Member Login)</label>
+                <input type="tel" id="studentPhone" required placeholder="09xxxxxxxxx">
+            </div>
 
-        <div class="total-box">
-            Total Amount: <span id="totalPrice">50,000</span> MMK
+            <div>
+                <label>Total Amount</label>
+                <div class="total-box">
+                    <span id="totalPrice">50,000</span> MMK
+                </div>
+            </div>
+
+            <div>
+                <label>Upload KPay Payment Screenshot</label>
+                <input type="file" id="paymentScreenshot" accept="image/*" required>
+            </div>
+
+            <div class="full-width">
+                <div class="kpay-box">
+                    <b>Transfer via KBZPay:</b><br>
+                    📞 Phone Number - <b>09-971097886</b><br>
+                    👤 Account Name - <b>Yan..kha</b><br>
+                    * After transferring funds, please upload your KBZPay payment screenshot above.
+                </div>
+            </div>
+
+            <div>
+                <label>🎯 Special Promotion Programs (Temporarily Closed)</label>
+                <div class="promo-section">
+                    <label class="promo-option">
+                        <input type="radio" name="promoSelection" value="promo_4_courses" disabled>
+                        ✨ Choose Any 4 Courses (285,000 MMK Special Package)
+                    </label>
+                    <label class="promo-option">
+                        <input type="radio" name="promoSelection" value="all_in_one_package" disabled>
+                        🌟 All-in-One Special Package (450,000 MMK)
+                    </label>
+                </div>
+                <div id="promoNoticeBox" class="promo-notice"></div>
+            </div>
+
+            <div>
+                <label>Select Courses</label>
+                <div class="courses-container" id="coursesContainer">
+                    <label class="course-item">
+                        <input type="checkbox" name="course" value="Course 1 - Plucking Basics" data-price="50000" checked onclick="return false;" onchange="calculateTotal()">
+                        <b>Course 1 - Plucking Basics (50,000 MMK)</b>
+                    </label>
+                    <label class="course-item locked"><input type="checkbox" disabled> Course 2 - Plucking Intermediate <span class="soon-tag">Coming Soon</span></label>
+                    <label class="course-item locked"><input type="checkbox" disabled> Course 3 - Rhythm Basics <span class="soon-tag">Coming Soon</span></label>
+                    <label class="course-item locked"><input type="checkbox" disabled> Course 4 - Rhythm Intermediate <span class="soon-tag">Coming Soon</span></label>
+                    <label class="course-item locked"><input type="checkbox" disabled> Course 5 - Advanced Rhythm <span class="soon-tag">Coming Soon</span></label>
+                    <label class="course-item locked"><input type="checkbox" disabled> Course 6 - Fingerstyle Basics <span class="soon-tag">Coming Soon</span></label>
+                    <label class="course-item locked"><input type="checkbox" disabled> Course 7 - Basic Music Theory <span class="soon-tag">Coming Soon</span></label>
+                    <label class="course-item locked"><input type="checkbox" disabled> Course 8 - Intermediate Music Theory <span class="soon-tag">Coming Soon</span></label>
+                </div>
+            </div>
+
+            <div class="full-width">
+                <button type="submit" id="submitBtn">Submit Payment Verification</button>
+            </div>
+
+            <div id="successMsg" class="success-msg"></div>
+
+            <div class="login-section">
+                <div class="login-guide">
+                    ALREADY REGISTERED? ACCESS LESSONS VIA MEMBER LOGIN BELOW 👇
+                </div>
+                <a href="login.html" class="back-btn">Return to Member Login</a>
+            </div>
         </div>
-
-        <div class="kpay-box">
-            <b>Transfer via KBZPay:</b><br>
-            📞 Phone Number - <b>09-971097886</b><br>
-            👤 Account Name - <b>Yan..kha</b><br>
-            * After transferring funds, please upload your KBZPay payment screenshot below.
-        </div>
-
-        <label>Upload KPay Payment Screenshot</label>
-        <input type="file" id="paymentScreenshot" accept="image/*" required>
-
-        <label>🎯 Special Promotion Programs (Temporarily Closed)</label>
-        <div class="promo-section">
-            <label class="promo-option">
-                <input type="radio" name="promoSelection" value="promo_4_courses" disabled>
-                ✨ Choose Any 4 Courses (285,000 MMK Special Package)
-            </label>
-            <label class="promo-option">
-                <input type="radio" name="promoSelection" value="all_in_one_package" disabled>
-                🌟 All-in-One Special Package (450,000 MMK)
-            </label>
-        </div>
-
-        <div id="promoNoticeBox" class="promo-notice"></div>
-
-        <label>Select Courses</label>
-        <div class="courses-container" id="coursesContainer">
-            <label class="course-item">
-                <input type="checkbox" name="course" value="Course 1 - Plucking Basics" data-price="50000" checked onclick="return false;" onchange="calculateTotal()">
-                <b>Course 1 - Plucking Basics (50,000 MMK)</b>
-            </label>
-            <label class="course-item locked"><input type="checkbox" disabled> Course 2 - Plucking Intermediate <span class="soon-tag">Coming Soon</span></label>
-            <label class="course-item locked"><input type="checkbox" disabled> Course 3 - Rhythm Basics <span class="soon-tag">Coming Soon</span></label>
-            <label class="course-item locked"><input type="checkbox" disabled> Course 4 - Rhythm Intermediate <span class="soon-tag">Coming Soon</span></label>
-            <label class="course-item locked"><input type="checkbox" disabled> Course 5 - Advanced Rhythm <span class="soon-tag">Coming Soon</span></label>
-            <label class="course-item locked"><input type="checkbox" disabled> Course 6 - Fingerstyle Basics <span class="soon-tag">Coming Soon</span></label>
-            <label class="course-item locked"><input type="checkbox" disabled> Course 7 - Basic Music Theory <span class="soon-tag">Coming Soon</span></label>
-            <label class="course-item locked"><input type="checkbox" disabled> Course 8 - Intermediate Music Theory <span class="soon-tag">Coming Soon</span></label>
-        </div>
-
-        <button type="submit" id="submitBtn">Submit Payment Verification</button>
-        <div id="successMsg" class="success-msg"></div>
     </form>
-
-    <div class="login-guide">
-        ALREADY REGISTERED? ACCESS LESSONS VIA MEMBER LOGIN BELOW 👇
-    </div>
-
-    <a href="login.html" class="back-btn">Return to Member Login</a>
 </div>
 
 <script>
