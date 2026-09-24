@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="my">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>YGLC - သင်တန်းအပ်နှံရန်</title>
+<title>YGLC - Course Registration</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-<!-- Supabase CDN ထည့်သွင်းခြင်း -->
+<!-- Supabase CDN Integration -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root {
     --bg-deep: #0A0506;
-    --bg-card: #0A120E;
+    --bg-card: rgba(10, 18, 14, 0.85);
     --bg-card-hover: #101815;
     --gold: #D4AF37;
     --gold-light: #F3E5AB;
@@ -19,8 +19,13 @@
     --text-muted: #9CA3AF;
     --border-color: rgba(212, 175, 55, 0.2);
 }
+
+/* Fixed Background matching index theme with 01.jpg */
 body { 
-    background-color: var(--bg-deep); 
+    background-image: url('01.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     color: var(--text-main); 
     font-family: 'Plus Jakarta Sans', sans-serif; 
     display: flex; 
@@ -31,16 +36,31 @@ body {
     padding: 20px 0; 
     overflow-x: hidden; 
 }
+
+/* Dark overlay to match main site readability */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 5, 6, 0.85);
+    z-index: -1;
+}
+
 .box { 
     background: var(--bg-card); 
+    backdrop-filter: blur(10px);
     border: 1px solid var(--border-color); 
     padding: 30px; 
     border-radius: 12px; 
     width: 480px; 
     box-sizing: border-box; 
-    box-shadow: 0 10px 25px rgba(0,0,0,0.5); 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.7); 
     position: relative; 
 }
+
 .close-btn {
     position: absolute;
     top: 15px;
@@ -230,68 +250,68 @@ button[type="submit"]:disabled { background: #374151; color: var(--text-muted); 
 <body>
 
 <div class="box">
-<button class="close-btn" onclick="goBack()" title="ပိတ်ရန် / ပြန်ထွက်ရန်">&times;</button>
-<h2>YGLC - သင်တန်းအပ်ရန်</h2>
+<button class="close-btn" onclick="goBack()" title="Close / Go Back">&times;</button>
+<h2>YGLC - Course Registration</h2>
 <form id="regForm" onsubmit="submitRegistration(event)">
-<label>နာမည်</label>
-<input type="text" id="studentName" required placeholder="ကျောင်းသားနာမည်">
-<label>ဖုန်းနံပါတ် (Login ဝင်ရန်)</label>
+<label>Full Name</label>
+<input type="text" id="studentName" required placeholder="Student Name">
+<label>Phone Number (For Member Login)</label>
 <input type="tel" id="studentPhone" required placeholder="09xxxxxxxxx">
 <div class="total-box">
-ပေးချေရမည့် ပမာဏ: <span id="totalPrice">50,000</span> ကျပ်
+Total Amount: <span id="totalPrice">50,000</span> MMK
 </div>
 
 <div class="kpay-box">
-<b>KBZPay ဖြင့် ငွေလွှဲရန်:</b><br>
-📞 ဖုန်းနံပါတ် - <b>09-971097886</b><br>
-👤 အမည် - <b>Yan..kha</b><br>
-* ငွေလွှဲပြီးပါက အောက်ပါနေရာတွင် ငွေလွှဲ K Pay Screenshot ပုံကို ရွေးချယ်တင်ပြပါ။
+<b>Transfer via KBZPay:</b><br>
+📞 Phone Number - <b>09-971097886</b><br>
+👤 Account Name - <b>Yan..kha</b><br>
+* After transferring funds, please upload your KBZPay payment screenshot below.
 </div>
 
-<label>K Pay ငွေလွှဲ Screenshot ပုံ တင်ရန်</label>
+<label>Upload KPay Payment Screenshot</label>
 <input type="file" id="paymentScreenshot" accept="image/*" required>
 
-<label>🎯 အထူး Promotion အစီအစဉ်များ (ခေတ္တပိတ်ထားသည်)</label>
+<label>🎯 Special Promotion Programs (Temporarily Closed)</label>
 <div class="promo-section">
 <label class="promo-option">
 <input type="radio" name="promoSelection" value="promo_4_courses" disabled>
-✨ မိမိနှစ်သက်ရာ Course 4 ခုယူ (၂၈၅,၀၀၀ ကျပ် သီးသန့်)
+✨ Choose Any 4 Courses (285,000 MMK Special Package)
 </label>
 <label class="promo-option">
 <input type="radio" name="promoSelection" value="all_in_one_package" disabled>
-🌟 All-in-One Special Package (၄၅၀,၀၀၀ ကျပ်)
+🌟 All-in-One Special Package (450,000 MMK)
 </label>
 </div>
 
 <div id="promoNoticeBox" class="promo-notice"></div>
 
-<label>ဝယ်ယူလိုသော သင်တန်းများ</label>
+<label>Select Courses</label>
 <div class="courses-container" id="coursesContainer">
 <label class="course-item">
-<input type="checkbox" name="course" value="သင်တန်း ၁ - ပလက်ကင်တီးခတ်နည်း အခြေခံ" data-price="50000" checked onclick="return false;" onchange="calculateTotal()">
-<b>သင်တန်း ၁ - ပလက်ကင်တီးခတ်နည်း အခြေခံ (50,000 ကျပ်)</b>
+<input type="checkbox" name="course" value="Course 1 - Plucking Basics" data-price="50000" checked onclick="return false;" onchange="calculateTotal()">
+<b>Course 1 - Plucking Basics (50,000 MMK)</b>
 </label>
-<label class="course-item locked"><input type="checkbox" disabled> သင်တန်း ၂ - ပလက်ကင်တီးခတ်နည်း အလယ်အဆင့် <span class="soon-tag">မကြာမီထွက်ရှိမည်</span></label>
-<label class="course-item locked"><input type="checkbox" disabled> သင်တန်း ၃ - Rhythm တီးခတ်နည်း အခြေခံ <span class="soon-tag">မကြာမီထွက်ရှိမည်</span></label>
-<label class="course-item locked"><input type="checkbox" disabled> သင်တန်း ၄ - Rhythm တီးခတ်နည်း အလယ်အဆင့် <span class="soon-tag">မကြာမီထွက်ရှိမည်</span></label>
-<label class="course-item locked"><input type="checkbox" disabled> သင်တန်း ၅ - Advanced Rhythm တီးခတ်နည်း <span class="soon-tag">မကြာမီထွက်ရှိမည်</span></label>
-<label class="course-item locked"><input type="checkbox" disabled> သင်တန်း ၆ - Fingerstyle တီးခတ်နည်း အခြေခံ <span class="soon-tag">မကြာမီထွက်ရှိမည်</span></label>
-<label class="course-item locked"><input type="checkbox" disabled> သင်တန်း ၇ - Basic Music Theory အခြေခံသီအိုရီ <span class="soon-tag">မကြာမီထွက်ရှိမည်</span></label>
-<label class="course-item locked"><input type="checkbox" disabled> သင်တန်း ၈ - Intermediate Music Theory အလယ်အလတ်အဆင့် <span class="soon-tag">မကြာမီထွက်ရှိမည်</span></label>
+<label class="course-item locked"><input type="checkbox" disabled> Course 2 - Plucking Intermediate <span class="soon-tag">Coming Soon</span></label>
+<label class="course-item locked"><input type="checkbox" disabled> Course 3 - Rhythm Basics <span class="soon-tag">Coming Soon</span></label>
+<label class="course-item locked"><input type="checkbox" disabled> Course 4 - Rhythm Intermediate <span class="soon-tag">Coming Soon</span></label>
+<label class="course-item locked"><input type="checkbox" disabled> Course 5 - Advanced Rhythm <span class="soon-tag">Coming Soon</span></label>
+<label class="course-item locked"><input type="checkbox" disabled> Course 6 - Fingerstyle Basics <span class="soon-tag">Coming Soon</span></label>
+<label class="course-item locked"><input type="checkbox" disabled> Course 7 - Basic Music Theory <span class="soon-tag">Coming Soon</span></label>
+<label class="course-item locked"><input type="checkbox" disabled> Course 8 - Intermediate Music Theory <span class="soon-tag">Coming Soon</span></label>
 </div>
-<button type="submit" id="submitBtn">ငွေလွှဲအတည်ပြုချက် တင်မည်</button>
+<button type="submit" id="submitBtn">Submit Payment Verification</button>
 <div id="successMsg" class="success-msg"></div>
 </form>
 
 <div class="login-guide">
-အောက်ပါ Member Login နေရာတွင် ဝင်ရောက်၍<br>သင်ခန်းစာများကို ဆက်လက်လေ့လာနိုင်ပါသည် 👇
+Already registered? Access lessons via Member Login below 👇
 </div>
 
-<a href="login.html" class="back-btn">လော့ဂ်အင်သို့ ပြန်သွားရန်</a>
+<a href="login.html" class="back-btn">Return to Member Login</a>
 </div>
 
 <script>
-// Supabase Client ကို တည်ငြိမ်စွာ ချိတ်ဆက်ခြင်း
+// Stable Supabase Client Initialization
 const SUPABASE_URL_VAL = 'https://qyoyxagrkpzppacnpdbc.supabase.co'; 
 const SUPABASE_ANON_KEY_VAL = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF5b3l4YWdya3B6cHBhY25wZGJjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkxMTg0MTIsImV4cCI6MjEwNDY5NDQxMn0.giB8iSYSZCUQijzUGW6pp1Uo-CB2DUIEt1faZnip9l0';
 
@@ -333,16 +353,16 @@ async function submitRegistration(e) {
     const phone = normalizePhone(rawPhone);
 
     if (!fileInput || fileInput.files.length === 0) {
-        alert('ကျေးဇူးပြု၍ ငွေလွှဲ Screenshot ပုံကို ရွေးချယ်တင်ပြပါ။');
+        alert('Please select and upload your payment screenshot.');
         return;
     }
 
-    let selectedCourses = ["သင်တန်း ၁ - ပလက်ကင်တီးခတ်နည်း အခြေခံ"];
+    let selectedCourses = ["Course 1 - Plucking Basics"];
     let totalAmount = 50000;
 
     if(submitBtn) {
         submitBtn.disabled = true;
-        submitBtn.innerText = "ပေးပို့နေပါသည်...";
+        submitBtn.innerText = "Submitting...";
     }
 
     const file = fileInput.files[0];
@@ -394,7 +414,7 @@ async function submitRegistration(e) {
         console.error('Storage/Database Error:', storageErr);
     }
 
-    const caption = `🎯 အသစ်ဝင်ရောက်လာသော သင်တန်းအပ်နှံမှု\n\n👤 နာမည်: ${name}\n📞 ဖုန်း: ${phone}\n📚 ရွေးချယ်မှု: ${selectedCourses.join(', ')}\n💰 စုစုပေါင်း: ${totalAmount.toLocaleString()} ကျပ်`;
+    const caption = `🎯 New Course Registration\n\n👤 Name: ${name}\n📞 Phone: ${phone}\n📚 Selection: ${selectedCourses.join(', ')}\n💰 Total: ${totalAmount.toLocaleString()} MMK`;
     const formData = new FormData();
     formData.append('chat_id', TELEGRAM_CHAT_ID);
     formData.append('photo', file);
@@ -417,7 +437,7 @@ async function submitRegistration(e) {
 function finalizeSuccess() {
     const successMsg = document.getElementById('successMsg');
     if(successMsg) {
-        successMsg.innerHTML = '✔ သင်တန်းအပ်နှံမှု အောင်မြင်ပါသည်။<br>သင်တန်းအပ်ပြီး 24 နာရီ ကျော်ရင် သင်တန်းစတက်လို့ရသွားပါပြီနော်။';
+        successMsg.innerHTML = '✔ Registration Successful!<br>Your account will be activated within 24 hours after verification.';
         successMsg.style.display = 'block';
     }
     const regForm = document.getElementById('regForm');
@@ -433,7 +453,7 @@ function resetSubmitButton() {
     const submitBtn = document.getElementById('submitBtn');
     if(submitBtn) {
         submitBtn.disabled = false;
-        submitBtn.innerText = "ငွေလွှဲအတည်ပြုချက် တင်မည်";
+        submitBtn.innerText = "Submit Payment Verification";
     }
 }
 
